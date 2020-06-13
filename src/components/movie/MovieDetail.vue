@@ -77,18 +77,18 @@ export default {
       },
       banners:[{
                   id: 1,
-                  // uri: 'http://img0.imgtn.bdimg.com/it/u=1292571282,473977860&fm=27&gp=0.jpg'
-                  uri: 'http://img1.imgtn.bdimg.com/it/u=2345964138,2156090285&fm=27&gp=0.jpg'
+                  // uri: "http://img0.imgtn.bdimg.com/it/u=1292571282,473977860&fm=27&gp=0.jpg"
+                  uri: "http://img1.imgtn.bdimg.com/it/u=2345964138,2156090285&fm=27&gp=0.jpg"
               },
               {
                   id: 2,
-                  uri: 'http://img1.imgtn.bdimg.com/it/u=2345964138,2156090285&fm=27&gp=0.jpg'
+                  uri: "http://img1.imgtn.bdimg.com/it/u=2345964138,2156090285&fm=27&gp=0.jpg"
 
               },
               {
                   id: 3,
-                  // uri: 'http://img1.imgtn.bdimg.com/it/u=2345964138,2156090285&fm=27&gp=0.jpg'
-                  uri: 'http://img1.imgtn.bdimg.com/it/u=2345964138,2156090285&fm=27&gp=0.jpg'
+                  // uri: "http://img1.imgtn.bdimg.com/it/u=2345964138,2156090285&fm=27&gp=0.jpg"
+                  uri: "http://img1.imgtn.bdimg.com/it/u=2345964138,2156090285&fm=27&gp=0.jpg"
 
 
               },],
@@ -97,11 +97,10 @@ export default {
     };
   },
   mounted() {
-    // Indicator.open('加载中...');
+    // Indicator.open("加载中...");
     this.loading();
   },
   methods: {
-    
     loading(){
       console.log("this.$route.params.movieId="+this.$route.params.movieId)
       let url1 = API_PROXY +"https://api.douban.com/v2/movie/subject/" +this.$route.params.movieId +"?apikey=0df993c66c0c636e29ecbb5344252a4a";

@@ -19,7 +19,7 @@ const routes = [{
     children: [{
         path: "movieList",
         component: MovieList
-        // component:() => import(/* webpackChunkName: "about" */ '@/movie/MovieList')
+        // component:() => import(/* webpackChunkName: "about" */ "@/movie/MovieList")
       },
       {
         path: "movieDetail/:movieId",
@@ -33,13 +33,13 @@ const routes = [{
     children: [{
         path: "musicList",
         component: MusicList
-        // component:() => import(/* webpackChunkName: "about" */ '@/components/music/MusicList')
+        // component:() => import(/* webpackChunkName: "about" */ "@/components/music/MusicList")
       },
       {
         path: "musicAlnums/:musicId",
         name: "MusicAlnums",
         component: MusicAlnums
-        // component:() => import(/* webpackChunkName: "about" */ '@/components/music/MusicAlnums')
+        // component:() => import(/* webpackChunkName: "about" */ "@/components/music/MusicAlnums")
       }
     ]
   },{
@@ -49,8 +49,8 @@ const routes = [{
   },{
     path: "/BookSearch",
     name: "BookSearch",
-    // component: BookSearch,
-    component:() => import(/* webpackChunkName: "about" */ '@/components/search/BookSearch')
+    component: BookSearch,
+    // component:() => import(/* webpackChunkName: "about" */ "@/components/search/BookSearch")
     
   }
 ];

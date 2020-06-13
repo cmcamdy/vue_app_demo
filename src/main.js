@@ -4,19 +4,19 @@ import router from "./router";
 import store from "./store";
 import "./assets/css/reset.css";
 import "./assets/js/rem.js";
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
 
-import { Header,  Swipe, SwipeItem } from 'mint-ui';
+import { Header,  Swipe, SwipeItem } from "mint-ui";
 Vue.component(Header.name, Header);
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
 // Vue.component(Indicator.name, Indicator);
-import './lib/mui/css/mui.min.css'
-import './lib/mui/css/icons-extra.css'
+import "./lib/mui/css/mui.min.css"
+import "./lib/mui/css/icons-extra.css"
 
 
-global.API_PROXY = 'http://bird.ioliu.cn/v1/?url='
+global.API_PROXY = "http://bird.ioliu.cn/v1/?url="
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 new Vue({

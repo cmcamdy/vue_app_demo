@@ -97,20 +97,6 @@ body {
 }
 
 
-/*
- * 所有 font-family 小写，存在空格的字体名加单引号
- * @default-font: 'helvetica neue', tahoma, simsun, \5B8B\4F53, sans-serif;
- * @heading-font: 'helvetica neue', tahoma, 'hiragino sans gb', stheiti, 'microsoft yahei', \5FAE\8F6F\96C5\9ED1, 'wenquanyi micro hei', sans-serif;
- * @code-font: monaco, menlo, consolas, monospace;
- */
-
-/*
- * 中文优先使用冬青黑体简体(OS X)、微软雅黑(Windows)和文泉驿微米黑(Linux)
- * 1. 防止元素中「font-family」不能继承
- * 2. 西文字体和 OS X 字体写在前面
- * 3. Opera 12.1 之前版本不支持中文字体的英文名称
- * 4. 微软雅黑「\5FAE\8F6F\96C5\9ED1」,中易宋体「\5B8B\4F53」
- */
 
 body,
 button, /* 1 */
@@ -118,7 +104,7 @@ input, /* 1 */
 select, /* 1 */
 textarea  /* 1 */
 {
-    font-family: 'helvetica neue', 'hiragino sans gb', stheiti,'wenquanyi micro hei',\5FAE\8F6F\96C5\9ED1,\5B8B\4F53, sans-serif;
+    font-family: "helvetica neue", "hiragino sans gb", stheiti,"wenquanyi micro hei",\5FAE\8F6F\96C5\9ED1,\5B8B\4F53, sans-serif;
 }
 
 /*
@@ -215,7 +201,7 @@ code,
 kbd,
 pre,
 samp {
-    font-family: monaco, menlo, consolas, 'courier new', courier, monospace;
+    font-family: monaco, menlo, consolas, "courier new", courier, monospace;
 }
 
 /*
@@ -245,7 +231,7 @@ q {
 
 q:before,
 q:after {
-    content: '';
+    content: "";
     content: none;
 }
 

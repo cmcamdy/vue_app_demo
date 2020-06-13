@@ -19,15 +19,15 @@ var mui = (function(document, undefined) {
 		context = context || document;
 		if (!selector)
 			return wrap();
-		if (typeof selector === 'object')
+		if (typeof selector === "object")
 			if ($.isArrayLike(selector)) {
 				return wrap($.slice.call(selector), null);
 			} else {
 				return wrap([selector], null);
 			}
-		if (typeof selector === 'function')
+		if (typeof selector === "function")
 			return $.ready(selector);
-		if (typeof selector === 'string') {
+		if (typeof selector === "string") {
 			try {
 				selector = selector.trim();
 				if (idSelectorRE.test(selector)) {
@@ -43,7 +43,7 @@ var mui = (function(document, undefined) {
 	var wrap = function(dom, selector) {
 		dom = dom || [];
 		Object.setPrototypeOf(dom, $.fn);
-		dom.selector = selector || '';
+		dom.selector = selector || "";
 		return dom;
 	};
 
@@ -201,7 +201,7 @@ var mui = (function(document, undefined) {
 		if (readyRE.test(document.readyState)) {
 			callback($);
 		} else {
-			document.addEventListener('DOMContentLoaded', function() {
+			document.addEventListener("DOMContentLoaded", function() {
 				callback($);
 			}, false);
 		}
@@ -264,7 +264,7 @@ var mui = (function(document, undefined) {
 		if (!elements) {
 			return this;
 		}
-		if (typeof elements.length === 'number') {
+		if (typeof elements.length === "number") {
 			[].every.call(elements, function(el, idx) {
 				return callback.call(el, idx, el) !== false;
 			});
@@ -325,9 +325,9 @@ var mui = (function(document, undefined) {
 	 * @returns {Object}
 	 */
 	$.parseTranslate = function(translateString, position) {
-		var result = translateString.match(translateRE || '');
+		var result = translateString.match(translateRE || "");
 		if (!result || !result[1]) {
-			result = ['', '0,0,0'];
+			result = ["", "0,0,0"];
 		}
 		result = result[1].split(",");
 		result = {
@@ -407,7 +407,7 @@ var mui = (function(document, undefined) {
 		var f;
 		var r;
 
-		if (typeof fn === 'string') {
+		if (typeof fn === "string") {
 			m = context[fn];
 		}
 
@@ -428,7 +428,7 @@ var mui = (function(document, undefined) {
 		return +new Date();
 	};
 	var class2type = {};
-	$.each(['Boolean', 'Number', 'String', 'Function', 'Array', 'Date', 'RegExp', 'Object', 'Error'], function(i, name) {
+	$.each(["Boolean", "Number", "String", "Function", "Array", "Date", "RegExp", "Object", "Error"], function(i, name) {
 		class2type["[object " + name + "]"] = name.toLowerCase();
 	});
 	if (window.JSON) {
@@ -449,8 +449,8 @@ var mui = (function(document, undefined) {
 	/**
 	 * 兼容 AMD 模块
 	 **/
-	if (typeof define === 'function' && define.amd) {
-		define('mui', [], function() {
+	if (typeof define === "function" && define.amd) {
+		define("mui", [], function() {
 			return $;
 		});
 	}
@@ -458,7 +458,7 @@ var mui = (function(document, undefined) {
 	return $;
 })(document);
 //window.mui = mui;
-//'$' in window || (window.$ = mui);
+//"$" in window || (window.$ = mui);
 /**
  * $.os
  * @param {type} $
@@ -473,7 +473,7 @@ var mui = (function(document, undefined) {
 				var wechat = ua.match(/(MicroMessenger)\/([\d\.]+)/i);
 				if (wechat) { //wechat
 					this.os.wechat = {
-						version: wechat[2].replace(/_/g, '.')
+						version: wechat[2].replace(/_/g, ".")
 					};
 				}
 				return false;
@@ -492,12 +492,12 @@ var mui = (function(document, undefined) {
 				var iphone = ua.match(/(iPhone\sOS)\s([\d_]+)/);
 				if (iphone) { //iphone
 					this.os.ios = this.os.iphone = true;
-					this.os.version = iphone[2].replace(/_/g, '.');
+					this.os.version = iphone[2].replace(/_/g, ".");
 				} else {
 					var ipad = ua.match(/(iPad).*OS\s([\d_]+)/);
 					if (ipad) { //ipad
 						this.os.ios = this.os.ipad = true;
-						this.os.version = ipad[2].replace(/_/g, '.');
+						this.os.version = ipad[2].replace(/_/g, ".");
 					}
 				}
 				return this.os.ios === true;
@@ -521,12 +521,12 @@ var mui = (function(document, undefined) {
 		if (plus) {
 			this.os.plus = true;
 			$(function() {
-				document.body.classList.add('mui-plus');
+				document.body.classList.add("mui-plus");
 			});
 			if (ua.match(/StreamApp/i)) { //TODO 最好有流应用自己的标识
 				this.os.stream = true;
 				$(function() {
-					document.body.classList.add('mui-plus-stream');
+					document.body.classList.add("mui-plus-stream");
 				});
 			}
 		}
@@ -538,27 +538,27 @@ var mui = (function(document, undefined) {
  * @param {Object} $
  */
 (function($) {
-	if ('ontouchstart' in window) {
+	if ("ontouchstart" in window) {
 		$.isTouchable = true;
-		$.EVENT_START = 'touchstart';
-		$.EVENT_MOVE = 'touchmove';
-		$.EVENT_END = 'touchend';
+		$.EVENT_START = "touchstart";
+		$.EVENT_MOVE = "touchmove";
+		$.EVENT_END = "touchend";
 	} else {
 		$.isTouchable = false;
-		$.EVENT_START = 'mousedown';
-		$.EVENT_MOVE = 'mousemove';
-		$.EVENT_END = 'mouseup';
+		$.EVENT_START = "mousedown";
+		$.EVENT_MOVE = "mousemove";
+		$.EVENT_END = "mouseup";
 	}
-	$.EVENT_CANCEL = 'touchcancel';
-	$.EVENT_CLICK = 'click';
+	$.EVENT_CANCEL = "touchcancel";
+	$.EVENT_CLICK = "click";
 
 	var _mid = 1;
 	var delegates = {};
 	//需要wrap的函数
 	var eventMethods = {
-		preventDefault: 'isDefaultPrevented',
-		stopImmediatePropagation: 'isImmediatePropagationStopped',
-		stopPropagation: 'isPropagationStopped'
+		preventDefault: "isDefaultPrevented",
+		stopImmediatePropagation: "isImmediatePropagationStopped",
+		stopPropagation: "isPropagationStopped"
 	};
 	//默认true返回函数
 	var returnTrue = function() {
@@ -605,7 +605,7 @@ var mui = (function(document, undefined) {
 				if (target === element) {
 					break;
 				}
-				if (~['click', 'tap', 'doubletap', 'longtap', 'hold'].indexOf(event) && (target.disabled || target.classList.contains('mui-disabled'))) {
+				if (~["click", "tap", "doubletap", "longtap", "hold"].indexOf(event) && (target.disabled || target.classList.contains("mui-disabled"))) {
 					break;
 				}
 				var matches = {};
@@ -629,7 +629,7 @@ var mui = (function(document, undefined) {
 			$.each(handlerQueue, function(index, handler) {
 				target = handler.element;
 				var tagName = target.tagName;
-				if (event === 'tap' && (tagName !== 'INPUT' && tagName !== 'TEXTAREA' && tagName !== 'SELECT')) {
+				if (event === "tap" && (tagName !== "INPUT" && tagName !== "TEXTAREA" && tagName !== "SELECT")) {
 					e.preventDefault();
 					e.detail && e.detail.gesture && e.detail.gesture.preventDefault();
 				}
@@ -695,14 +695,14 @@ var mui = (function(document, undefined) {
 				delegateCallback.type = event;
 				delegateFns[mid(element)] = delegateFnArray;
 				element.addEventListener(event, delegateCallback);
-				if (event === 'tap') { //TODO 需要找个更好的解决方案
-					element.addEventListener('click', function(e) {
+				if (event === "tap") { //TODO 需要找个更好的解决方案
+					element.addEventListener("click", function(e) {
 						if (e.target) {
 							var tagName = e.target.tagName;
 							if (!preventDefaultException.test(tagName)) {
-								if (tagName === 'A') {
+								if (tagName === "A") {
 									var href = e.target.href;
-									if (!(href && ~href.indexOf('tel:'))) {
+									if (!(href && ~href.indexOf("tel:"))) {
 										e.preventDefault();
 									}
 								} else {
@@ -788,7 +788,7 @@ var mui = (function(document, undefined) {
 			var isFound = false;
 			$.each($.targetHandles, function(index, targetHandle) {
 				var name = targetHandle.name;
-				if (!isFound && !founds[name] && targetHandle.hasOwnProperty('handle')) {
+				if (!isFound && !founds[name] && targetHandle.hasOwnProperty("handle")) {
 					$.targets[name] = targetHandle.handle(event, target);
 					if ($.targets[name]) {
 						founds[name] = true;
@@ -808,14 +808,14 @@ var mui = (function(document, undefined) {
 			}
 		}
 	});
-	window.addEventListener('click', function(event) { //解决touch与click的target不一致的问题(比如链接边缘点击时，touch的target为html，而click的target为A)
+	window.addEventListener("click", function(event) { //解决touch与click的target不一致的问题(比如链接边缘点击时，touch的target为html，而click的target为A)
 		var target = event.target;
 		var isFound = false;
 		for (; target && target !== document; target = target.parentNode) {
-			if (target.tagName === 'A') {
+			if (target.tagName === "A") {
 				$.each($.targetHandles, function(index, targetHandle) {
 					var name = targetHandle.name;
-					if (targetHandle.hasOwnProperty('handle')) {
+					if (targetHandle.hasOwnProperty("handle")) {
 						if (targetHandle.handle(event, target)) {
 							isFound = true;
 							event.preventDefault();
@@ -838,11 +838,11 @@ var mui = (function(document, undefined) {
 (function(undefined) {
 	if (String.prototype.trim === undefined) { // fix for iOS 3.2
 		String.prototype.trim = function() {
-			return this.replace(/^\s+|\s+$/g, '');
+			return this.replace(/^\s+|\s+$/g, "");
 		};
 	}
 	Object.setPrototypeOf = Object.setPrototypeOf || function(obj, proto) {
-		obj['__proto__'] = proto;
+		obj["__proto__"] = proto;
 		return obj;
 	};
 
@@ -851,17 +851,17 @@ var mui = (function(document, undefined) {
  * fixed CustomEvent
  */
 (function() {
-	if (typeof window.CustomEvent === 'undefined') {
+	if (typeof window.CustomEvent === "undefined") {
 		function CustomEvent(event, params) {
 			params = params || {
 				bubbles: false,
 				cancelable: false,
 				detail: undefined
 			};
-			var evt = document.createEvent('Events');
+			var evt = document.createEvent("Events");
 			var bubbles = true;
 			for (var name in params) {
-				(name === 'bubbles') ? (bubbles = !!params[name]) : (evt[name] = params[name]);
+				(name === "bubbles") ? (bubbles = !!params[name]) : (evt[name] = params[name]);
 			}
 			evt.initEvent(event, bubbles, true);
 			return evt;
@@ -879,7 +879,7 @@ var mui = (function(document, undefined) {
 Function.prototype.bind = Function.prototype.bind || function(to) {
 	// Make an array of our arguments, starting from second argument
 	var partial = Array.prototype.splice.call(arguments, 1),
-		// We'll need the original function.
+		// We"ll need the original function.
 		fn = this;
 	var bound = function() {
 			// Join the already applied arguments to the now called ones (after converting to an array again).
@@ -902,9 +902,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
  * @returns {undefined}
  */
 (function(document) {
-    if (!("classList" in document.documentElement) && Object.defineProperty && typeof HTMLElement !== 'undefined') {
+    if (!("classList" in document.documentElement) && Object.defineProperty && typeof HTMLElement !== "undefined") {
 
-        Object.defineProperty(HTMLElement.prototype, 'classList', {
+        Object.defineProperty(HTMLElement.prototype, "classList", {
             get: function() {
                 var self = this;
                 function update(fn) {
@@ -935,7 +935,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
                     }
                 };
 
-                Object.defineProperty(ret, 'length', {
+                Object.defineProperty(ret, "length", {
                     get: function() {
                         return self.className.split(/\s+/).length;
                     }
@@ -981,12 +981,12 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	}
 
 	var handle = function(event, target) {
-		if (target.tagName === 'LABEL') {
+		if (target.tagName === "LABEL") {
 			if (target.parentNode) {
-				target = target.parentNode.querySelector('input');
+				target = target.parentNode.querySelector("input");
 			}
 		}
-		if (target && (target.type === 'radio' || target.type === 'checkbox')) {
+		if (target && (target.type === "radio" || target.type === "checkbox")) {
 			if (!target.disabled) { //disabled
 				return target;
 			}
@@ -1010,23 +1010,23 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			}
 			touch = event.detail.gesture.changedTouches[0];
 			// Synthesise a click event, with an extra attribute so it can be tracked
-			clickEvent = document.createEvent('MouseEvents');
-			clickEvent.initMouseEvent('click', true, true, window, 1, touch.screenX, touch.screenY, touch.clientX, touch.clientY, false, false, false, false, 0, null);
+			clickEvent = document.createEvent("MouseEvents");
+			clickEvent.initMouseEvent("click", true, true, window, 1, touch.screenX, touch.screenY, touch.clientX, touch.clientY, false, false, false, false, 0, null);
 			clickEvent.forwardedTouchEvent = true;
 			targetElement.dispatchEvent(clickEvent);
 			event.detail && event.detail.gesture.preventDefault();
 		}
 	};
-	window.addEventListener('tap', dispatchEvent);
-	window.addEventListener('doubletap', dispatchEvent);
+	window.addEventListener("tap", dispatchEvent);
+	window.addEventListener("doubletap", dispatchEvent);
 	//捕获
-	window.addEventListener('click', function(event) {
+	window.addEventListener("click", function(event) {
 		if ($.targets.click) {
 			if (!event.forwardedTouchEvent) { //stop click
 				if (event.stopImmediatePropagation) {
 					event.stopImmediatePropagation();
 				} else {
-					// Part of the hack for browsers that don't support Event#stopImmediatePropagation
+					// Part of the hack for browsers that don"t support Event#stopImmediatePropagation
 					event.propagationStopped = true;
 				}
 				event.stopPropagation();
@@ -1036,22 +1036,22 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		}
 	}, true);
 
-})(mui, window, 'click');
+})(mui, window, "click");
 (function($, document) {
 	$(function() {
 		if (!$.os.ios) {
 			return;
 		}
-		var CLASS_FOCUSIN = 'mui-focusin';
-		var CLASS_BAR_TAB = 'mui-bar-tab';
-		var CLASS_BAR_FOOTER = 'mui-bar-footer';
-		var CLASS_BAR_FOOTER_SECONDARY = 'mui-bar-footer-secondary';
-		var CLASS_BAR_FOOTER_SECONDARY_TAB = 'mui-bar-footer-secondary-tab';
-		// var content = document.querySelector('.' + CLASS_CONTENT);
+		var CLASS_FOCUSIN = "mui-focusin";
+		var CLASS_BAR_TAB = "mui-bar-tab";
+		var CLASS_BAR_FOOTER = "mui-bar-footer";
+		var CLASS_BAR_FOOTER_SECONDARY = "mui-bar-footer-secondary";
+		var CLASS_BAR_FOOTER_SECONDARY_TAB = "mui-bar-footer-secondary-tab";
+		// var content = document.querySelector("." + CLASS_CONTENT);
 		// if (content) {
 		// 	document.body.insertBefore(content, document.body.firstElementChild);
 		// }
-		document.addEventListener('focusin', function(e) {
+		document.addEventListener("focusin", function(e) {
 			if ($.os.plus) { //在父webview里边不fix
 				if (window.plus) {
 					if (plus.webview.currentWebview().children().length > 0) {
@@ -1061,7 +1061,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			}
 			var target = e.target;
 			//TODO 需考虑所有键盘弹起的情况
-			if (target.tagName && (target.tagName === 'TEXTAREA' || (target.tagName === 'INPUT' && (target.type === 'text' || target.type === 'search' || target.type === 'number')))) {
+			if (target.tagName && (target.tagName === "TEXTAREA" || (target.tagName === "INPUT" && (target.type === "text" || target.type === "search" || target.type === "number")))) {
 				if (target.disabled || target.readOnly) {
 					return;
 				}
@@ -1083,7 +1083,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				}
 			}
 		});
-		document.addEventListener('focusout', function(e) {
+		document.addEventListener("focusout", function(e) {
 			var classList = document.body.classList;
 			if (classList.contains(CLASS_FOCUSIN)) {
 				classList.remove(CLASS_FOCUSIN);
@@ -1100,9 +1100,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
  * @returns {undefined}
  */
 (function($) {
-	$.namespace = 'mui';
-	$.classNamePrefix = $.namespace + '-';
-	$.classSelectorPrefix = '.' + $.classNamePrefix;
+	$.namespace = "mui";
+	$.classNamePrefix = $.namespace + "-";
+	$.classSelectorPrefix = "." + $.classNamePrefix;
 	/**
 	 * 返回正确的className
 	 * @param {type} className
@@ -1126,7 +1126,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
          * @returns {String}
          */
 	$.eventName = function(event, module) {
-		return event + ($.namespace ? ('.' + $.namespace) : '') + ( module ? ('.' + module) : '');
+		return event + ($.namespace ? ("." + $.namespace) : "") + ( module ? ("." + module) : "");
 	};
 })(mui);
 
@@ -1163,7 +1163,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	 * @returns {$.gestures}
 	 */
 	$.addGesture = function(gesture) {
-		return $.addAction('gestures', gesture);
+		return $.addAction("gestures", gesture);
 
 	};
 
@@ -1180,7 +1180,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	 */
 	var getDistance = function(p1, p2, props) {
 		if(!props) {
-			props = ['x', 'y'];
+			props = ["x", "y"];
 		}
 		var x = p2[props[0]] - p1[props[0]];
 		var y = p2[props[1]] - p1[props[1]];
@@ -1193,7 +1193,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	 */
 	var getScale = function(starts, moves) {
 		if(starts.length >= 2 && moves.length >= 2) {
-			var props = ['pageX', 'pageY'];
+			var props = ["pageX", "pageY"];
 			return getDistance(moves[1], moves[0], props) / getDistance(starts[1], starts[0], props);
 		}
 		return 1;
@@ -1206,7 +1206,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	 */
 	var getAngle = function(p1, p2, props) {
 		if(!props) {
-			props = ['x', 'y'];
+			props = ["x", "y"];
 		}
 		var x = p2[props[0]] - p1[props[0]];
 		var y = p2[props[1]] - p1[props[1]];
@@ -1219,12 +1219,12 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	 */
 	var getDirection = function(x, y) {
 		if(x === y) {
-			return '';
+			return "";
 		}
 		if(abs(x) >= abs(y)) {
-			return x > 0 ? 'left' : 'right';
+			return x > 0 ? "left" : "right";
 		}
-		return y > 0 ? 'up' : 'down';
+		return y > 0 ? "up" : "down";
 	};
 	/**
 	 * rotation
@@ -1232,7 +1232,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	 * @param {Object} end
 	 */
 	var getRotation = function(start, end) {
-		var props = ['pageX', 'pageY'];
+		var props = ["pageX", "pageY"];
 		return getAngle(end[1], end[0], props) - getAngle(start[1], start[0], props);
 	};
 	/**
@@ -1257,7 +1257,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		if($.gestures.stoped) {
 			return;
 		}
-		$.doAction('gestures', function(index, gesture) {
+		$.doAction("gestures", function(index, gesture) {
 			if(!$.gestures.stoped) {
 				if($.options.gestureConfig[gesture.name] !== false) {
 					gesture.handle(event, touch);
@@ -1445,7 +1445,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	var targetIds = {};
 	var convertTouches = function(touches) {
 		for(var i = 0; i < touches.length; i++) {
-			!touches['identifier'] && (touches['identifier'] = 0);
+			!touches["identifier"] && (touches["identifier"] = 0);
 		}
 		return touches;
 	};
@@ -1498,7 +1498,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				return false;
 			}
 		}
-		targetTouches = uniqueArray(targetTouches.concat(changedTargetTouches), 'identifier', true);
+		targetTouches = uniqueArray(targetTouches.concat(changedTargetTouches), "identifier", true);
 		var touchesLength = targetTouches.length;
 		var changedTouchesLength = changedTargetTouches.length;
 		if(type === $.EVENT_START && touchesLength - changedTouchesLength === 0) { //first
@@ -1532,12 +1532,12 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	var supportsPassive = (function checkPassiveListener() {
 		var supportsPassive = false;
 		try {
-			var opts = Object.defineProperty({}, 'passive', {
+			var opts = Object.defineProperty({}, "passive", {
 				get: function get() {
 					supportsPassive = true;
 				},
 			});
-			window.addEventListener('testPassiveListener', null, opts);
+			window.addEventListener("testPassiveListener", null, opts);
 		} catch(e) {
 			// No support
 		}
@@ -1561,7 +1561,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	//增加原生滚动识别
 	$.isScrolling = false;
 	var scrollingTimeout = null;
-	window.addEventListener('scroll', function() {
+	window.addEventListener("scroll", function() {
 		$.isScrolling = true;
 		scrollingTimeout && clearTimeout(scrollingTimeout);
 		scrollingTimeout = setTimeout(function() {
@@ -1615,7 +1615,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			flickMinDistince: 10
 		}
 	});
-})(mui, 'flick');
+})(mui, "flick");
 /**
  * mui gesture swipe[left|right|up|down]
  * @param {type} $
@@ -1648,7 +1648,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			swipeMinDistince: 18
 		}
 	});
-})(mui, 'swipe');
+})(mui, "swipe");
 /**
  * mui gesture drag[start|left|right|up|down|end]
  * @param {type} $
@@ -1668,17 +1668,17 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				//修正direction,可在session期间自行锁定拖拽方向，方便开发scroll类不同方向拖拽插件嵌套
 				if (session.lockDirection && session.startDirection) {
 					if (session.startDirection && session.startDirection !== touch.direction) {
-						if (session.startDirection === 'up' || session.startDirection === 'down') {
-							touch.direction = touch.deltaY < 0 ? 'up' : 'down';
+						if (session.startDirection === "up" || session.startDirection === "down") {
+							touch.direction = touch.deltaY < 0 ? "up" : "down";
 						} else {
-							touch.direction = touch.deltaX < 0 ? 'left' : 'right';
+							touch.direction = touch.deltaX < 0 ? "left" : "right";
 						}
 					}
 				}
 
 				if (!session.drag) {
 					session.drag = true;
-					$.trigger(session.target, name + 'start', touch);
+					$.trigger(session.target, name + "start", touch);
 				}
 				$.trigger(session.target, name, touch);
 				$.trigger(session.target, name + touch.direction, touch);
@@ -1686,7 +1686,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			case $.EVENT_END:
 			case $.EVENT_CANCEL:
 				if (session.drag && touch.isFinal) {
-					$.trigger(session.target, name + 'end', touch);
+					$.trigger(session.target, name + "end", touch);
 				}
 				break;
 		}
@@ -1702,7 +1702,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			fingers: 1
 		}
 	});
-})(mui, 'drag');
+})(mui, "drag");
 /**
  * mui gesture tap and doubleTap
  * @param {type} $
@@ -1721,13 +1721,13 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 					return;
 				}
 				var target = session.target;
-				if (!target || (target.disabled || (target.classList && target.classList.contains('mui-disabled')))) {
+				if (!target || (target.disabled || (target.classList && target.classList.contains("mui-disabled")))) {
 					return;
 				}
 				if (touch.distance < options.tapMaxDistance && touch.deltaTime < options.tapMaxTime) {
 					if ($.options.gestureConfig.doubletap && lastTarget && (lastTarget === target)) { //same target
 						if (lastTapTime && (touch.timestamp - lastTapTime) < options.tapMaxInterval) {
-							$.trigger(target, 'doubletap', touch);
+							$.trigger(target, "doubletap", touch);
 							lastTapTime = $.now();
 							lastTarget = target;
 							return;
@@ -1754,7 +1754,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			tapMaxTime: 250
 		}
 	});
-})(mui, 'tap');
+})(mui, "tap");
 /**
  * mui gesture longtap
  * @param {type} $
@@ -1797,7 +1797,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			holdThreshold: 2
 		}
 	});
-})(mui, 'longtap');
+})(mui, "longtap");
 /**
  * mui gesture hold
  * @param {type} $
@@ -1825,7 +1825,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			case $.EVENT_CANCEL:
 				if (timer) {
 					clearTimeout(timer) && (timer = null);
-					$.trigger(session.target, 'release', touch);
+					$.trigger(session.target, "release", touch);
 				}
 				break;
 		}
@@ -1842,7 +1842,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			holdTimeout: 0
 		}
 	});
-})(mui, 'hold');
+})(mui, "hold");
 /**
  * mui gesture pinch
  * @param {type} $
@@ -1863,23 +1863,23 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 					}
 					if (!session.pinch) { //start
 						session.pinch = true;
-						$.trigger(session.target, name + 'start', touch);
+						$.trigger(session.target, name + "start", touch);
 					}
 					$.trigger(session.target, name, touch);
 					var scale = touch.scale;
 					var rotation = touch.rotation;
-					var lastScale = typeof touch.lastScale === 'undefined' ? 1 : touch.lastScale;
+					var lastScale = typeof touch.lastScale === "undefined" ? 1 : touch.lastScale;
 					var scaleDiff = 0.000000000001; //防止scale与lastScale相等，不触发事件的情况。
 					if (scale > lastScale) { //out
 						lastScale = scale - scaleDiff;
-						$.trigger(session.target, name + 'out', touch);
+						$.trigger(session.target, name + "out", touch);
 					} //in
 					else if (scale < lastScale) {
 						lastScale = scale + scaleDiff;
-						$.trigger(session.target, name + 'in', touch);
+						$.trigger(session.target, name + "in", touch);
 					}
 					if (Math.abs(rotation) > options.minRotationAngle) {
-						$.trigger(session.target, 'rotate', touch);
+						$.trigger(session.target, "rotate", touch);
 					}
 				}
 				break;
@@ -1887,7 +1887,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			case $.EVENT_CANCEL:
 				if ($.options.gestureConfig.pinch && session.pinch && touch.touches.length === 2) {
 					session.pinch = false;
-					$.trigger(session.target, name + 'end', touch);
+					$.trigger(session.target, name + "end", touch);
 				}
 				break;
 		}
@@ -1903,7 +1903,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			minRotationAngle: 0
 		}
 	});
-})(mui, 'pinch');
+})(mui, "pinch");
 /**
  * mui.init
  * @param {type} $
@@ -1940,7 +1940,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	$.init = function(options) {
 		$.options = $.extend(true, $.global, options || {});
 		$.ready(function() {
-			$.doAction('inits', function(index, init) {
+			$.doAction("inits", function(index, init) {
 				var isInit = !!(!inits[init.name] || init.repeat);
 				if (isInit) {
 					init.handle.call($);
@@ -1956,13 +1956,13 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	 * @param {function} init
 	 */
 	$.addInit = function(init) {
-		return $.addAction('inits', init);
+		return $.addAction("inits", init);
 	};
 	/**
 	 * 处理html5版本subpages 
 	 */
 	$.addInit({
-		name: 'iframe',
+		name: "iframe",
 		index: 100,
 		handle: function() {
 			var options = $.options;
@@ -1974,18 +1974,18 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		}
 	});
 	var createIframe = function(options) {
-		var wrapper = document.createElement('div');
-		wrapper.className = 'mui-iframe-wrapper';
+		var wrapper = document.createElement("div");
+		wrapper.className = "mui-iframe-wrapper";
 		var styles = options.styles || {};
-		if (typeof styles.top !== 'string') {
-			styles.top = '0px';
+		if (typeof styles.top !== "string") {
+			styles.top = "0px";
 		}
-		if (typeof styles.bottom !== 'string') {
-			styles.bottom = '0px';
+		if (typeof styles.bottom !== "string") {
+			styles.bottom = "0px";
 		}
 		wrapper.style.top = styles.top;
 		wrapper.style.bottom = styles.bottom;
-		var iframe = document.createElement('iframe');
+		var iframe = document.createElement("iframe");
 		iframe.src = options.url;
 		iframe.id = options.id || options.url;
 		iframe.name = iframe.id;
@@ -1996,7 +1996,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	};
 
 	function handleScroll(wrapper, iframe) {
-		var key = 'MUI_SCROLL_POSITION_' + document.location.href + '_' + iframe.src;
+		var key = "MUI_SCROLL_POSITION_" + document.location.href + "_" + iframe.src;
 		var scrollTop = (parseFloat(localStorage.getItem(key)) || 0);
 		if (scrollTop) {
 			(function(y) {
@@ -2008,7 +2008,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		setInterval(function() {
 			var _scrollTop = window.scrollY;
 			if (scrollTop !== _scrollTop) {
-				localStorage.setItem(key, _scrollTop + '');
+				localStorage.setItem(key, _scrollTop + "");
 				scrollTop = _scrollTop;
 			}
 		}, 100);
@@ -2018,32 +2018,32 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		var os = [];
 		if ($.os.ios) {
 			os.push({
-				os: 'ios',
+				os: "ios",
 				version: $.os.version
 			});
-			classList.add('mui-ios');
+			classList.add("mui-ios");
 		} else if ($.os.android) {
 			os.push({
-				os: 'android',
+				os: "android",
 				version: $.os.version
 			});
-			classList.add('mui-android');
+			classList.add("mui-android");
 		}
 		if ($.os.wechat) {
 			os.push({
-				os: 'wechat',
+				os: "wechat",
 				version: $.os.wechat.version
 			});
-			classList.add('mui-wechat');
+			classList.add("mui-wechat");
 		}
 		if (os.length) {
 			$.each(os, function(index, osObj) {
-				var version = '';
+				var version = "";
 				var classArray = [];
 				if (osObj.version) {
-					$.each(osObj.version.split('.'), function(i, v) {
-						version = version + (version ? '-' : '') + v;
-						classList.add($.className(osObj.os + '-' + version));
+					$.each(osObj.version.split("."), function(i, v) {
+						version = version + (version ? "-" : "") + v;
+						classList.add($.className(osObj.os + "-" + version));
 					});
 				}
 			});
@@ -2079,7 +2079,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				styles: {
 					color: "#000000",
 					align: "center",
-					family: "'Helvetica Neue',Helvetica,sans-serif",
+					family: ""Helvetica Neue",Helvetica,sans-serif",
 					size: "17px",
 					style: "normal",
 					weight: "normal",
@@ -2088,13 +2088,13 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			},
 			back: {
 				image: {
-					base64Data: '',
-					imgSrc: '',
+					base64Data: "",
+					imgSrc: "",
 					sprite: {
-						top: '0px',
-						left: '0px',
-						width: '100%',
-						height: '100%'
+						top: "0px",
+						left: "0px",
+						width: "100%",
+						height: "100%"
 					},
 					position: {
 						top: "10px",
@@ -2112,7 +2112,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		event:"titleUpdate",
 		autoShow: true,
 		duration: 300,
-		aniShow: 'slide-in-right',
+		aniShow: "slide-in-right",
 		extras:{}
 	};
 	//若执行了显示动画初始化操作，则要覆盖默认配置
@@ -2132,7 +2132,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	$.waitingOptions = function(options) {
 		return $.extend(true, {}, {
 			autoShow: true,
-			title: '',
+			title: "",
 			modal: false
 		}, options);
 	};
@@ -2181,15 +2181,15 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	 */
 	$.fire = function(webview, eventType, data) {
 		if(webview) {
-			if(typeof data === 'undefined') {
-				data = '';
-			} else if(typeof data === 'boolean' || typeof data === 'number') {
-				webview.evalJS("typeof mui!=='undefined'&&mui.receive('" + eventType + "'," + data + ")");
+			if(typeof data === "undefined") {
+				data = "";
+			} else if(typeof data === "boolean" || typeof data === "number") {
+				webview.evalJS("typeof mui!=="undefined"&&mui.receive("" + eventType + ""," + data + ")");
 				return;
 			} else if($.isPlainObject(data) || $.isArray(data)) {
-				data = JSON.stringify(data || {}).replace(/\'/g, "\\u0027").replace(/\\/g, "\\u005c");
+				data = JSON.stringify(data || {}).replace(/\"/g, "\\u0027").replace(/\\/g, "\\u005c");
 			}
-			webview.evalJS("typeof mui!=='undefined'&&mui.receive('" + eventType + "','" + data + "')");
+			webview.evalJS("typeof mui!=="undefined"&&mui.receive("" + eventType + "","" + data + "")");
 		}
 	};
 	/**
@@ -2201,7 +2201,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	$.receive = function(eventType, data) {
 		if(eventType) {
 			try {
-				if(data && typeof data === 'string') {
+				if(data && typeof data === "string") {
 					data = JSON.parse(data);
 				}
 			} catch(e) {}
@@ -2210,23 +2210,23 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	};
 	var triggerPreload = function(webview) {
 		if(!webview.preloaded) { //保证仅触发一次
-			$.fire(webview, 'preload');
+			$.fire(webview, "preload");
 			var list = webview.children();
 			for(var i = 0; i < list.length; i++) {
-				$.fire(list[i], 'preload');
+				$.fire(list[i], "preload");
 			}
 			webview.preloaded = true;
 		}
 	};
 	var trigger = function(webview, eventType, timeChecked) {
 		if(timeChecked) {
-			if(!webview[eventType + 'ed']) {
+			if(!webview[eventType + "ed"]) {
 				$.fire(webview, eventType);
 				var list = webview.children();
 				for(var i = 0; i < list.length; i++) {
 					$.fire(list[i], eventType);
 				}
-				webview[eventType + 'ed'] = true;
+				webview[eventType + "ed"] = true;
 			}
 		} else {
 			$.fire(webview, eventType);
@@ -2244,12 +2244,12 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	 * @param {object} options 可选:参数,等待,窗口,显示配置{params:{},waiting:{},styles:{},show:{}}
 	 */
 	$.openWindow = function(url, id, options) {
-		if(typeof url === 'object') {
+		if(typeof url === "object") {
 			options = url;
 			url = options.url;
 			id = options.id || url;
 		} else {
-			if(typeof id === 'object') {
+			if(typeof id === "object") {
 				options = id;
 				id = options.id || url;
 			} else {
@@ -2292,15 +2292,15 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			nShow = options.show ? $.extend(nShow, options.show) : nShow;
 			nShow.autoShow && webview.show(nShow.aniShow, nShow.duration, function() {
 				triggerPreload(webview);
-				trigger(webview, 'pagebeforeshow', false);
+				trigger(webview, "pagebeforeshow", false);
 			});
 			if(webviewCache) {
-				webviewCache.afterShowMethodName && webview.evalJS(webviewCache.afterShowMethodName + '(\'' + JSON.stringify(params) + '\')');
+				webviewCache.afterShowMethodName && webview.evalJS(webviewCache.afterShowMethodName + "(\"" + JSON.stringify(params) + "\")");
 			}
 			return webview;
 		} else { //新窗口
 			if(!url) {
-				throw new Error('webview[' + id + '] does not exist');
+				throw new Error("webview[" + id + "] does not exist");
 			}
 
 			//显示waiting
@@ -2327,14 +2327,14 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 					}
 					//显示页面
 					webview.show(nShow.aniShow, nShow.duration, function() {},nShow.extras);
-					options.afterShowMethodName && webview.evalJS(options.afterShowMethodName + '(\'' + JSON.stringify(params) + '\')');
+					options.afterShowMethodName && webview.evalJS(options.afterShowMethodName + "(\"" + JSON.stringify(params) + "\")");
 				};
 				//titleUpdate触发时机早于loaded，更换为titleUpdate后，可以更早的显示webview
 				webview.addEventListener(nShow.event, showWebview, false);
 				//loaded事件发生后，触发预加载和pagebeforeshow事件
 				webview.addEventListener("loaded", function() {
 					triggerPreload(webview);
-					trigger(webview, 'pagebeforeshow', false);
+					trigger(webview, "pagebeforeshow", false);
 				}, false);
 			}
 		}
@@ -2381,15 +2381,15 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			nShow = options.show ? $.extend(nShow, options.show) : nShow;
 			nShow.autoShow && webview.show(nShow.aniShow, nShow.duration, function() {
 				triggerPreload(webview);
-				trigger(webview, 'pagebeforeshow', false);
+				trigger(webview, "pagebeforeshow", false);
 			});
 			if(webviewCache) {
-				webviewCache.afterShowMethodName && webview.evalJS(webviewCache.afterShowMethodName + '(\'' + JSON.stringify(params) + '\')');
+				webviewCache.afterShowMethodName && webview.evalJS(webviewCache.afterShowMethodName + "(\"" + JSON.stringify(params) + "\")");
 			}
 			return webview;
 		} else { //新窗口
 			if(!url) {
-				throw new Error('webview[' + id + '] does not exist');
+				throw new Error("webview[" + id + "] does not exist");
 			}
 
 			//显示waiting
@@ -2607,7 +2607,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				} else {
 					//如果直接孩子节点，就不用关闭了，因为父关闭的时候，会自动关闭子；
 					if(openedWebview.parent() !== webview) {
-						openedWebview.close('none');
+						openedWebview.close("none");
 					}
 				}
 			}
@@ -2654,7 +2654,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			//     比如父页面执行完preload事件后，需触发子页面的preload事件，此时未append的话，就无法触发；
 			//修改方式：不再监控loaded事件，直接append
 			//by chb@20150521
-			// webview.addEventListener('loaded', function() {
+			// webview.addEventListener("loaded", function() {
 			plus.webview.currentWebview().append(webview);
 			// });
 			$.webviews[id] = options;
@@ -2672,7 +2672,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		$.currentWebview = plus.webview.currentWebview();
 	});
 	$.addInit({
-		name: '5+',
+		name: "5+",
 		index: 100,
 		handle: function() {
 			var options = $.options;
@@ -2701,9 +2701,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 						if(plus.webview.currentWebview().parent() == null) {
 							document.addEventListener("resume", function() {
 								var body = document.body;
-								body.style.display = 'none';
+								body.style.display = "none";
 								setTimeout(function() {
-									body.style.display = '';
+									body.style.display = "";
 								}, 10);
 							});
 						}
@@ -2712,25 +2712,25 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			} else {
 				//已支持iframe嵌入
 				//				if (subpages.length > 0) {
-				//					var err = document.createElement('div');
-				//					err.className = 'mui-error';
+				//					var err = document.createElement("div");
+				//					err.className = "mui-error";
 				//					//文字描述
-				//					var span = document.createElement('span');
-				//					span.innerHTML = '在该浏览器下，不支持创建子页面，具体参考';
+				//					var span = document.createElement("span");
+				//					span.innerHTML = "在该浏览器下，不支持创建子页面，具体参考";
 				//					err.appendChild(span);
-				//					var a = document.createElement('a');
-				//					a.innerHTML = '"mui框架适用场景"';
-				//					a.href = 'http://ask.dcloud.net.cn/article/113';
+				//					var a = document.createElement("a");
+				//					a.innerHTML = ""mui框架适用场景"";
+				//					a.href = "http://ask.dcloud.net.cn/article/113";
 				//					err.appendChild(a);
 				//					document.body.appendChild(err);
-				//					console.log('在该浏览器下，不支持创建子页面');
+				//					console.log("在该浏览器下，不支持创建子页面");
 				//				}
 
 			}
 
 		}
 	});
-	window.addEventListener('preload', function() {
+	window.addEventListener("preload", function() {
 		//处理预加载部分
 		var webviews = $.options.preloadPages || [];
 		$.plusReady(function() {
@@ -2748,7 +2748,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	$.ready(function() {
 		//标识当前环境支持statusbar
 		if($.supportStatusbarOffset()) {
-			document.body.classList.add('mui-statusbar');
+			document.body.classList.add("mui-statusbar");
 		}
 	});
 })(mui);
@@ -2766,13 +2766,13 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	 * @returns {$.gestures}
 	 */
 	$.addBack = function(back) {
-		return $.addAction('backs', back);
+		return $.addAction("backs", back);
 	};
 	/**
 	 * default
 	 */
 	$.addBack({
-		name: 'browser',
+		name: "browser",
 		index: 100,
 		handle: function() {
 			if (window.history.length > 1) {
@@ -2786,21 +2786,21 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	 * 后退
 	 */
 	$.back = function() {
-		if (typeof $.options.beforeback === 'function') {
+		if (typeof $.options.beforeback === "function") {
 			if ($.options.beforeback() === false) {
 				return;
 			}
 		}
-		$.doAction('backs');
+		$.doAction("backs");
 	};
-	window.addEventListener('tap', function(e) {
+	window.addEventListener("tap", function(e) {
 		var action = $.targets.action;
-		if (action && action.classList.contains('mui-action-back')) {
+		if (action && action.classList.contains("mui-action-back")) {
 			$.back();
 			$.targets.action = false;
 		}
 	});
-	window.addEventListener('swiperight', function(e) {
+	window.addEventListener("swiperight", function(e) {
 		var detail = e.detail;
 		if ($.options.swipeBack === true && Math.abs(detail.angle) < 3) {
 			$.back();
@@ -2817,19 +2817,19 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 (function($, window) {
 	if ($.os.plus && $.os.android) {
 		$.addBack({
-			name: 'mui',
+			name: "mui",
 			index: 5,
 			handle: function() {
 				//后续重新设计此处，将back放到各个空间内部实现
 				//popover
-				if ($.targets._popover && $.targets._popover.classList.contains('mui-active')) {
-					$($.targets._popover).popover('hide');
+				if ($.targets._popover && $.targets._popover.classList.contains("mui-active")) {
+					$($.targets._popover).popover("hide");
 					return true;
 				}
 				//offcanvas
-				var offCanvas = document.querySelector('.mui-off-canvas-wrap.mui-active');
+				var offCanvas = document.querySelector(".mui-off-canvas-wrap.mui-active");
 				if (offCanvas) {
-					$(offCanvas).offCanvas('close');
+					$(offCanvas).offCanvas("close");
 					return true;
 				}
 				var previewImage = $.isFunction($.getPreviewImage) && $.getPreviewImage();
@@ -2848,7 +2848,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	 * 5+ back
 	 */
 	$.addBack({
-		name: '5+',
+		name: "5+",
 		index: 10,
 		handle: function() {
 			if (!window.plus) {
@@ -2857,7 +2857,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			var wobj = plus.webview.currentWebview();
 			var parent = wobj.parent();
 			if (parent) {
-				parent.evalJS('mui&&mui.back();');
+				parent.evalJS("mui&&mui.back();");
 			} else {
 				wobj.canBack(function(e) {
 					//by chb 暂时注释，在碰到类似popover之类的锚点的时候，需多次点击才能返回；
@@ -2870,7 +2870,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 							//首次按键，提示‘再按一次退出应用’
 							if (!$.__back__first) {
 								$.__back__first = new Date().getTime();
-								mui.toast('再按一次退出应用');
+								mui.toast("再按一次退出应用");
 								setTimeout(function() {
 									$.__back__first = null;
 								}, 2000);
@@ -2896,16 +2896,16 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 
 
 	$.menu = function() {
-		var menu = document.querySelector('.mui-action-menu');
+		var menu = document.querySelector(".mui-action-menu");
 		if (menu) {
 			$.trigger(menu, $.EVENT_START); //临时处理menu无touchstart的话，找不到当前targets的问题
-			$.trigger(menu, 'tap');
+			$.trigger(menu, "tap");
 		} else { //执行父窗口的menu
 			if (window.plus) {
 				var wobj = $.currentWebview;
 				var parent = wobj.parent();
 				if (parent) { //又得evalJS
-					parent.evalJS('mui&&mui.menu();');
+					parent.evalJS("mui&&mui.menu();");
 				}
 			}
 		}
@@ -2919,24 +2919,24 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	//默认监听
 	$.plusReady(function() {
 		if ($.options.keyEventBind.backbutton) {
-			plus.key.addEventListener('backbutton', __back, false);
+			plus.key.addEventListener("backbutton", __back, false);
 		}
 		if ($.options.keyEventBind.menubutton) {
-			plus.key.addEventListener('menubutton', __menu, false);
+			plus.key.addEventListener("menubutton", __menu, false);
 		}
 	});
 	//处理按键监听事件
 	$.addInit({
-		name: 'keyEventBind',
+		name: "keyEventBind",
 		index: 1000,
 		handle: function() {
 			$.plusReady(function() {
 				//如果不为true，则移除默认监听
 				if (!$.options.keyEventBind.backbutton) {
-					plus.key.removeEventListener('backbutton', __back);
+					plus.key.removeEventListener("backbutton", __back);
 				}
 				if (!$.options.keyEventBind.menubutton) {
-					plus.key.removeEventListener('menubutton', __menu);
+					plus.key.removeEventListener("menubutton", __menu);
 				}
 			});
 		}
@@ -2949,13 +2949,13 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
  */
 (function($) {
 	$.addInit({
-		name: 'pullrefresh',
+		name: "pullrefresh",
 		index: 1000,
 		handle: function() {
 			var options = $.options;
 			var pullRefreshOptions = options.pullRefresh || {};
-			var hasPulldown = pullRefreshOptions.down && pullRefreshOptions.down.hasOwnProperty('callback');
-			var hasPullup = pullRefreshOptions.up && pullRefreshOptions.up.hasOwnProperty('callback');
+			var hasPulldown = pullRefreshOptions.down && pullRefreshOptions.down.hasOwnProperty("callback");
+			var hasPullup = pullRefreshOptions.up && pullRefreshOptions.up.hasOwnProperty("callback");
 			if(hasPulldown || hasPullup) {
 				var container = pullRefreshOptions.container;
 				if(container) {
@@ -2997,11 +2997,11 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 													webviewId: id//子页面id
 												};
 												downOptions.down = $.extend({}, pullRefreshOptions.down);
-												downOptions.down.callback = '_CALLBACK';
+												downOptions.down.callback = "_CALLBACK";
 												//改写父页面的$.fn.pullRefresh
 												parent.evalJS("mui.fn.pullRefresh=mui.fn.pullRefresh_native");
 												//父页面初始化pulldown
-												parent.evalJS("mui&&mui(document.querySelector('.mui-content')).pullRefresh('" + JSON.stringify(downOptions) + "')");
+												parent.evalJS("mui&&mui(document.querySelector(".mui-content")).pullRefresh("" + JSON.stringify(downOptions) + "")");
 											}
 										}
 									}
@@ -3025,15 +3025,15 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
  */
 (function($, window, undefined) {
 
-	var jsonType = 'application/json';
-	var htmlType = 'text/html';
+	var jsonType = "application/json";
+	var htmlType = "text/html";
 	var rscript = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
 	var scriptTypeRE = /^(?:text|application)\/javascript/i;
 	var xmlTypeRE = /^(?:text|application)\/xml/i;
 	var blankRE = /^\s*$/;
 
 	$.ajaxSettings = {
-		type: 'GET',
+		type: "GET",
 		beforeSend: $.noop,
 		success: $.noop,
 		error: $.noop,
@@ -3043,11 +3043,11 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			return new window.XMLHttpRequest();
 		},
 		accepts: {
-			script: 'text/javascript, application/javascript, application/x-javascript',
+			script: "text/javascript, application/javascript, application/x-javascript",
 			json: jsonType,
-			xml: 'application/xml, text/xml',
+			xml: "application/xml, text/xml",
 			html: htmlType,
-			text: 'text/plain'
+			text: "text/plain"
 		},
 		timeout: 0,
 		processData: true,
@@ -3060,8 +3060,8 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		}
 	};
 	var ajaxSuccess = function(data, xhr, settings) {
-		settings.success.call(settings.context, data, 'success', xhr);
-		ajaxComplete('success', xhr, settings);
+		settings.success.call(settings.context, data, "success", xhr);
+		ajaxComplete("success", xhr, settings);
 	};
 	// type: "timeout", "error", "abort", "parsererror"
 	var ajaxError = function(error, type, xhr, settings) {
@@ -3080,7 +3080,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			type = $.type(value);
 			if(scope) {
 				key = traditional ? scope :
-					scope + '[' + (hash || type === 'object' || type === 'array' ? key : '') + ']';
+					scope + "[" + (hash || type === "object" || type === "array" ? key : "") + "]";
 			}
 			// handle data in serializeArray() format
 			if(!scope && array) {
@@ -3098,7 +3098,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		if(options.processData && options.data && typeof options.data !== "string") {
 			var contentType = options.contentType;
 			if(!contentType && options.headers) {
-				contentType = options.headers['Content-Type'];
+				contentType = options.headers["Content-Type"];
 			}
 			if(contentType && ~contentType.indexOf(jsonType)) { //application/json
 				options.data = JSON.stringify(options.data);
@@ -3106,25 +3106,25 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				options.data = $.param(options.data, options.traditional);
 			}
 		}
-		if(options.data && (!options.type || options.type.toUpperCase() === 'GET')) {
+		if(options.data && (!options.type || options.type.toUpperCase() === "GET")) {
 			options.url = appendQuery(options.url, options.data);
 			options.data = undefined;
 		}
 	};
 	var appendQuery = function(url, query) {
-		if(query === '') {
+		if(query === "") {
 			return url;
 		}
-		return(url + '&' + query).replace(/[&?]{1,2}/, '?');
+		return(url + "&" + query).replace(/[&?]{1,2}/, "?");
 	};
 	var mimeToDataType = function(mime) {
 		if(mime) {
-			mime = mime.split(';', 2)[0];
+			mime = mime.split(";", 2)[0];
 		}
-		return mime && (mime === htmlType ? 'html' :
-			mime === jsonType ? 'json' :
-			scriptTypeRE.test(mime) ? 'script' :
-			xmlTypeRE.test(mime) && 'xml') || 'text';
+		return mime && (mime === htmlType ? "html" :
+			mime === jsonType ? "json" :
+			scriptTypeRE.test(mime) ? "script" :
+			xmlTypeRE.test(mime) && "xml") || "text";
 	};
 	var parseArguments = function(url, data, success, dataType) {
 		if($.isFunction(data)) {
@@ -3155,8 +3155,8 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		serializeData(settings);
 		var dataType = settings.dataType;
 
-		if(settings.cache === false || ((!options || options.cache !== true) && ('script' === dataType))) {
-			settings.url = appendQuery(settings.url, '_=' + $.now());
+		if(settings.cache === false || ((!options || options.cache !== true) && ("script" === dataType))) {
+			settings.url = appendQuery(settings.url, "_=" + $.now());
 		}
 		var mime = settings.accepts[dataType && dataType.toLowerCase()];
 		var headers = {};
@@ -3168,16 +3168,16 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		var nativeSetHeader = xhr.setRequestHeader;
 		var abortTimeout;
 
-		setHeader('X-Requested-With', 'XMLHttpRequest');
-		setHeader('Accept', mime || '*/*');
+		setHeader("X-Requested-With", "XMLHttpRequest");
+		setHeader("Accept", mime || "*/*");
 		if(!!(mime = settings.mimeType || mime)) {
-			if(mime.indexOf(',') > -1) {
-				mime = mime.split(',', 2)[0];
+			if(mime.indexOf(",") > -1) {
+				mime = mime.split(",", 2)[0];
 			}
 			xhr.overrideMimeType && xhr.overrideMimeType(mime);
 		}
-		if(settings.contentType || (settings.contentType !== false && settings.data && settings.type.toUpperCase() !== 'GET')) {
-			setHeader('Content-Type', settings.contentType || 'application/x-www-form-urlencoded');
+		if(settings.contentType || (settings.contentType !== false && settings.data && settings.type.toUpperCase() !== "GET")) {
+			setHeader("Content-Type", settings.contentType || "application/x-www-form-urlencoded");
 		}
 		if(settings.headers) {
 			for(var name in settings.headers)
@@ -3190,17 +3190,17 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				xhr.onreadystatechange = $.noop;
 				clearTimeout(abortTimeout);
 				var result, error = false;
-				var isLocal = protocol === 'file:';
+				var isLocal = protocol === "file:";
 				if((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304 || (xhr.status === 0 && isLocal && xhr.responseText)) {
-					dataType = dataType || mimeToDataType(settings.mimeType || xhr.getResponseHeader('content-type'));
+					dataType = dataType || mimeToDataType(settings.mimeType || xhr.getResponseHeader("content-type"));
 					result = xhr.responseText;
 					try {
 						// http://perfectionkills.com/global-eval-what-are-the-options/
-						if(dataType === 'script') {
+						if(dataType === "script") {
 							(1, eval)(result);
-						} else if(dataType === 'xml') {
+						} else if(dataType === "xml") {
 							result = xhr.responseXML;
-						} else if(dataType === 'json') {
+						} else if(dataType === "json") {
 							result = blankRE.test(result) ? null : $.parseJSON(result);
 						}
 					} catch(e) {
@@ -3208,16 +3208,16 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 					}
 
 					if(error) {
-						ajaxError(error, 'parsererror', xhr, settings);
+						ajaxError(error, "parsererror", xhr, settings);
 					} else {
 						ajaxSuccess(result, xhr, settings);
 					}
 				} else {
-					var status = xhr.status ? 'error' : 'abort';
+					var status = xhr.status ? "error" : "abort";
 					var statusText = xhr.statusText || null;
 					if(isLocal) {
-						status = 'error';
-						statusText = '404';
+						status = "error";
+						statusText = "404";
 					}
 					ajaxError(statusText, status, xhr, settings);
 				}
@@ -3225,7 +3225,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		};
 		if(ajaxBeforeSend(xhr, settings) === false) {
 			xhr.abort();
-			ajaxError(null, 'abort', xhr, settings);
+			ajaxError(null, "abort", xhr, settings);
 			return xhr;
 		}
 
@@ -3235,7 +3235,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			}
 		}
 
-		var async = 'async' in settings ? settings.async : true;
+		var async = "async" in settings ? settings.async : true;
 
 		xhr.open(settings.type.toUpperCase(), settings.url, async, settings.username, settings.password);
 
@@ -3248,7 +3248,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			abortTimeout = setTimeout(function() {
 				xhr.onreadystatechange = $.noop;
 				xhr.abort();
-				ajaxError(null, 'timeout', xhr, settings);
+				ajaxError(null, "timeout", xhr, settings);
 			}, settings.timeout);
 		}
 		xhr.send(settings.data ? settings.data : null);
@@ -3258,10 +3258,10 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	$.param = function(obj, traditional) {
 		var params = [];
 		params.add = function(k, v) {
-			this.push(encodeURIComponent(k) + '=' + encodeURIComponent(v));
+			this.push(encodeURIComponent(k) + "=" + encodeURIComponent(v));
 		};
 		serialize(params, obj, traditional);
-		return params.join('&').replace(/%20/g, '+');
+		return params.join("&").replace(/%20/g, "+");
 	};
 	$.get = function( /* url, data, success, dataType */ ) {
 		return $.ajax(parseArguments.apply(null, arguments));
@@ -3269,13 +3269,13 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 
 	$.post = function( /* url, data, success, dataType */ ) {
 		var options = parseArguments.apply(null, arguments);
-		options.type = 'POST';
+		options.type = "POST";
 		return $.ajax(options);
 	};
 
 	$.getJSON = function( /* url, data, success */ ) {
 		var options = parseArguments.apply(null, arguments);
-		options.dataType = 'json';
+		options.dataType = "json";
 		return $.ajax(options);
 	};
 
@@ -3291,9 +3291,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			options.url = parts[0], selector = parts[1];
 		options.success = function(response) {
 			if(selector) {
-				var div = document.createElement('div');
+				var div = document.createElement("div");
 				div.innerHTML = response.replace(rscript, "");
-				var selectorDiv = document.createElement('div');
+				var selectorDiv = document.createElement("div");
 				var childs = div.querySelectorAll(selector);
 				if(childs && childs.length > 0) {
 					for(var i = 0, len = childs.length; i < len; i++) {
@@ -3315,7 +3315,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
  * 5+ ajax
  */
 (function($) {
-	var originAnchor = document.createElement('a');
+	var originAnchor = document.createElement("a");
 	originAnchor.href = window.location.href;
 	$.plusReady(function() {
 		$.ajaxSettings = $.extend($.ajaxSettings, {
@@ -3324,11 +3324,11 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 					return new plus.net.XMLHttpRequest();
 				}
 				//仅在webview的url为远程文件，且ajax请求的资源不同源下使用plus.net.XMLHttpRequest
-				if (originAnchor.protocol !== 'file:') {
-					var urlAnchor = document.createElement('a');
+				if (originAnchor.protocol !== "file:") {
+					var urlAnchor = document.createElement("a");
 					urlAnchor.href = settings.url;
 					urlAnchor.href = urlAnchor.href;
-					settings.crossDomain = (originAnchor.protocol + '//' + originAnchor.host) !== (urlAnchor.protocol + '//' + urlAnchor.host);
+					settings.crossDomain = (originAnchor.protocol + "//" + originAnchor.host) !== (urlAnchor.protocol + "//" + urlAnchor.host);
 					if (settings.crossDomain) {
 						return new plus.net.XMLHttpRequest();
 					}
@@ -3443,28 +3443,28 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	$.Class = Class;
 })(mui);
 (function($, document, undefined) {
-    var CLASS_PULL_TOP_POCKET = 'mui-pull-top-pocket';
-    var CLASS_PULL_BOTTOM_POCKET = 'mui-pull-bottom-pocket';
-    var CLASS_PULL = 'mui-pull';
-    var CLASS_PULL_LOADING = 'mui-pull-loading';
-    var CLASS_PULL_CAPTION = 'mui-pull-caption';
-    var CLASS_PULL_CAPTION_DOWN = 'mui-pull-caption-down';
-    var CLASS_PULL_CAPTION_REFRESH = 'mui-pull-caption-refresh';
-    var CLASS_PULL_CAPTION_NOMORE = 'mui-pull-caption-nomore';
+    var CLASS_PULL_TOP_POCKET = "mui-pull-top-pocket";
+    var CLASS_PULL_BOTTOM_POCKET = "mui-pull-bottom-pocket";
+    var CLASS_PULL = "mui-pull";
+    var CLASS_PULL_LOADING = "mui-pull-loading";
+    var CLASS_PULL_CAPTION = "mui-pull-caption";
+    var CLASS_PULL_CAPTION_DOWN = "mui-pull-caption-down";
+    var CLASS_PULL_CAPTION_REFRESH = "mui-pull-caption-refresh";
+    var CLASS_PULL_CAPTION_NOMORE = "mui-pull-caption-nomore";
 
-    var CLASS_ICON = 'mui-icon';
-    var CLASS_SPINNER = 'mui-spinner';
-    var CLASS_ICON_PULLDOWN = 'mui-icon-pulldown';
+    var CLASS_ICON = "mui-icon";
+    var CLASS_SPINNER = "mui-spinner";
+    var CLASS_ICON_PULLDOWN = "mui-icon-pulldown";
 
-    var CLASS_BLOCK = 'mui-block';
-    var CLASS_HIDDEN = 'mui-hidden';
-    var CLASS_VISIBILITY = 'mui-visibility';
+    var CLASS_BLOCK = "mui-block";
+    var CLASS_HIDDEN = "mui-hidden";
+    var CLASS_VISIBILITY = "mui-visibility";
 
-    var CLASS_LOADING_UP = CLASS_PULL_LOADING + ' ' + CLASS_ICON + ' ' + CLASS_ICON_PULLDOWN;
-    var CLASS_LOADING_DOWN = CLASS_PULL_LOADING + ' ' + CLASS_ICON + ' ' + CLASS_ICON_PULLDOWN;
-    var CLASS_LOADING = CLASS_PULL_LOADING + ' ' + CLASS_ICON + ' ' + CLASS_SPINNER;
+    var CLASS_LOADING_UP = CLASS_PULL_LOADING + " " + CLASS_ICON + " " + CLASS_ICON_PULLDOWN;
+    var CLASS_LOADING_DOWN = CLASS_PULL_LOADING + " " + CLASS_ICON + " " + CLASS_ICON_PULLDOWN;
+    var CLASS_LOADING = CLASS_PULL_LOADING + " " + CLASS_ICON + " " + CLASS_SPINNER;
 
-    var pocketHtml = ['<div class="' + CLASS_PULL + '">', '<div class="{icon}"></div>', '<div class="' + CLASS_PULL_CAPTION + '">{contentrefresh}</div>', '</div>'].join('');
+    var pocketHtml = ["<div class="" + CLASS_PULL + "">", "<div class="{icon}"></div>", "<div class="" + CLASS_PULL_CAPTION + "">{contentrefresh}</div>", "</div>"].join("");
 
     var PullRefresh = {
         init: function(element, options) {
@@ -3475,18 +3475,18 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
                 deceleration: 0.003,
                 down: {
                     height: 50,
-                    contentinit: '下拉可以刷新',
-                    contentdown: '下拉可以刷新',
-                    contentover: '释放立即刷新',
-                    contentrefresh: '正在刷新...'
+                    contentinit: "下拉可以刷新",
+                    contentdown: "下拉可以刷新",
+                    contentover: "释放立即刷新",
+                    contentrefresh: "正在刷新..."
                 },
                 up: {
                     height: 50,
                     auto: false,
-                    contentinit: '上拉显示更多',
-                    contentdown: '上拉显示更多',
-                    contentrefresh: '正在加载...',
-                    contentnomore: '没有更多数据了',
+                    contentinit: "上拉显示更多",
+                    contentdown: "上拉显示更多",
+                    contentrefresh: "正在加载...",
+                    contentnomore: "没有更多数据了",
                     duration: 300
                 }
             }, options));
@@ -3517,31 +3517,31 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
         },
         _initPocket: function() {
             var options = this.options;
-            if (options.down && options.down.hasOwnProperty('callback')) {
-                this.topPocket = this.scroller.querySelector('.' + CLASS_PULL_TOP_POCKET);
+            if (options.down && options.down.hasOwnProperty("callback")) {
+                this.topPocket = this.scroller.querySelector("." + CLASS_PULL_TOP_POCKET);
                 if (!this.topPocket) {
                     this.topPocket = this._createPocket(CLASS_PULL_TOP_POCKET, options.down, CLASS_LOADING_DOWN);
                     this.wrapper.insertBefore(this.topPocket, this.wrapper.firstChild);
                 }
-                this.topLoading = this.topPocket.querySelector('.' + CLASS_PULL_LOADING);
-                this.topCaption = this.topPocket.querySelector('.' + CLASS_PULL_CAPTION);
+                this.topLoading = this.topPocket.querySelector("." + CLASS_PULL_LOADING);
+                this.topCaption = this.topPocket.querySelector("." + CLASS_PULL_CAPTION);
             }
-            if (options.up && options.up.hasOwnProperty('callback')) {
-                this.bottomPocket = this.scroller.querySelector('.' + CLASS_PULL_BOTTOM_POCKET);
+            if (options.up && options.up.hasOwnProperty("callback")) {
+                this.bottomPocket = this.scroller.querySelector("." + CLASS_PULL_BOTTOM_POCKET);
                 if (!this.bottomPocket) {
                     this.bottomPocket = this._createPocket(CLASS_PULL_BOTTOM_POCKET, options.up, CLASS_LOADING);
                     this.scroller.appendChild(this.bottomPocket);
                 }
-                this.bottomLoading = this.bottomPocket.querySelector('.' + CLASS_PULL_LOADING);
-                this.bottomCaption = this.bottomPocket.querySelector('.' + CLASS_PULL_CAPTION);
+                this.bottomLoading = this.bottomPocket.querySelector("." + CLASS_PULL_LOADING);
+                this.bottomCaption = this.bottomPocket.querySelector("." + CLASS_PULL_CAPTION);
                 //TODO only for h5
-                this.wrapper.addEventListener('scrollbottom', this);
+                this.wrapper.addEventListener("scrollbottom", this);
             }
         },
         _createPocket: function(clazz, options, iconClass) {
-            var pocket = document.createElement('div');
+            var pocket = document.createElement("div");
             pocket.className = clazz;
-            pocket.innerHTML = pocketHtml.replace('{contentrefresh}', options.contentinit).replace('{icon}', iconClass);
+            pocket.innerHTML = pocketHtml.replace("{contentrefresh}", options.contentinit).replace("{icon}", iconClass);
             return pocket;
         },
         _resetPullDownLoading: function() {
@@ -3558,13 +3558,13 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
             if (!isPulldown) {
                 switch (title) {
                     case this.options.up.contentdown:
-                        caption.className = CLASS_PULL_CAPTION + ' ' + CLASS_PULL_CAPTION_DOWN;
+                        caption.className = CLASS_PULL_CAPTION + " " + CLASS_PULL_CAPTION_DOWN;
                         break;
                     case this.options.up.contentrefresh:
-                        caption.className = CLASS_PULL_CAPTION + ' ' + CLASS_PULL_CAPTION_REFRESH
+                        caption.className = CLASS_PULL_CAPTION + " " + CLASS_PULL_CAPTION_REFRESH
                         break;
                     case this.options.up.contentnomore:
-                        caption.className = CLASS_PULL_CAPTION + ' ' + CLASS_PULL_CAPTION_NOMORE;
+                        caption.className = CLASS_PULL_CAPTION + " " + CLASS_PULL_CAPTION_NOMORE;
                         break;
                 }
             }
@@ -3611,9 +3611,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
                             }
                         } else {
                             if (title === options.up.contentrefresh) {
-                                loading.className = CLASS_LOADING + ' ' + CLASS_VISIBILITY;
+                                loading.className = CLASS_LOADING + " " + CLASS_VISIBILITY;
                             } else {
-                                loading.className = CLASS_LOADING + ' ' + CLASS_HIDDEN;
+                                loading.className = CLASS_LOADING + " " + CLASS_HIDDEN;
                             }
                             self._setCaptionClass(false, caption, title);
                         }
@@ -3627,32 +3627,32 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
     $.PullRefresh = PullRefresh;
 })(mui, document);
 (function($, window, document, undefined) {
-	var CLASS_SCROLL = 'mui-scroll';
-	var CLASS_SCROLLBAR = 'mui-scrollbar';
-	var CLASS_INDICATOR = 'mui-scrollbar-indicator';
-	var CLASS_SCROLLBAR_VERTICAL = CLASS_SCROLLBAR + '-vertical';
-	var CLASS_SCROLLBAR_HORIZONTAL = CLASS_SCROLLBAR + '-horizontal';
+	var CLASS_SCROLL = "mui-scroll";
+	var CLASS_SCROLLBAR = "mui-scrollbar";
+	var CLASS_INDICATOR = "mui-scrollbar-indicator";
+	var CLASS_SCROLLBAR_VERTICAL = CLASS_SCROLLBAR + "-vertical";
+	var CLASS_SCROLLBAR_HORIZONTAL = CLASS_SCROLLBAR + "-horizontal";
 
-	var CLASS_ACTIVE = 'mui-active';
+	var CLASS_ACTIVE = "mui-active";
 
 	var ease = {
 		quadratic: {
-			style: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+			style: "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
 			fn: function(k) {
 				return k * (2 - k);
 			}
 		},
 		circular: {
-			style: 'cubic-bezier(0.1, 0.57, 0.1, 1)',
+			style: "cubic-bezier(0.1, 0.57, 0.1, 1)",
 			fn: function(k) {
 				return Math.sqrt(1 - (--k * k));
 			}
 		},
 		outCirc: {
-			style: 'cubic-bezier(0.075, 0.82, 0.165, 1)'
+			style: "cubic-bezier(0.075, 0.82, 0.165, 1)"
 		},
 		outCubic: {
-			style: 'cubic-bezier(0.165, 0.84, 0.44, 1)'
+			style: "cubic-bezier(0.165, 0.84, 0.44, 1)"
 		}
 	}
 	var Scroll = $.Class.extend({
@@ -3695,7 +3695,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 
 			this.x = 0;
 			this.y = 0;
-			this.translateZ = this.options.hardwareAccelerated ? ' translateZ(0)' : '';
+			this.translateZ = this.options.hardwareAccelerated ? " translateZ(0)" : "";
 
 			this._init();
 			if (this.scroller) {
@@ -3715,7 +3715,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				this.parallaxElement = document.querySelector(this.options.parallaxElement);
 				this.parallaxStyle = this.parallaxElement.style;
 				this.parallaxHeight = this.parallaxElement.offsetHeight;
-				this.parallaxImgStyle = this.parallaxElement.querySelector('img').style;
+				this.parallaxImgStyle = this.parallaxElement.querySelector("img").style;
 			}
 		},
 		_initIndicators: function() {
@@ -3825,7 +3825,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				x = this.maxScrollX;
 			}
 			for (; i < length; i++) {
-				var nearestX = this.direction === 'left' ? this.pages[i][0].leftX : this.pages[i][0].rightX;
+				var nearestX = this.direction === "left" ? this.pages[i][0].leftX : this.pages[i][0].rightX;
 				if (x >= nearestX) {
 					return this.pages[i][0];
 				}
@@ -3836,29 +3836,29 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			};
 		},
 		_initEvent: function(detach) {
-			var action = detach ? 'removeEventListener' : 'addEventListener';
-			window[action]('orientationchange', this);
-			window[action]('resize', this);
+			var action = detach ? "removeEventListener" : "addEventListener";
+			window[action]("orientationchange", this);
+			window[action]("resize", this);
 
-			this.scroller[action]('webkitTransitionEnd', this);
+			this.scroller[action]("webkitTransitionEnd", this);
 
 			this.wrapper[action]($.EVENT_START, this);
 			this.wrapper[action]($.EVENT_CANCEL, this);
 			this.wrapper[action]($.EVENT_END, this);
-			this.wrapper[action]('drag', this);
-			this.wrapper[action]('dragend', this);
-			this.wrapper[action]('flick', this);
-			this.wrapper[action]('scrollend', this);
+			this.wrapper[action]("drag", this);
+			this.wrapper[action]("dragend", this);
+			this.wrapper[action]("flick", this);
+			this.wrapper[action]("scrollend", this);
 			if (this.options.scrollX) {
-				this.wrapper[action]('swiperight', this);
+				this.wrapper[action]("swiperight", this);
 			}
-			var segmentedControl = this.wrapper.querySelector('.mui-segmented-control');
+			var segmentedControl = this.wrapper.querySelector(".mui-segmented-control");
 			if (segmentedControl) { //靠，这个bug排查了一下午，阻止hash跳转，一旦hash跳转会导致可拖拽选项卡的tab不见
-				mui(segmentedControl)[detach ? 'off' : 'on']('click', 'a', $.preventDefault);
+				mui(segmentedControl)[detach ? "off" : "on"]("click", "a", $.preventDefault);
 			}
 
-			this.wrapper[action]('scrollstart', this);
-			this.wrapper[action]('refresh', this);
+			this.wrapper[action]("scrollstart", this);
+			this.wrapper[action]("refresh", this);
 		},
 		_handleIndicatorScrollend: function() {
 			this.indicators.map(function(indicator) {
@@ -3885,12 +3885,12 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				case $.EVENT_START:
 					this._start(e);
 					break;
-				case 'drag':
+				case "drag":
 					this.options.stopPropagation && e.stopPropagation();
 					this._drag(e);
 					break;
-				case 'dragend':
-				case 'flick':
+				case "dragend":
+				case "flick":
 					this.options.stopPropagation && e.stopPropagation();
 					this._flick(e);
 					break;
@@ -3898,26 +3898,26 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				case $.EVENT_END:
 					this._end(e);
 					break;
-				case 'webkitTransitionEnd':
+				case "webkitTransitionEnd":
 					this.transitionTimer && this.transitionTimer.cancel();
 					this._transitionEnd(e);
 					break;
-				case 'scrollstart':
+				case "scrollstart":
 					this._handleIndicatorScrollstart(e);
 					break;
-				case 'scrollend':
+				case "scrollend":
 					this._handleIndicatorScrollend(e);
 					this._scrollend(e);
 					e.stopPropagation();
 					break;
-				case 'orientationchange':
-				case 'resize':
+				case "orientationchange":
+				case "resize":
 					this._resize();
 					break;
-				case 'swiperight':
+				case "swiperight":
 					e.stopPropagation();
 					break;
-				case 'refresh':
+				case "refresh":
 					this._handleIndicatorRefresh(e);
 					break;
 
@@ -3929,25 +3929,25 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			if (this.isInTransition) {
 				this.needReset = true;
 				this.isInTransition = false;
-				var pos = $.parseTranslateMatrix($.getStyles(this.scroller, 'webkitTransform'));
+				var pos = $.parseTranslateMatrix($.getStyles(this.scroller, "webkitTransform"));
 				this.setTranslate(Math.round(pos.x), Math.round(pos.y));
 				//				this.resetPosition(); //reset
-				$.trigger(this.scroller, 'scrollend', this);
+				$.trigger(this.scroller, "scrollend", this);
 				//				e.stopPropagation();
 				e.preventDefault();
 			}
 			this.reLayout();
-			$.trigger(this.scroller, 'beforescrollstart', this);
+			$.trigger(this.scroller, "beforescrollstart", this);
 		},
 		_getDirectionByAngle: function(angle) {
 			if (angle < -80 && angle > -100) {
-				return 'up';
+				return "up";
 			} else if (angle >= 80 && angle < 100) {
-				return 'down';
+				return "down";
 			} else if (angle >= 170 || angle <= -170) {
-				return 'left';
+				return "left";
 			} else if (angle >= -35 && angle <= 10) {
-				return 'right';
+				return "right";
 			}
 			return null;
 		},
@@ -3957,7 +3957,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			//				return;
 			//			}
 			var detail = e.detail;
-			if (this.options.scrollY || detail.direction === 'up' || detail.direction === 'down') { //如果是竖向滚动或手势方向是上或下
+			if (this.options.scrollY || detail.direction === "up" || detail.direction === "down") { //如果是竖向滚动或手势方向是上或下
 				//ios8 hack
 				if ($.os.ios && parseFloat($.os.version) >= 8) { //多webview时，离开当前webview会导致后续touch事件不触发
 					var clientY = detail.gesture.touches[0].clientY;
@@ -3970,11 +3970,11 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			}
 			var isPreventDefault = isReturn = false;
 			var direction = this._getDirectionByAngle(detail.angle);
-			if (detail.direction === 'left' || detail.direction === 'right') {
+			if (detail.direction === "left" || detail.direction === "right") {
 				if (this.options.scrollX) {
 					isPreventDefault = true;
 					if (!this.moved) { //识别角度(该角度导致轮播不灵敏)
-						//						if (direction !== 'left' && direction !== 'right') {
+						//						if (direction !== "left" && direction !== "right") {
 						//							isReturn = true;
 						//						} else {
 						$.gestures.session.lockDirection = true; //锁定方向
@@ -3984,11 +3984,11 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				} else if (this.options.scrollY && !this.moved) {
 					isReturn = true;
 				}
-			} else if (detail.direction === 'up' || detail.direction === 'down') {
+			} else if (detail.direction === "up" || detail.direction === "down") {
 				if (this.options.scrollY) {
 					isPreventDefault = true;
 					//					if (!this.moved) { //识别角度,竖向滚动似乎没必要进行小角度验证
-					//						if (direction !== 'up' && direction !== 'down') {
+					//						if (direction !== "up" && direction !== "down") {
 					//							isReturn = true;
 					//						}
 					//					}
@@ -4010,7 +4010,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				return;
 			}
 			if (!this.moved) {
-				$.trigger(this.scroller, 'scrollstart', this);
+				$.trigger(this.scroller, "scrollstart", this);
 			} else {
 				e.stopPropagation(); //move期间阻止冒泡(scroll嵌套)
 			}
@@ -4046,11 +4046,11 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			if (!this.requestAnimationFrame) {
 				this._updateTranslate();
 			}
-			this.direction = detail.deltaX > 0 ? 'right' : 'left';
+			this.direction = detail.deltaX > 0 ? "right" : "left";
 			this.moved = true;
 			this.x = newX;
 			this.y = newY;
-			$.trigger(this.scroller, 'scroll', this);
+			$.trigger(this.scroller, "scroll", this);
 		},
 		_flick: function(e) {
 			//			if (!this.moved || this.needReset) {
@@ -4062,7 +4062,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			e.stopPropagation();
 			var detail = e.detail;
 			this._clearRequestAnimationFrame();
-			if (e.type === 'dragend' && detail.flick) { //dragend
+			if (e.type === "dragend" && detail.flick) { //dragend
 				return;
 			}
 
@@ -4077,12 +4077,12 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 
 			this.scrollTo(newX, newY); // ensures that the last position is rounded
 
-			if (e.type === 'dragend') { //dragend
-				$.trigger(this.scroller, 'scrollend', this);
+			if (e.type === "dragend") { //dragend
+				$.trigger(this.scroller, "scrollend", this);
 				return;
 			}
 			var time = 0;
-			var easing = '';
+			var easing = "";
 			// start momentum animation if needed
 			if (this.options.momentum && detail.flickTime < 300) {
 				momentumX = this.hasHorizontalScroll ? this._momentum(this.x, detail.flickDistanceX, detail.flickTime, this.maxScrollX, this.options.bounce ? this.wrapperWidth : 0, this.options.deceleration) : {
@@ -4107,7 +4107,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				return;
 			}
 
-			$.trigger(this.scroller, 'scrollend', this);
+			$.trigger(this.scroller, "scrollend", this);
 			//			e.stopPropagation();
 		},
 		_end: function(e) {
@@ -4123,12 +4123,12 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			this._transitionTime();
 			if (!this.resetPosition(this.options.bounceTime)) {
 				this.isInTransition = false;
-				$.trigger(this.scroller, 'scrollend', this);
+				$.trigger(this.scroller, "scrollend", this);
 			}
 		},
 		_scrollend: function(e) {
 			if ((this.y === 0 && this.maxScrollY === 0) || (Math.abs(this.y) > 0 && this.y <= this.maxScrollY)) {
-				$.trigger(this.scroller, 'scrollbottom', this);
+				$.trigger(this.scroller, "scrollbottom", this);
 			}
 		},
 		_resize: function() {
@@ -4140,14 +4140,14 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		},
 		_transitionTime: function(time) {
 			time = time || 0;
-			this.scrollerStyle['webkitTransitionDuration'] = time + 'ms';
+			this.scrollerStyle["webkitTransitionDuration"] = time + "ms";
 			if (this.parallaxElement && this.options.scrollY) { //目前仅支持竖向视差效果
-				this.parallaxStyle['webkitTransitionDuration'] = time + 'ms';
+				this.parallaxStyle["webkitTransitionDuration"] = time + "ms";
 			}
 			if (this.options.fixedBadAndorid && !time && $.os.isBadAndroid) {
-				this.scrollerStyle['webkitTransitionDuration'] = '0.001s';
+				this.scrollerStyle["webkitTransitionDuration"] = "0.001s";
 				if (this.parallaxElement && this.options.scrollY) { //目前仅支持竖向视差效果
-					this.parallaxStyle['webkitTransitionDuration'] = '0.001s';
+					this.parallaxStyle["webkitTransitionDuration"] = "0.001s";
 				}
 			}
 			if (this.indicators) {
@@ -4158,14 +4158,14 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			if (time) { //自定义timer，保证webkitTransitionEnd始终触发
 				this.transitionTimer && this.transitionTimer.cancel();
 				this.transitionTimer = $.later(function() {
-					$.trigger(this.scroller, 'webkitTransitionEnd');
+					$.trigger(this.scroller, "webkitTransitionEnd");
 				}, time + 100, this);
 			}
 		},
 		_transitionTimingFunction: function(easing) {
-			this.scrollerStyle['webkitTransitionTimingFunction'] = easing;
+			this.scrollerStyle["webkitTransitionTimingFunction"] = easing;
 			if (this.parallaxElement && this.options.scrollY) { //目前仅支持竖向视差效果
-				this.parallaxStyle['webkitTransitionDuration'] = easing;
+				this.parallaxStyle["webkitTransitionDuration"] = easing;
 			}
 			if (this.indicators) {
 				for (var i = this.indicators.length; i--;) {
@@ -4193,9 +4193,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			});
 		},
 		_createScrollBar: function(clazz) {
-			var scrollbar = document.createElement('div');
-			var indicator = document.createElement('div');
-			scrollbar.className = CLASS_SCROLLBAR + ' ' + clazz;
+			var scrollbar = document.createElement("div");
+			var indicator = document.createElement("div");
+			scrollbar.className = CLASS_SCROLLBAR + " " + clazz;
 			indicator.className = CLASS_INDICATOR;
 			scrollbar.appendChild(indicator);
 			if (clazz === CLASS_SCROLLBAR_VERTICAL) {
@@ -4232,7 +4232,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			});
 
 			//以防slider类嵌套使用
-			if (this.options.snap && typeof this.options.snap === 'string') {
+			if (this.options.snap && typeof this.options.snap === "string") {
 				var items = this.scroller.querySelectorAll(this.options.snap);
 				this.itemLength = 0;
 				this.snaps = [];
@@ -4271,9 +4271,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		},
 		_getTranslateStr: function(x, y) {
 			if (this.options.hardwareAccelerated) {
-				return 'translate3d(' + x + 'px,' + y + 'px,0px) ' + this.translateZ;
+				return "translate3d(" + x + "px," + y + "px,0px) " + this.translateZ;
 			}
-			return 'translate(' + x + 'px,' + y + 'px) ';
+			return "translate(" + x + "px," + y + "px) ";
 		},
 		//API
 		setStopped: function(stopped) {
@@ -4291,16 +4291,16 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		setTranslate: function(x, y) {
 			this.x = x;
 			this.y = y;
-			this.scrollerStyle['webkitTransform'] = this._getTranslateStr(x, y);
+			this.scrollerStyle["webkitTransform"] = this._getTranslateStr(x, y);
 			if (this.parallaxElement && this.options.scrollY) { //目前仅支持竖向视差效果
 				var parallaxY = y * this.options.parallaxRatio;
 				var scale = 1 + parallaxY / ((this.parallaxHeight - parallaxY) / 2);
 				if (scale > 1) {
-					this.parallaxImgStyle['opacity'] = 1 - parallaxY / 100 * this.options.parallaxRatio;
-					this.parallaxStyle['webkitTransform'] = this._getTranslateStr(0, -parallaxY) + ' scale(' + scale + ',' + scale + ')';
+					this.parallaxImgStyle["opacity"] = 1 - parallaxY / 100 * this.options.parallaxRatio;
+					this.parallaxStyle["webkitTransform"] = this._getTranslateStr(0, -parallaxY) + " scale(" + scale + "," + scale + ")";
 				} else {
-					this.parallaxImgStyle['opacity'] = 1;
-					this.parallaxStyle['webkitTransform'] = this._getTranslateStr(0, -1) + ' scale(1,1)';
+					this.parallaxImgStyle["opacity"] = 1;
+					this.parallaxStyle["webkitTransform"] = this._getTranslateStr(0, -1) + " scale(1,1)";
 				}
 			}
 			if (this.indicators) {
@@ -4310,15 +4310,15 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			}
 			this.lastX = this.x;
 			this.lastY = this.y;
-			$.trigger(this.scroller, 'scroll', this);
+			$.trigger(this.scroller, "scroll", this);
 		},
 		reLayout: function() {
 			this.wrapper.offsetHeight;
 
-			var paddingLeft = parseFloat($.getStyles(this.wrapper, 'padding-left')) || 0;
-			var paddingRight = parseFloat($.getStyles(this.wrapper, 'padding-right')) || 0;
-			var paddingTop = parseFloat($.getStyles(this.wrapper, 'padding-top')) || 0;
-			var paddingBottom = parseFloat($.getStyles(this.wrapper, 'padding-bottom')) || 0;
+			var paddingLeft = parseFloat($.getStyles(this.wrapper, "padding-left")) || 0;
+			var paddingRight = parseFloat($.getStyles(this.wrapper, "padding-right")) || 0;
+			var paddingTop = parseFloat($.getStyles(this.wrapper, "padding-top")) || 0;
+			var paddingBottom = parseFloat($.getStyles(this.wrapper, "padding-bottom")) || 0;
 
 			var clientWidth = this.wrapper.clientWidth;
 			var clientHeight = this.wrapper.clientHeight;
@@ -4360,7 +4360,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			return true;
 		},
 		_reInit: function() {
-			var groups = this.wrapper.querySelectorAll('.' + CLASS_SCROLL);
+			var groups = this.wrapper.querySelectorAll("." + CLASS_SCROLL);
 			for (var i = 0, len = groups.length; i < len; i++) {
 				if (groups[i].parentNode === this.wrapper) {
 					this.scroller = groups[i];
@@ -4372,7 +4372,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		refresh: function() {
 			this._reInit();
 			this.reLayout();
-			$.trigger(this.scroller, 'refresh', this);
+			$.trigger(this.scroller, "refresh", this);
 			this.resetPosition();
 		},
 		scrollTo: function(x, y, time, easing) {
@@ -4399,13 +4399,13 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		},
 		destroy: function() {
 			this._initEvent(true); //detach
-			delete $.data[this.wrapper.getAttribute('data-scroll')];
-			this.wrapper.setAttribute('data-scroll', '');
+			delete $.data[this.wrapper.getAttribute("data-scroll")];
+			this.wrapper.setAttribute("data-scroll", "");
 		}
 	});
 	//Indicator
 	var Indicator = function(scroller, options) {
-		this.wrapper = typeof options.el == 'string' ? document.querySelector(options.el) : options.el;
+		this.wrapper = typeof options.el == "string" ? document.querySelector(options.el) : options.el;
 		this.wrapperStyle = this.wrapper.style;
 		this.indicator = this.wrapper.children[0];
 		this.indicatorStyle = this.indicator.style;
@@ -4425,9 +4425,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		this.maxPosY = 0;
 
 		if (this.options.fade) {
-			this.wrapperStyle['webkitTransform'] = this.scroller.translateZ;
-			this.wrapperStyle['webkitTransitionDuration'] = this.options.fixedBadAndorid && $.os.isBadAndroid ? '0.001s' : '0ms';
-			this.wrapperStyle.opacity = '0';
+			this.wrapperStyle["webkitTransform"] = this.scroller.translateZ;
+			this.wrapperStyle["webkitTransitionDuration"] = this.options.fixedBadAndorid && $.os.isBadAndroid ? "0.001s" : "0ms";
+			this.wrapperStyle.opacity = "0";
 		}
 	}
 	Indicator.prototype = {
@@ -4436,23 +4436,23 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		},
 		transitionTime: function(time) {
 			time = time || 0;
-			this.indicatorStyle['webkitTransitionDuration'] = time + 'ms';
+			this.indicatorStyle["webkitTransitionDuration"] = time + "ms";
 			if (this.scroller.options.fixedBadAndorid && !time && $.os.isBadAndroid) {
-				this.indicatorStyle['webkitTransitionDuration'] = '0.001s';
+				this.indicatorStyle["webkitTransitionDuration"] = "0.001s";
 			}
 		},
 		transitionTimingFunction: function(easing) {
-			this.indicatorStyle['webkitTransitionTimingFunction'] = easing;
+			this.indicatorStyle["webkitTransitionTimingFunction"] = easing;
 		},
 		refresh: function() {
 			this.transitionTime();
 
 			if (this.options.listenX && !this.options.listenY) {
-				this.indicatorStyle.display = this.scroller.hasHorizontalScroll ? 'block' : 'none';
+				this.indicatorStyle.display = this.scroller.hasHorizontalScroll ? "block" : "none";
 			} else if (this.options.listenY && !this.options.listenX) {
-				this.indicatorStyle.display = this.scroller.hasVerticalScroll ? 'block' : 'none';
+				this.indicatorStyle.display = this.scroller.hasVerticalScroll ? "block" : "none";
 			} else {
-				this.indicatorStyle.display = this.scroller.hasHorizontalScroll || this.scroller.hasVerticalScroll ? 'block' : 'none';
+				this.indicatorStyle.display = this.scroller.hasHorizontalScroll || this.scroller.hasVerticalScroll ? "block" : "none";
 			}
 
 			this.wrapper.offsetHeight; // force refresh
@@ -4460,7 +4460,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			if (this.options.listenX) {
 				this.wrapperWidth = this.wrapper.clientWidth;
 				this.indicatorWidth = Math.max(Math.round(this.wrapperWidth * this.wrapperWidth / (this.scroller.scrollerWidth || this.wrapperWidth || 1)), 8);
-				this.indicatorStyle.width = this.indicatorWidth + 'px';
+				this.indicatorStyle.width = this.indicatorWidth + "px";
 
 				this.maxPosX = this.wrapperWidth - this.indicatorWidth;
 
@@ -4473,7 +4473,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			if (this.options.listenY) {
 				this.wrapperHeight = this.wrapper.clientHeight;
 				this.indicatorHeight = Math.max(Math.round(this.wrapperHeight * this.wrapperHeight / (this.scroller.scrollerHeight || this.wrapperHeight || 1)), 8);
-				this.indicatorStyle.height = this.indicatorHeight + 'px';
+				this.indicatorStyle.height = this.indicatorHeight + "px";
 
 				this.maxPosY = this.wrapperHeight - this.indicatorHeight;
 
@@ -4492,34 +4492,34 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 
 			if (x < this.minBoundaryX) {
 				this.width = Math.max(this.indicatorWidth + x, 8);
-				this.indicatorStyle.width = this.width + 'px';
+				this.indicatorStyle.width = this.width + "px";
 				x = this.minBoundaryX;
 			} else if (x > this.maxBoundaryX) {
 				this.width = Math.max(this.indicatorWidth - (x - this.maxPosX), 8);
-				this.indicatorStyle.width = this.width + 'px';
+				this.indicatorStyle.width = this.width + "px";
 				x = this.maxPosX + this.indicatorWidth - this.width;
 			} else if (this.width != this.indicatorWidth) {
 				this.width = this.indicatorWidth;
-				this.indicatorStyle.width = this.width + 'px';
+				this.indicatorStyle.width = this.width + "px";
 			}
 
 			if (y < this.minBoundaryY) {
 				this.height = Math.max(this.indicatorHeight + y * 3, 8);
-				this.indicatorStyle.height = this.height + 'px';
+				this.indicatorStyle.height = this.height + "px";
 				y = this.minBoundaryY;
 			} else if (y > this.maxBoundaryY) {
 				this.height = Math.max(this.indicatorHeight - (y - this.maxPosY) * 3, 8);
-				this.indicatorStyle.height = this.height + 'px';
+				this.indicatorStyle.height = this.height + "px";
 				y = this.maxPosY + this.indicatorHeight - this.height;
 			} else if (this.height != this.indicatorHeight) {
 				this.height = this.indicatorHeight;
-				this.indicatorStyle.height = this.height + 'px';
+				this.indicatorStyle.height = this.height + "px";
 			}
 
 			this.x = x;
 			this.y = y;
 
-			this.indicatorStyle['webkitTransform'] = this.scroller._getTranslateStr(x, y);
+			this.indicatorStyle["webkitTransform"] = this.scroller._getTranslateStr(x, y);
 
 		},
 		fade: function(val, hold) {
@@ -4533,9 +4533,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			var time = val ? 250 : 500,
 				delay = val ? 0 : 300;
 
-			val = val ? '1' : '0';
+			val = val ? "1" : "0";
 
-			this.wrapperStyle['webkitTransitionDuration'] = time + 'ms';
+			this.wrapperStyle["webkitTransitionDuration"] = time + "ms";
 
 			this.fadeTimeout = setTimeout((function(val) {
 				this.wrapperStyle.opacity = val;
@@ -4551,20 +4551,20 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		this.each(function() {
 			var scrollApi = null;
 			var self = this;
-			var id = self.getAttribute('data-scroll');
+			var id = self.getAttribute("data-scroll");
 			if (!id) {
 				id = ++$.uuid;
 				var _options = $.extend({}, options);
-				if (self.classList.contains('mui-segmented-control')) {
+				if (self.classList.contains("mui-segmented-control")) {
 					_options = $.extend(_options, {
 						scrollY: false,
 						scrollX: true,
 						indicators: false,
-						snap: '.mui-control-item'
+						snap: ".mui-control-item"
 					});
 				}
 				$.data[id] = scrollApi = new Scroll(self, _options);
-				self.setAttribute('data-scroll', id);
+				self.setAttribute("data-scroll", id);
 			} else {
 				scrollApi = $.data[id];
 			}
@@ -4575,13 +4575,13 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 })(mui, window, document);
 (function($, window, document, undefined) {
 
-    var CLASS_VISIBILITY = 'mui-visibility';
-    var CLASS_HIDDEN = 'mui-hidden';
+    var CLASS_VISIBILITY = "mui-visibility";
+    var CLASS_HIDDEN = "mui-hidden";
 
     var PullRefresh = $.Scroll.extend($.extend({
         handleEvent: function(e) {
             this._super(e);
-            if (e.type === 'scrollbottom') {
+            if (e.type === "scrollbottom") {
                 if (e.target === this.scroller) {
                     this._scrollbottom();
                 }
@@ -4605,11 +4605,11 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
             this._super(e);
         },
         _drag: function(e) {
-            if (this.y >= 0 && this.disablePulldown && e.detail.direction === 'down') { //禁用下拉刷新
+            if (this.y >= 0 && this.disablePulldown && e.detail.direction === "down") { //禁用下拉刷新
                 return;
             }
             this._super(e);
-            if (!this.pulldown && !this.loading && this.topPocket && e.detail.direction === 'down' && this.y >= 0) {
+            if (!this.pulldown && !this.loading && this.topPocket && e.detail.direction === "down" && this.y >= 0) {
                 this._initPulldownRefresh();
             }
             if (this.pulldown) {
@@ -4634,7 +4634,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
             return this._super(time);
         },
         pulldownLoading: function(y, time) {
-            typeof y === 'undefined' && (y = this.options.down.height); //默认高度
+            typeof y === "undefined" && (y = this.options.down.height); //默认高度
             this.scrollTo(0, y, time, this.options.bounceEasing);
             if (this.loading) {
                 return;
@@ -4685,7 +4685,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
                     self._setCaption(self.options.up.contentnomore);
                     //					self.bottomPocket.classList.remove(CLASS_VISIBILITY);
                     //					self.bottomPocket.classList.add(CLASS_HIDDEN);
-                    self.wrapper.removeEventListener('scrollbottom', self);
+                    self.wrapper.removeEventListener("scrollbottom", self);
                 } else {
                     self._setCaption(self.options.up.contentdown);
                     //					setTimeout(function() {
@@ -4696,12 +4696,12 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
         },
         disablePullupToRefresh: function() {
             this._initPullupRefresh();
-            this.bottomPocket.className = 'mui-pull-bottom-pocket' + ' ' + CLASS_HIDDEN;
-            this.wrapper.removeEventListener('scrollbottom', this);
+            this.bottomPocket.className = "mui-pull-bottom-pocket" + " " + CLASS_HIDDEN;
+            this.wrapper.removeEventListener("scrollbottom", this);
         },
         disablePulldownToRefresh: function() {
             this._initPulldownRefresh();
-            this.topPocket.className = 'mui-pull-top-pocket' + ' ' + CLASS_HIDDEN;
+            this.topPocket.className = "mui-pull-top-pocket" + " " + CLASS_HIDDEN;
             this.disablePulldown = true;
         },
         enablePulldownToRefresh: function() {
@@ -4714,7 +4714,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
             this._initPullupRefresh();
             this.bottomPocket.classList.remove(CLASS_HIDDEN);
             this._setCaption(this.options.up.contentdown);
-            this.wrapper.addEventListener('scrollbottom', this);
+            this.wrapper.addEventListener("scrollbottom", this);
         },
         refresh: function(isReset) {
             if (isReset && this.finished) {
@@ -4728,15 +4728,15 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
         if (this.length === 1) {
             var self = this[0];
             var pullRefreshApi = null;
-            var id = self.getAttribute('data-pullrefresh');
-            if (!id && typeof options === 'undefined') {
+            var id = self.getAttribute("data-pullrefresh");
+            if (!id && typeof options === "undefined") {
                 return false;
             }
             options = options || {};
             if (!id) {
                 id = ++$.uuid;
                 $.data[id] = pullRefreshApi = new PullRefresh(self, options);
-                self.setAttribute('data-pullrefresh', id);
+                self.setAttribute("data-pullrefresh", id);
             } else {
                 pullRefreshApi = $.data[id];
             }
@@ -4746,7 +4746,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
                 pullRefreshApi.pullupLoading();
             }
             //暂不提供这种调用方式吧			
-            //			if (typeof options === 'string') {
+            //			if (typeof options === "string") {
             //				var methodValue = pullRefreshApi[options].apply(pullRefreshApi, $.slice.call(arguments, 1));
             //				if (methodValue !== undefined) {
             //					return methodValue;
@@ -4762,19 +4762,19 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
  * @param {Object} window
  */
 (function($, window) {
-	var CLASS_SLIDER = 'mui-slider';
-	var CLASS_SLIDER_GROUP = 'mui-slider-group';
-	var CLASS_SLIDER_LOOP = 'mui-slider-loop';
-	var CLASS_SLIDER_INDICATOR = 'mui-slider-indicator';
-	var CLASS_ACTION_PREVIOUS = 'mui-action-previous';
-	var CLASS_ACTION_NEXT = 'mui-action-next';
-	var CLASS_SLIDER_ITEM = 'mui-slider-item';
+	var CLASS_SLIDER = "mui-slider";
+	var CLASS_SLIDER_GROUP = "mui-slider-group";
+	var CLASS_SLIDER_LOOP = "mui-slider-loop";
+	var CLASS_SLIDER_INDICATOR = "mui-slider-indicator";
+	var CLASS_ACTION_PREVIOUS = "mui-action-previous";
+	var CLASS_ACTION_NEXT = "mui-action-next";
+	var CLASS_SLIDER_ITEM = "mui-slider-item";
 
-	var CLASS_ACTIVE = 'mui-active';
+	var CLASS_ACTIVE = "mui-active";
 
-	var SELECTOR_SLIDER_ITEM = '.' + CLASS_SLIDER_ITEM;
-	var SELECTOR_SLIDER_INDICATOR = '.' + CLASS_SLIDER_INDICATOR;
-	var SELECTOR_SLIDER_PROGRESS_BAR = '.mui-slider-progress-bar';
+	var SELECTOR_SLIDER_ITEM = "." + CLASS_SLIDER_ITEM;
+	var SELECTOR_SLIDER_INDICATOR = "." + CLASS_SLIDER_INDICATOR;
+	var SELECTOR_SLIDER_PROGRESS_BAR = ".mui-slider-progress-bar";
 
 	var Slider = $.Slider = $.Scroll.extend({
 		init: function(element, options) {
@@ -4790,7 +4790,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				snap: SELECTOR_SLIDER_ITEM
 			}, options));
 			if (this.options.startX) {
-				//				$.trigger(this.wrapper, 'scrollend', this);
+				//				$.trigger(this.wrapper, "scrollend", this);
 			}
 		},
 		_init: function() {
@@ -4828,7 +4828,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			if (self.lastSlideNumber != self.slideNumber) {
 				self.lastSlideNumber = self.slideNumber;
 				self.lastPage = self.currentPage;
-				$.trigger(self.wrapper, 'slide', {
+				$.trigger(self.wrapper, "slide", {
 					slideNumber: self.slideNumber
 				});
 			}
@@ -4853,7 +4853,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			if (self.loop) {
 				_slideNumber += 1;
 			}
-			if (!self.wrapper.classList.contains('mui-segmented-control')) {
+			if (!self.wrapper.classList.contains("mui-segmented-control")) {
 				for (var i = 0, len = items.length; i < len; i++) {
 					var item = items[i];
 					if (item.parentNode === self.scroller) {
@@ -4865,24 +4865,24 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 					}
 				}
 			}
-			var indicatorWrap = self.wrapper.querySelector('.mui-slider-indicator');
+			var indicatorWrap = self.wrapper.querySelector(".mui-slider-indicator");
 			if (indicatorWrap) {
-				if (indicatorWrap.getAttribute('data-scroll')) { //scroll
+				if (indicatorWrap.getAttribute("data-scroll")) { //scroll
 					$(indicatorWrap).scroll().gotoPage(detail.slideNumber);
 				}
-				var indicators = indicatorWrap.querySelectorAll('.mui-indicator');
+				var indicators = indicatorWrap.querySelectorAll(".mui-indicator");
 				if (indicators.length > 0) { //图片轮播
 					for (var i = 0, len = indicators.length; i < len; i++) {
-						indicators[i].classList[i === detail.slideNumber ? 'add' : 'remove'](CLASS_ACTIVE);
+						indicators[i].classList[i === detail.slideNumber ? "add" : "remove"](CLASS_ACTIVE);
 					}
 				} else {
-					var number = indicatorWrap.querySelector('.mui-number span');
+					var number = indicatorWrap.querySelector(".mui-number span");
 					if (number) { //图文表格
 						number.innerText = (detail.slideNumber + 1);
 					} else { //segmented controls
-						var controlItems = indicatorWrap.querySelectorAll('.mui-control-item');
+						var controlItems = indicatorWrap.querySelectorAll(".mui-control-item");
 						for (var i = 0, len = controlItems.length; i < len; i++) {
-							controlItems[i].classList[i === detail.slideNumber ? 'add' : 'remove'](CLASS_ACTIVE);
+							controlItems[i].classList[i === detail.slideNumber ? "add" : "remove"](CLASS_ACTIVE);
 						}
 					}
 				}
@@ -4897,24 +4897,24 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			var self = this;
 			var target = event.target;
 			if (target.classList.contains(CLASS_ACTION_PREVIOUS) || target.classList.contains(CLASS_ACTION_NEXT)) {
-				self[target.classList.contains(CLASS_ACTION_PREVIOUS) ? 'prevItem' : 'nextItem']();
+				self[target.classList.contains(CLASS_ACTION_PREVIOUS) ? "prevItem" : "nextItem"]();
 				event.stopPropagation();
 			}
 		},
 		_initEvent: function(detach) {
 			var self = this;
 			self._super(detach);
-			var action = detach ? 'removeEventListener' : 'addEventListener';
-			self.wrapper[action]('slide', this);
-			self.wrapper[action]($.eventName('shown', 'tab'), this);
+			var action = detach ? "removeEventListener" : "addEventListener";
+			self.wrapper[action]("slide", this);
+			self.wrapper[action]($.eventName("shown", "tab"), this);
 		},
 		handleEvent: function(e) {
 			this._super(e);
 			switch (e.type) {
-				case 'slide':
+				case "slide":
 					this._handleSlide(e);
 					break;
-				case $.eventName('shown', 'tab'):
+				case $.eventName("shown", "tab"):
 					if (~this.snaps.indexOf(e.target)) { //避免嵌套监听错误的tab show
 						this._handleTabShow(e);
 					}
@@ -4928,9 +4928,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		_drag: function(e) {
 			this._super(e);
 			var direction = e.detail.direction;
-			if (direction === 'left' || direction === 'right') {
+			if (direction === "left" || direction === "right") {
 				//拖拽期间取消定时
-				var slidershowTimer = this.wrapper.getAttribute('data-slidershowTimer');
+				var slidershowTimer = this.wrapper.getAttribute("data-slidershowTimer");
 				slidershowTimer && window.clearTimeout(slidershowTimer);
 
 				e.stopPropagation();
@@ -4940,7 +4940,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			var self = this;
 			var slider = self.wrapper;
 			var interval = self.options.interval;
-			var slidershowTimer = slider.getAttribute('data-slidershowTimer');
+			var slidershowTimer = slider.getAttribute("data-slidershowTimer");
 			slidershowTimer && window.clearTimeout(slidershowTimer);
 			if (interval) {
 				slidershowTimer = window.setTimeout(function() {
@@ -4954,7 +4954,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 					}
 					self._initTimer();
 				}, interval);
-				slider.setAttribute('data-slidershowTimer', slidershowTimer);
+				slider.setAttribute("data-slidershowTimer", slidershowTimer);
 			}
 		},
 
@@ -4978,7 +4978,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			this._super();
 		},
 		_getScroll: function() {
-			var result = $.parseTranslateMatrix($.getStyles(this.scroller, 'webkitTransform'));
+			var result = $.parseTranslateMatrix($.getStyles(this.scroller, "webkitTransform"));
 			return result ? result.x : 0;
 		},
 		_transitionEnd: function(e) {
@@ -4987,7 +4987,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			}
 			this._transitionTime();
 			this.isInTransition = false;
-			$.trigger(this.wrapper, 'scrollend', this);
+			$.trigger(this.wrapper, "scrollend", this);
 		},
 		_flick: function(e) {
 			if (!this.moved) { //无moved
@@ -4997,16 +4997,16 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			var direction = detail.direction;
 			this._clearRequestAnimationFrame();
 			this.isInTransition = true;
-			//			if (direction === 'up' || direction === 'down') {
+			//			if (direction === "up" || direction === "down") {
 			//				this.resetPosition(this.options.bounceTime);
 			//				return;
 			//			}
-			if (e.type === 'flick') {
+			if (e.type === "flick") {
 				if (detail.deltaTime < 200) { //flick，太容易触发，额外校验一下deltaTime
-					this.x = this._getPage((this.slideNumber + (direction === 'right' ? -1 : 1)), true).x;
+					this.x = this._getPage((this.slideNumber + (direction === "right" ? -1 : 1)), true).x;
 				}
 				this.resetPosition(this.options.bounceTime);
-			} else if (e.type === 'dragend' && !detail.flick) {
+			} else if (e.type === "dragend" && !detail.flick) {
 				this.resetPosition(this.options.bounceTime);
 			}
 			e.stopPropagation();
@@ -5024,10 +5024,10 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				}
 				this.currentPage = currentPage[0];
 				this.slideNumber = 0;
-				this.lastSlideNumber = typeof this.lastSlideNumber === 'undefined' ? 0 : this.lastSlideNumber;
+				this.lastSlideNumber = typeof this.lastSlideNumber === "undefined" ? 0 : this.lastSlideNumber;
 			} else {
 				this.slideNumber = this._fixedSlideNumber();
-				this.lastSlideNumber = typeof this.lastSlideNumber === 'undefined' ? this.slideNumber : this.lastSlideNumber;
+				this.lastSlideNumber = typeof this.lastSlideNumber === "undefined" ? this.slideNumber : this.lastSlideNumber;
 			}
 			this.options.startX = this.currentPage.x || 0;
 		},
@@ -5063,7 +5063,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			this.currentPage = this._getPage(slideNumber, true); //此处传true。可保证程序切换时，动画与人手操作一致(第一张，最后一张的切换动画)
 			this.scrollTo(this.currentPage.x, 0, time, this.options.scrollEasing);
 			if (time === 0) {
-				$.trigger(this.wrapper, 'scrollend', this);
+				$.trigger(this.wrapper, "scrollend", this);
 			}
 		},
 		//API
@@ -5086,7 +5086,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			return true;
 		},
 		gotoItem: function(slideNumber, time) {
-			this._gotoItem(slideNumber, typeof time === 'undefined' ? this.options.scrollTime : time);
+			this._gotoItem(slideNumber, typeof time === "undefined" ? this.options.scrollTime : time);
 		},
 		nextItem: function() {
 			this._gotoItem(this.slideNumber + 1, this.options.scrollTime);
@@ -5098,7 +5098,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			return this.slideNumber || 0;
 		},
 		_reInit: function() {
-			var groups = this.wrapper.querySelectorAll('.' + CLASS_SLIDER_GROUP);
+			var groups = this.wrapper.querySelectorAll("." + CLASS_SLIDER_GROUP);
 			for (var i = 0, len = groups.length; i < len; i++) {
 				if (groups[i].parentNode === this.wrapper) {
 					this.scroller = groups[i];
@@ -5122,8 +5122,8 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		},
 		destroy: function() {
 			this._initEvent(true); //detach
-			delete $.data[this.wrapper.getAttribute('data-slider')];
-			this.wrapper.setAttribute('data-slider', '');
+			delete $.data[this.wrapper.getAttribute("data-slider")];
+			this.wrapper.setAttribute("data-slider", "");
 		}
 	});
 	$.fn.slider = function(options) {
@@ -5131,14 +5131,14 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		this.each(function() {
 			var sliderElement = this;
 			if (!this.classList.contains(CLASS_SLIDER)) {
-				sliderElement = this.querySelector('.' + CLASS_SLIDER);
+				sliderElement = this.querySelector("." + CLASS_SLIDER);
 			}
 			if (sliderElement && sliderElement.querySelector(SELECTOR_SLIDER_ITEM)) {
-				var id = sliderElement.getAttribute('data-slider');
+				var id = sliderElement.getAttribute("data-slider");
 				if (!id) {
 					id = ++$.uuid;
 					$.data[id] = slider = new Slider(sliderElement, options);
-					sliderElement.setAttribute('data-slider', id);
+					sliderElement.setAttribute("data-slider", id);
 				} else {
 					slider = $.data[id];
 					if (slider && options) {
@@ -5151,12 +5151,12 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	};
 	$.ready(function() {
 		//		setTimeout(function() {
-		$('.mui-slider').slider();
-		$('.mui-scroll-wrapper.mui-slider-indicator.mui-segmented-control').scroll({
+		$(".mui-slider").slider();
+		$(".mui-scroll-wrapper.mui-slider-indicator.mui-segmented-control").scroll({
 			scrollY: false,
 			scrollX: true,
 			indicators: false,
-			snap: '.mui-control-item'
+			snap: ".mui-control-item"
 		});
 		//		}, 500); //临时处理slider宽度计算不正确的问题(初步确认是scrollbar导致的)
 
@@ -5175,15 +5175,15 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
         if (window.__NWin_Enable__ === false) { //不支持多webview，则不用5+下拉刷新
             return;
         }
-        var CLASS_PLUS_PULLREFRESH = 'mui-plus-pullrefresh';
-        var CLASS_VISIBILITY = 'mui-visibility';
-        var CLASS_HIDDEN = 'mui-hidden';
-        var CLASS_BLOCK = 'mui-block';
+        var CLASS_PLUS_PULLREFRESH = "mui-plus-pullrefresh";
+        var CLASS_VISIBILITY = "mui-visibility";
+        var CLASS_HIDDEN = "mui-hidden";
+        var CLASS_BLOCK = "mui-block";
 
-        var CLASS_PULL_CAPTION = 'mui-pull-caption';
-        var CLASS_PULL_CAPTION_DOWN = 'mui-pull-caption-down';
-        var CLASS_PULL_CAPTION_REFRESH = 'mui-pull-caption-refresh';
-        var CLASS_PULL_CAPTION_NOMORE = 'mui-pull-caption-nomore';
+        var CLASS_PULL_CAPTION = "mui-pull-caption";
+        var CLASS_PULL_CAPTION_DOWN = "mui-pull-caption-down";
+        var CLASS_PULL_CAPTION_REFRESH = "mui-pull-caption-refresh";
+        var CLASS_PULL_CAPTION_NOMORE = "mui-pull-caption-nomore";
 
         var PlusPullRefresh = $.Class.extend({
             init: function(element, options) {
@@ -5195,8 +5195,8 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
             },
             _init: function() {
                 var self = this;
-                //document.addEventListener('plusscrollbottom', this);
-                window.addEventListener('dragup', self);
+                //document.addEventListener("plusscrollbottom", this);
+                window.addEventListener("dragup", self);
                 document.addEventListener("plusscrollbottom", self);
                 self.scrollInterval = window.setInterval(function() {
                     if (self.isScroll && !self.loading) {
@@ -5217,11 +5217,11 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
                         self.options.webview = plus.webview.currentWebview();
                         self.options.webview.setPullToRefresh({
                             support: true,
-                            color: self.options.down.color || '#2BD009',
-                            height: self.options.down.height || '50px',
-                            range: self.options.down.range || '100px',
-                            style: 'circle',
-                            offset: self.options.down.offset || '0px'
+                            color: self.options.down.color || "#2BD009",
+                            height: self.options.down.height || "50px",
+                            range: self.options.down.range || "100px",
+                            style: "circle",
+                            offset: self.options.down.offset || "0px"
                         }, function() {
                             self.options.down.callback();
                         });
@@ -5233,9 +5233,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
                         self.options.webview = webview;
                         var downOptions = self.options.down;
                         var height = downOptions.height;
-                        webview.addEventListener('close', function() {
+                        webview.addEventListener("close", function() {
                             var attrWebviewId = self.options.webviewId && self.options.webviewId.replace(/\//g, "_"); //替换所有"/" 
-                            self.element.removeAttribute('data-pullrefresh-plus-' + attrWebviewId);
+                            self.element.removeAttribute("data-pullrefresh-plus-" + attrWebviewId);
                         });
                         webview.addEventListener("dragBounce", function(e) {
                             if (!self.pulldown) {
@@ -5262,10 +5262,10 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 
                         webview.setBounce({
                             position: {
-                                top: height * 2 + 'px'
+                                top: height * 2 + "px"
                             },
                             changeoffset: {
-                                top: height + 'px'
+                                top: height + "px"
                             }
                         });
 
@@ -5278,7 +5278,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
                     return;
                 }
                 self.isScroll = false;
-                if (e.type === 'dragup' || e.type === 'plusscrollbottom') {
+                if (e.type === "dragup" || e.type === "plusscrollbottom") {
                     self.isScroll = true;
                     setTimeout(function() {
                         self.isScroll = false;
@@ -5335,9 +5335,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
                 var _wv = plus.webview.currentWebview();
                 //双webview的下拉刷新，需要修改父窗口提示信息
                 if (_wv.parent() && this.options.down.style !== "circle") {
-                    _wv.parent().evalJS("mui&&mui(document.querySelector('.mui-content')).pullRefresh('" + JSON.stringify({
+                    _wv.parent().evalJS("mui&&mui(document.querySelector(".mui-content")).pullRefresh("" + JSON.stringify({
                         webviewId: _wv.id
-                    }) + "')._endPulldownToRefresh()");
+                    }) + "")._endPulldownToRefresh()");
                 } else {
                     _wv.endPullToRefresh();
                 }
@@ -5368,8 +5368,8 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
                 setTimeout(function() {
                     self.pullLoading.classList.add(CLASS_VISIBILITY);
                     self.pullLoading.classList.remove(CLASS_HIDDEN);
-                    self.pullCaption.innerHTML = ''; //修正5+里边第一次加载时，文字显示的bug(还会显示出来个“多”,猜测应该是渲染问题导致的)
-                    self.pullCaption.className = CLASS_PULL_CAPTION + ' ' + CLASS_PULL_CAPTION_REFRESH;
+                    self.pullCaption.innerHTML = ""; //修正5+里边第一次加载时，文字显示的bug(还会显示出来个“多”,猜测应该是渲染问题导致的)
+                    self.pullCaption.className = CLASS_PULL_CAPTION + " " + CLASS_PULL_CAPTION_REFRESH;
                     self.pullCaption.innerHTML = self.options.up.contentrefresh;
                     callback = callback || self.options.up.callback;
                     callback && callback.call(self);
@@ -5386,13 +5386,13 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
                     self.isLoading = false;
                     if (finished) {
                         self.finished = true;
-                        self.pullCaption.className = CLASS_PULL_CAPTION + ' ' + CLASS_PULL_CAPTION_NOMORE;
+                        self.pullCaption.className = CLASS_PULL_CAPTION + " " + CLASS_PULL_CAPTION_NOMORE;
                         self.pullCaption.innerHTML = self.options.up.contentnomore;
                         //取消5+的plusscrollbottom事件
-                        document.removeEventListener('plusscrollbottom', self);
-                        window.removeEventListener('dragup', self);
+                        document.removeEventListener("plusscrollbottom", self);
+                        window.removeEventListener("dragup", self);
                     } else { //初始化时隐藏，后续不再隐藏
-                        self.pullCaption.className = CLASS_PULL_CAPTION + ' ' + CLASS_PULL_CAPTION_DOWN;
+                        self.pullCaption.className = CLASS_PULL_CAPTION + " " + CLASS_PULL_CAPTION_DOWN;
                         self.pullCaption.innerHTML = self.options.up.contentdown;
                     }
                 }
@@ -5402,18 +5402,18 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
             },
             disablePulldownToRefresh: function() {
                 var webview = plus.webview.currentWebview();
-                if (this.options.down.style && this.options.down.style == 'circle') { // 单webview模式禁止原生下拉刷新
+                if (this.options.down.style && this.options.down.style == "circle") { // 单webview模式禁止原生下拉刷新
                     this.options.webview.setPullToRefresh({
                         support: false,
-                        style: 'circle'
+                        style: "circle"
                     });
                 } else { // 双webview模式禁止下拉刷新
                     webview.setStyle({
-                        bounce: 'none'
+                        bounce: "none"
                     });
                     webview.setBounce({
                         position: {
-                            top: 'none'
+                            top: "none"
                         }
                     });
                 }
@@ -5423,40 +5423,40 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
                     webview = plus.webview.currentWebview(),
                     height = this.options.down.height;
                 // 单webview模式禁止原生下拉刷新
-                if (this.options.down.style && this.options.down.style == 'circle') {
+                if (this.options.down.style && this.options.down.style == "circle") {
                     webview.setPullToRefresh({
                         support: true,
-                        height: height || '50px',
-                        range: self.options.down.range || '100px',
-                        style: 'circle',
-                        offset: self.options.down.offset || '0px'
+                        height: height || "50px",
+                        range: self.options.down.range || "100px",
+                        style: "circle",
+                        offset: self.options.down.offset || "0px"
                     });
                 } else { // 重新初始化双webview模式下拉刷新
                     webview.setStyle({
-                        bounce: 'vertical'
+                        bounce: "vertical"
                     });
                     webview.setBounce({
                         position: {
-                            top: height * 2 + 'px'
+                            top: height * 2 + "px"
                         },
                         changeoffset: {
-                            top: height + 'px'
+                            top: height + "px"
                         }
                     });
                 }
             },
             disablePullupToRefresh: function() {
                 this._initPullupRefresh();
-                this.bottomPocket.className = 'mui-pull-bottom-pocket' + ' ' + CLASS_HIDDEN;
-                window.removeEventListener('dragup', this);
+                this.bottomPocket.className = "mui-pull-bottom-pocket" + " " + CLASS_HIDDEN;
+                window.removeEventListener("dragup", this);
             },
             enablePullupToRefresh: function() {
                 this._initPullupRefresh();
                 this.bottomPocket.classList.remove(CLASS_HIDDEN);
-                this.pullCaption.className = CLASS_PULL_CAPTION + ' ' + CLASS_PULL_CAPTION_DOWN;
+                this.pullCaption.className = CLASS_PULL_CAPTION + " " + CLASS_PULL_CAPTION_DOWN;
                 this.pullCaption.innerHTML = this.options.up.contentdown;
                 document.addEventListener("plusscrollbottom", this);
-                window.addEventListener('dragup', this);
+                window.addEventListener("dragup", this);
             },
             scrollTo: function(x, y, time) {
                 $.scrollTo(y, time);
@@ -5476,8 +5476,8 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
         $.fn.pullRefresh_native = function(options) {
             var self;
             if (this.length === 0) {
-                self = document.createElement('div');
-                self.className = 'mui-content';
+                self = document.createElement("div");
+                self.className = "mui-content";
                 document.body.appendChild(self);
             } else {
                 self = this[0];
@@ -5485,19 +5485,19 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
             var args = options;
             //一个父需要支持多个子下拉刷新
             options = options || {}
-            if (typeof options === 'string') {
+            if (typeof options === "string") {
                 options = $.parseJSON(options);
             };
             !options.webviewId && (options.webviewId = (plus.webview.currentWebview().id || plus.webview.currentWebview().getURL()));
             var pullRefreshApi = null;
             var attrWebviewId = options.webviewId && options.webviewId.replace(/\//g, "_"); //替换所有"/"
-            var id = self.getAttribute('data-pullrefresh-plus-' + attrWebviewId);
-            if (!id && typeof args === 'undefined') {
+            var id = self.getAttribute("data-pullrefresh-plus-" + attrWebviewId);
+            if (!id && typeof args === "undefined") {
                 return false;
             }
             if (!id) { //避免重复初始化5+ pullrefresh
                 id = ++$.uuid;
-                self.setAttribute('data-pullrefresh-plus-' + attrWebviewId, id);
+                self.setAttribute("data-pullrefresh-plus-" + attrWebviewId, id);
                 document.body.classList.add(CLASS_PLUS_PULLREFRESH);
                 $.data[id] = pullRefreshApi = new PlusPullRefresh(self, options);
             } else {
@@ -5523,18 +5523,18 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
  * @returns {undefined}
  */
 (function($, window, document, name) {
-	var CLASS_OFF_CANVAS_LEFT = 'mui-off-canvas-left';
-	var CLASS_OFF_CANVAS_RIGHT = 'mui-off-canvas-right';
-	var CLASS_ACTION_BACKDROP = 'mui-off-canvas-backdrop';
-	var CLASS_OFF_CANVAS_WRAP = 'mui-off-canvas-wrap';
+	var CLASS_OFF_CANVAS_LEFT = "mui-off-canvas-left";
+	var CLASS_OFF_CANVAS_RIGHT = "mui-off-canvas-right";
+	var CLASS_ACTION_BACKDROP = "mui-off-canvas-backdrop";
+	var CLASS_OFF_CANVAS_WRAP = "mui-off-canvas-wrap";
 
-	var CLASS_SLIDE_IN = 'mui-slide-in';
-	var CLASS_ACTIVE = 'mui-active';
+	var CLASS_SLIDE_IN = "mui-slide-in";
+	var CLASS_ACTIVE = "mui-active";
 
 
-	var CLASS_TRANSITIONING = 'mui-transitioning';
+	var CLASS_TRANSITIONING = "mui-transitioning";
 
-	var SELECTOR_INNER_WRAP = '.mui-inner-wrap';
+	var SELECTOR_INNER_WRAP = ".mui-inner-wrap";
 
 
 	var OffCanvas = $.Class.extend({
@@ -5551,7 +5551,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 						tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT|VIDEO)$/
 					},
 				}, options);
-				document.body.classList.add('mui-fullscreen'); //fullscreen
+				document.body.classList.add("mui-fullscreen"); //fullscreen
 				this.refresh();
 				this.initEvent();
 			}
@@ -5567,12 +5567,12 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		refresh: function(offCanvas) {
 			//			offCanvas && !offCanvas.classList.contains(CLASS_ACTIVE) && this.classList.remove(CLASS_ACTIVE);
 			this.slideIn = this.classList.contains(CLASS_SLIDE_IN);
-			this.scalable = this.classList.contains('mui-scalable') && !this.slideIn;
+			this.scalable = this.classList.contains("mui-scalable") && !this.slideIn;
 			this.scroller = this.wrapper.querySelector(SELECTOR_INNER_WRAP);
 			//			!offCanvas && this.scroller.classList.remove(CLASS_TRANSITIONING);
-			//			!offCanvas && this.scroller.setAttribute('style', '');
-			this.offCanvasLefts = this.wrapper.querySelectorAll('.' + CLASS_OFF_CANVAS_LEFT);
-			this.offCanvasRights = this.wrapper.querySelectorAll('.' + CLASS_OFF_CANVAS_RIGHT);
+			//			!offCanvas && this.scroller.setAttribute("style", "");
+			this.offCanvasLefts = this.wrapper.querySelectorAll("." + CLASS_OFF_CANVAS_LEFT);
+			this.offCanvasRights = this.wrapper.querySelectorAll("." + CLASS_OFF_CANVAS_RIGHT);
 			if (offCanvas) {
 				if (offCanvas.classList.contains(CLASS_OFF_CANVAS_LEFT)) {
 					this.offCanvasLeft = offCanvas;
@@ -5580,8 +5580,8 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 					this.offCanvasRight = offCanvas;
 				}
 			} else {
-				this.offCanvasRight = this.wrapper.querySelector('.' + CLASS_OFF_CANVAS_RIGHT);
-				this.offCanvasLeft = this.wrapper.querySelector('.' + CLASS_OFF_CANVAS_LEFT);
+				this.offCanvasRight = this.wrapper.querySelector("." + CLASS_OFF_CANVAS_RIGHT);
+				this.offCanvasLeft = this.wrapper.querySelector("." + CLASS_OFF_CANVAS_LEFT);
 			}
 			this.offCanvasRightWidth = this.offCanvasLeftWidth = 0;
 			this.offCanvasLeftSlideIn = this.offCanvasRightSlideIn = false;
@@ -5590,16 +5590,16 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				this.offCanvasRightSlideIn = this.slideIn && (this.offCanvasRight.parentNode === this.wrapper);
 				//				this.offCanvasRight.classList.remove(CLASS_TRANSITIONING);
 				//				this.offCanvasRight.classList.remove(CLASS_ACTIVE);
-				//				this.offCanvasRight.setAttribute('style', '');
+				//				this.offCanvasRight.setAttribute("style", "");
 			}
 			if (this.offCanvasLeft) {
 				this.offCanvasLeftWidth = this.offCanvasLeft.offsetWidth;
 				this.offCanvasLeftSlideIn = this.slideIn && (this.offCanvasLeft.parentNode === this.wrapper);
 				//				this.offCanvasLeft.classList.remove(CLASS_TRANSITIONING);
 				//				this.offCanvasLeft.classList.remove(CLASS_ACTIVE);
-				//				this.offCanvasLeft.setAttribute('style', '');
+				//				this.offCanvasLeft.setAttribute("style", "");
 			}
-			this.backdrop = this.scroller.querySelector('.' + CLASS_ACTION_BACKDROP);
+			this.backdrop = this.scroller.querySelector("." + CLASS_ACTION_BACKDROP);
 
 			this.options.dragThresholdX = this.options.dragThresholdX || 10;
 
@@ -5614,12 +5614,12 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				case $.EVENT_START:
 					e.target && !this._preventDefaultException(e.target, this.options.preventDefaultException) && e.preventDefault();
 					break;
-				case 'webkitTransitionEnd': //有个bug需要处理，需要考虑假设没有触发webkitTransitionEnd的情况
+				case "webkitTransitionEnd": //有个bug需要处理，需要考虑假设没有触发webkitTransitionEnd的情况
 					if (e.target === this.scroller) {
 						this._dispatchEvent();
 					}
 					break;
-				case 'drag':
+				case "drag":
 					var detail = e.detail;
 					if (!this.startX) {
 						this.startX = detail.center.x;
@@ -5627,7 +5627,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 					} else {
 						this.lastX = detail.center.x;
 					}
-					if (!this.isDragging && Math.abs(this.lastX - this.startX) > this.options.dragThresholdX && (detail.direction === 'left' || (detail.direction === 'right'))) {
+					if (!this.isDragging && Math.abs(this.lastX - this.startX) > this.options.dragThresholdX && (detail.direction === "left" || (detail.direction === "right"))) {
 						if (this.slideIn) {
 							this.scroller = this.wrapper.querySelector(SELECTOR_INNER_WRAP);
 							if (this.classList.contains(CLASS_ACTIVE)) {
@@ -5639,10 +5639,10 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 									this.offCanvasWidth = this.offCanvasLeftWidth;
 								}
 							} else {
-								if (detail.direction === 'left' && this.offCanvasRight) {
+								if (detail.direction === "left" && this.offCanvasRight) {
 									this.offCanvas = this.offCanvasRight;
 									this.offCanvasWidth = this.offCanvasRightWidth;
-								} else if (detail.direction === 'right' && this.offCanvasLeft) {
+								} else if (detail.direction === "right" && this.offCanvasLeft) {
 									this.offCanvas = this.offCanvasLeft;
 									this.offCanvasWidth = this.offCanvasLeftWidth;
 								} else {
@@ -5651,7 +5651,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 							}
 						} else {
 							if (this.classList.contains(CLASS_ACTIVE)) {
-								if (detail.direction === 'left') {
+								if (detail.direction === "left") {
 									this.offCanvas = this.offCanvasLeft;
 									this.offCanvasWidth = this.offCanvasLeftWidth;
 								} else {
@@ -5659,7 +5659,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 									this.offCanvasWidth = this.offCanvasRightWidth;
 								}
 							} else {
-								if (detail.direction === 'right') {
+								if (detail.direction === "right") {
 									this.offCanvas = this.offCanvasLeft;
 									this.offCanvasWidth = this.offCanvasLeftWidth;
 								} else {
@@ -5687,7 +5687,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 						e.stopPropagation();
 					}
 					break;
-				case 'dragend':
+				case "dragend":
 					if (this.isDragging) {
 						var detail = e.detail;
 						var direction = detail.direction;
@@ -5707,21 +5707,21 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 								this._dispatchEvent(); //此处不触发webkitTransitionEnd,所以手动dispatch
 								return;
 							}
-							if (direction === 'right' && ratio >= 0 && (ratio >= 0.5 || detail.swipe)) { //右滑打开
+							if (direction === "right" && ratio >= 0 && (ratio >= 0.5 || detail.swipe)) { //右滑打开
 								this.openPercentage(100);
-							} else if (direction === 'right' && ratio < 0 && (ratio > -0.5 || detail.swipe)) { //右滑关闭
+							} else if (direction === "right" && ratio < 0 && (ratio > -0.5 || detail.swipe)) { //右滑关闭
 								this.openPercentage(0);
-							} else if (direction === 'right' && ratio > 0 && ratio < 0.5) { //右滑还原关闭
+							} else if (direction === "right" && ratio > 0 && ratio < 0.5) { //右滑还原关闭
 								this.openPercentage(0);
-							} else if (direction === 'right' && ratio < 0.5) { //右滑还原打开
+							} else if (direction === "right" && ratio < 0.5) { //右滑还原打开
 								this.openPercentage(-100);
-							} else if (direction === 'left' && ratio <= 0 && (ratio <= -0.5 || detail.swipe)) { //左滑打开
+							} else if (direction === "left" && ratio <= 0 && (ratio <= -0.5 || detail.swipe)) { //左滑打开
 								this.openPercentage(-100);
-							} else if (direction === 'left' && ratio > 0 && (ratio <= 0.5 || detail.swipe)) { //左滑关闭
+							} else if (direction === "left" && ratio > 0 && (ratio <= 0.5 || detail.swipe)) { //左滑关闭
 								this.openPercentage(0);
-							} else if (direction === 'left' && ratio < 0 && ratio >= -0.5) { //左滑还原关闭
+							} else if (direction === "left" && ratio < 0 && ratio >= -0.5) { //左滑还原关闭
 								this.openPercentage(0);
-							} else if (direction === 'left' && ratio > 0.5) { //左滑还原打开
+							} else if (direction === "left" && ratio > 0.5) { //左滑还原打开
 								this.openPercentage(100);
 							} else { //默认关闭
 								this.openPercentage(0);
@@ -5735,21 +5735,21 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 							} else {
 								ratio = (this.offCanvasLeftWidth && (x / this.offCanvasLeftWidth)) || 0;
 							}
-							if (direction === 'right' && ratio <= 0 && (ratio >= -0.5 || detail.swipe)) { //右滑打开
+							if (direction === "right" && ratio <= 0 && (ratio >= -0.5 || detail.swipe)) { //右滑打开
 								this.openPercentage(100);
-							} else if (direction === 'right' && ratio > 0 && (ratio >= 0.5 || detail.swipe)) { //右滑关闭
+							} else if (direction === "right" && ratio > 0 && (ratio >= 0.5 || detail.swipe)) { //右滑关闭
 								this.openPercentage(0);
-							} else if (direction === 'right' && ratio <= -0.5) { //右滑还原关闭
+							} else if (direction === "right" && ratio <= -0.5) { //右滑还原关闭
 								this.openPercentage(0);
-							} else if (direction === 'right' && ratio > 0 && ratio <= 0.5) { //右滑还原打开
+							} else if (direction === "right" && ratio > 0 && ratio <= 0.5) { //右滑还原打开
 								this.openPercentage(-100);
-							} else if (direction === 'left' && ratio >= 0 && (ratio <= 0.5 || detail.swipe)) { //左滑打开
+							} else if (direction === "left" && ratio >= 0 && (ratio <= 0.5 || detail.swipe)) { //左滑打开
 								this.openPercentage(-100);
-							} else if (direction === 'left' && ratio < 0 && (ratio <= -0.5 || detail.swipe)) { //左滑关闭
+							} else if (direction === "left" && ratio < 0 && (ratio <= -0.5 || detail.swipe)) { //左滑关闭
 								this.openPercentage(0);
-							} else if (direction === 'left' && ratio >= 0.5) { //左滑还原关闭
+							} else if (direction === "left" && ratio >= 0.5) { //左滑还原关闭
 								this.openPercentage(0);
-							} else if (direction === 'left' && ratio >= -0.5 && ratio < 0) { //左滑还原打开
+							} else if (direction === "left" && ratio >= -0.5 && ratio < 0) { //左滑还原打开
 								this.openPercentage(100);
 							} else {
 								this.openPercentage(0);
@@ -5766,59 +5766,59 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		},
 		_dispatchEvent: function() {
 			if (this.classList.contains(CLASS_ACTIVE)) {
-				$.trigger(this.wrapper, 'shown', this);
+				$.trigger(this.wrapper, "shown", this);
 			} else {
-				$.trigger(this.wrapper, 'hidden', this);
+				$.trigger(this.wrapper, "hidden", this);
 			}
 		},
 		_initOffCanvasVisible: function() {
 			if (!this.visible) {
 				this.visible = true;
 				if (this.offCanvasLeft) {
-					this.offCanvasLeft.style.visibility = 'visible';
+					this.offCanvasLeft.style.visibility = "visible";
 				}
 				if (this.offCanvasRight) {
-					this.offCanvasRight.style.visibility = 'visible';
+					this.offCanvasRight.style.visibility = "visible";
 				}
 			}
 		},
 		initEvent: function() {
 			var self = this;
 			if (self.backdrop) {
-				self.backdrop.addEventListener('tap', function(e) {
+				self.backdrop.addEventListener("tap", function(e) {
 					self.close();
 					e.detail.gesture.preventDefault();
 				});
 			}
-			if (this.classList.contains('mui-draggable')) {
+			if (this.classList.contains("mui-draggable")) {
 				this.wrapper.addEventListener($.EVENT_START, this); //临时处理
-				this.wrapper.addEventListener('drag', this);
-				this.wrapper.addEventListener('dragend', this);
+				this.wrapper.addEventListener("drag", this);
+				this.wrapper.addEventListener("dragend", this);
 			}
-			this.wrapper.addEventListener('webkitTransitionEnd', this);
+			this.wrapper.addEventListener("webkitTransitionEnd", this);
 		},
 		openPercentage: function(percentage) {
 			var p = percentage / 100;
 			if (!this.slideIn) {
 				if (this.offCanvasLeft && percentage >= 0) {
 					this.updateTranslate(this.offCanvasLeftWidth * p);
-					this.offCanvasLeft.classList[p !== 0 ? 'add' : 'remove'](CLASS_ACTIVE);
+					this.offCanvasLeft.classList[p !== 0 ? "add" : "remove"](CLASS_ACTIVE);
 				} else if (this.offCanvasRight && percentage <= 0) {
 					this.updateTranslate(this.offCanvasRightWidth * p);
-					this.offCanvasRight.classList[p !== 0 ? 'add' : 'remove'](CLASS_ACTIVE);
+					this.offCanvasRight.classList[p !== 0 ? "add" : "remove"](CLASS_ACTIVE);
 				}
-				this.classList[p !== 0 ? 'add' : 'remove'](CLASS_ACTIVE);
+				this.classList[p !== 0 ? "add" : "remove"](CLASS_ACTIVE);
 			} else {
 				if (this.offCanvasLeft && percentage >= 0) {
 					p = p === 0 ? -1 : 0;
 					this.updateTranslate(this.offCanvasLeftWidth * p);
-					this.offCanvasLeft.classList[percentage !== 0 ? 'add' : 'remove'](CLASS_ACTIVE);
+					this.offCanvasLeft.classList[percentage !== 0 ? "add" : "remove"](CLASS_ACTIVE);
 				} else if (this.offCanvasRight && percentage <= 0) {
 					p = p === 0 ? 1 : 0;
 					this.updateTranslate(this.offCanvasRightWidth * p);
-					this.offCanvasRight.classList[percentage !== 0 ? 'add' : 'remove'](CLASS_ACTIVE);
+					this.offCanvasRight.classList[percentage !== 0 ? "add" : "remove"](CLASS_ACTIVE);
 				}
-				this.classList[percentage !== 0 ? 'add' : 'remove'](CLASS_ACTIVE);
+				this.classList[percentage !== 0 ? "add" : "remove"](CLASS_ACTIVE);
 			}
 		},
 		updateTranslate: function(x) {
@@ -5904,20 +5904,20 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 					var zoomOutOpacity = 1 - (1 - this.options.opacity) * percent;
 					var zoomInOpacity = this.options.opacity + (1 - this.options.opacity) * percent;
 					if (this.offCanvas.classList.contains(CLASS_OFF_CANVAS_LEFT)) {
-						this.offCanvas.style.webkitTransformOrigin = '-100%';
-						this.scroller.style.webkitTransformOrigin = 'left';
+						this.offCanvas.style.webkitTransformOrigin = "-100%";
+						this.scroller.style.webkitTransformOrigin = "left";
 					} else {
-						this.offCanvas.style.webkitTransformOrigin = '200%';
-						this.scroller.style.webkitTransformOrigin = 'right';
+						this.offCanvas.style.webkitTransformOrigin = "200%";
+						this.scroller.style.webkitTransformOrigin = "right";
 					}
 					this.offCanvas.style.opacity = zoomInOpacity;
-					this.offCanvas.style.webkitTransform = 'translate3d(0,0,0) scale(' + zoomInScale + ')';
-					this.scroller.style.webkitTransform = 'translate3d(' + x + 'px,0,0) scale(' + zoomOutScale + ')';
+					this.offCanvas.style.webkitTransform = "translate3d(0,0,0) scale(" + zoomInScale + ")";
+					this.scroller.style.webkitTransform = "translate3d(" + x + "px,0,0) scale(" + zoomOutScale + ")";
 				} else {
 					if (this.slideIn) {
-						this.offCanvas.style.webkitTransform = 'translate3d(' + x + 'px,0,0)';
+						this.offCanvas.style.webkitTransform = "translate3d(" + x + "px,0,0)";
 					} else {
-						this.scroller.style.webkitTransform = 'translate3d(' + x + 'px,0,0)';
+						this.scroller.style.webkitTransform = "translate3d(" + x + "px,0,0)";
 					}
 				}
 			}
@@ -5925,7 +5925,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		getTranslateX: function() {
 			if (this.offCanvas) {
 				var scroller = this.slideIn ? this.offCanvas : this.scroller;
-				var result = $.parseTranslateMatrix($.getStyles(scroller, 'webkitTransform'));
+				var result = $.parseTranslateMatrix($.getStyles(scroller, "webkitTransform"));
 				return (result && result.x) || 0;
 			}
 			return 0;
@@ -5934,27 +5934,27 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			var shown = false;
 			if (!this.slideIn) {
 				var x = this.getTranslateX();
-				if (direction === 'right') {
+				if (direction === "right") {
 					shown = this.classList.contains(CLASS_ACTIVE) && x < 0;
-				} else if (direction === 'left') {
+				} else if (direction === "left") {
 					shown = this.classList.contains(CLASS_ACTIVE) && x > 0;
 				} else {
 					shown = this.classList.contains(CLASS_ACTIVE) && x !== 0;
 				}
 			} else {
-				if (direction === 'left') {
-					shown = this.classList.contains(CLASS_ACTIVE) && this.wrapper.querySelector('.' + CLASS_OFF_CANVAS_LEFT + '.' + CLASS_ACTIVE);
-				} else if (direction === 'right') {
-					shown = this.classList.contains(CLASS_ACTIVE) && this.wrapper.querySelector('.' + CLASS_OFF_CANVAS_RIGHT + '.' + CLASS_ACTIVE);
+				if (direction === "left") {
+					shown = this.classList.contains(CLASS_ACTIVE) && this.wrapper.querySelector("." + CLASS_OFF_CANVAS_LEFT + "." + CLASS_ACTIVE);
+				} else if (direction === "right") {
+					shown = this.classList.contains(CLASS_ACTIVE) && this.wrapper.querySelector("." + CLASS_OFF_CANVAS_RIGHT + "." + CLASS_ACTIVE);
 				} else {
-					shown = this.classList.contains(CLASS_ACTIVE) && (this.wrapper.querySelector('.' + CLASS_OFF_CANVAS_LEFT + '.' + CLASS_ACTIVE) || this.wrapper.querySelector('.' + CLASS_OFF_CANVAS_RIGHT + '.' + CLASS_ACTIVE));
+					shown = this.classList.contains(CLASS_ACTIVE) && (this.wrapper.querySelector("." + CLASS_OFF_CANVAS_LEFT + "." + CLASS_ACTIVE) || this.wrapper.querySelector("." + CLASS_OFF_CANVAS_RIGHT + "." + CLASS_ACTIVE));
 				}
 			}
 			return shown;
 		},
 		close: function() {
 			this._initOffCanvasVisible();
-			this.offCanvas = this.wrapper.querySelector('.' + CLASS_OFF_CANVAS_RIGHT + '.' + CLASS_ACTIVE) || this.wrapper.querySelector('.' + CLASS_OFF_CANVAS_LEFT + '.' + CLASS_ACTIVE);
+			this.offCanvas = this.wrapper.querySelector("." + CLASS_OFF_CANVAS_RIGHT + "." + CLASS_ACTIVE) || this.wrapper.querySelector("." + CLASS_OFF_CANVAS_LEFT + "." + CLASS_ACTIVE);
 			this.offCanvasWidth = this.offCanvas.offsetWidth;
 			if (this.scroller) {
 				this.offCanvas.offsetHeight;
@@ -5969,9 +5969,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				return false;
 			}
 			if (!direction) {
-				direction = this.wrapper.querySelector('.' + CLASS_OFF_CANVAS_RIGHT) ? 'right' : 'left';
+				direction = this.wrapper.querySelector("." + CLASS_OFF_CANVAS_RIGHT) ? "right" : "left";
 			}
-			if (direction === 'right') {
+			if (direction === "right") {
 				this.offCanvas = this.offCanvasRight;
 				this.offCanvasWidth = this.offCanvasRightWidth;
 			} else {
@@ -5982,14 +5982,14 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				this.offCanvas.offsetHeight;
 				this.offCanvas.classList.add(CLASS_TRANSITIONING);
 				this.scroller.classList.add(CLASS_TRANSITIONING);
-				this.openPercentage(direction === 'left' ? 100 : -100);
+				this.openPercentage(direction === "left" ? 100 : -100);
 			}
 			return true;
 		},
 		toggle: function(directionOrOffCanvas) {
 			var direction = directionOrOffCanvas;
 			if (directionOrOffCanvas && directionOrOffCanvas.classList) {
-				direction = directionOrOffCanvas.classList.contains(CLASS_OFF_CANVAS_LEFT) ? 'left' : 'right';
+				direction = directionOrOffCanvas.classList.contains(CLASS_OFF_CANVAS_LEFT) ? "left" : "right";
 				this.refresh(directionOrOffCanvas);
 			}
 			if (!this.show(direction)) {
@@ -6013,8 +6013,8 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		}
 	};
 	var handle = function(event, target) {
-		if (target.tagName === 'A' && target.hash) {
-			var offcanvas = document.getElementById(target.hash.replace('#', ''));
+		if (target.tagName === "A" && target.hash) {
+			var offcanvas = document.getElementById(target.hash.replace("#", ""));
 			if (offcanvas) {
 				var container = findOffCanvasContainer(offcanvas);
 				if (container) {
@@ -6035,14 +6035,14 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		isContinue: true
 	});
 
-	window.addEventListener('tap', function(e) {
+	window.addEventListener("tap", function(e) {
 		if (!$.targets.offcanvas) {
 			return;
 		}
 		//TODO 此处类型的代码后续考虑统一优化(target机制)，现在的实现费力不讨好
 		var target = e.target;
 		for (; target && target !== document; target = target.parentNode) {
-			if (target.tagName === 'A' && target.hash && target.hash === ('#' + $.targets.offcanvas.id)) {
+			if (target.tagName === "A" && target.hash && target.hash === ("#" + $.targets.offcanvas.id)) {
 				e.detail && e.detail.gesture && e.detail.gesture.preventDefault(); //fixed hashchange
 				$($.targets._container).offCanvas().toggle($.targets.offcanvas);
 				$.targets.offcanvas = $.targets._container = null;
@@ -6060,15 +6060,15 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			if (!self.classList.contains(CLASS_OFF_CANVAS_WRAP)) {
 				self = findOffCanvasContainer(self);
 			}
-			var id = self.getAttribute('data-offCanvas');
+			var id = self.getAttribute("data-offCanvas");
 			if (!id) {
 				id = ++$.uuid;
 				$.data[id] = offCanvasApi = new OffCanvas(self, options);
-				self.setAttribute('data-offCanvas', id);
+				self.setAttribute("data-offCanvas", id);
 			} else {
 				offCanvasApi = $.data[id];
 			}
-			if (options === 'show' || options === 'close' || options === 'toggle') {
+			if (options === "show" || options === "close" || options === "toggle") {
 				offCanvasApi.toggle();
 			}
 			offCanvasApis.push(offCanvasApi);
@@ -6076,9 +6076,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		return offCanvasApis.length === 1 ? offCanvasApis[0] : offCanvasApis;
 	};
 	$.ready(function() {
-		$('.mui-off-canvas-wrap').offCanvas();
+		$(".mui-off-canvas-wrap").offCanvas();
 	});
-})(mui, window, document, 'offcanvas');
+})(mui, window, document, "offcanvas");
 /**
  * actions
  * @param {type} $
@@ -6086,15 +6086,15 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
  * @returns {undefined}
  */
 (function($, name) {
-	var CLASS_ACTION = 'mui-action';
+	var CLASS_ACTION = "mui-action";
 
 	var handle = function(event, target) {
-		var className = target.className || '';
-		if (typeof className !== 'string') { //svg className(SVGAnimatedString)
-			className = '';
+		var className = target.className || "";
+		if (typeof className !== "string") { //svg className(SVGAnimatedString)
+			className = "";
 		}
 		if (className && ~className.indexOf(CLASS_ACTION)) {
-			if (target.classList.contains('mui-action-back')) {
+			if (target.classList.contains("mui-action-back")) {
 				event.preventDefault();
 			}
 			return target;
@@ -6110,7 +6110,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		isContinue: true
 	});
 
-})(mui, 'action');
+})(mui, "action");
 /**
  * Modals
  * @param {type} $
@@ -6120,11 +6120,11 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
  * @returns {undefined}
  */
 (function($, window, document, name) {
-	var CLASS_MODAL = 'mui-modal';
+	var CLASS_MODAL = "mui-modal";
 
 	var handle = function(event, target) {
-		if (target.tagName === 'A' && target.hash) {
-			var modal = document.getElementById(target.hash.replace('#', ''));
+		if (target.tagName === "A" && target.hash) {
+			var modal = document.getElementById(target.hash.replace("#", ""));
 			if (modal && modal.classList.contains(CLASS_MODAL)) {
 				return modal;
 			}
@@ -6141,13 +6141,13 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		isContinue: true
 	});
 
-	window.addEventListener('tap', function(event) {
+	window.addEventListener("tap", function(event) {
 		if ($.targets.modal) {
 			event.detail.gesture.preventDefault(); //fixed hashchange
-			$.targets.modal.classList.toggle('mui-active');
+			$.targets.modal.classList.toggle("mui-active");
 		}
 	});
-})(mui, window, document, 'modal');
+})(mui, window, document, "modal");
 /**
  * Popovers
  * @param {type} $
@@ -6159,21 +6159,21 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
  */
 (function($, window, document, name) {
 
-	var CLASS_POPOVER = 'mui-popover';
-	var CLASS_POPOVER_ARROW = 'mui-popover-arrow';
-	var CLASS_ACTION_POPOVER = 'mui-popover-action';
-	var CLASS_BACKDROP = 'mui-backdrop';
-	var CLASS_BAR_POPOVER = 'mui-bar-popover';
-	var CLASS_BAR_BACKDROP = 'mui-bar-backdrop';
-	var CLASS_ACTION_BACKDROP = 'mui-backdrop-action';
-	var CLASS_ACTIVE = 'mui-active';
-	var CLASS_BOTTOM = 'mui-bottom';
+	var CLASS_POPOVER = "mui-popover";
+	var CLASS_POPOVER_ARROW = "mui-popover-arrow";
+	var CLASS_ACTION_POPOVER = "mui-popover-action";
+	var CLASS_BACKDROP = "mui-backdrop";
+	var CLASS_BAR_POPOVER = "mui-bar-popover";
+	var CLASS_BAR_BACKDROP = "mui-bar-backdrop";
+	var CLASS_ACTION_BACKDROP = "mui-backdrop-action";
+	var CLASS_ACTIVE = "mui-active";
+	var CLASS_BOTTOM = "mui-bottom";
 
 
 
 	var handle = function(event, target) {
-		if (target.tagName === 'A' && target.hash) {
-			$.targets._popover = document.getElementById(target.hash.replace('#', ''));
+		if (target.tagName === "A" && target.hash) {
+			$.targets._popover = document.getElementById(target.hash.replace("#", ""));
 			if ($.targets._popover && $.targets._popover.classList.contains(CLASS_POPOVER)) {
 				return target;
 			} else {
@@ -6193,25 +6193,25 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	});
 
 	var onPopoverShown = function(e) {
-		this.removeEventListener('webkitTransitionEnd', onPopoverShown);
+		this.removeEventListener("webkitTransitionEnd", onPopoverShown);
 		this.addEventListener($.EVENT_MOVE, $.preventDefault);
-		$.trigger(this, 'shown', this);
+		$.trigger(this, "shown", this);
 	}
 	var onPopoverHidden = function(e) {
-		setStyle(this, 'none');
-		this.removeEventListener('webkitTransitionEnd', onPopoverHidden);
+		setStyle(this, "none");
+		this.removeEventListener("webkitTransitionEnd", onPopoverHidden);
 		this.removeEventListener($.EVENT_MOVE, $.preventDefault);
-		$.trigger(this, 'hidden', this);
+		$.trigger(this, "hidden", this);
 	};
 
 	var backdrop = (function() {
-		var element = document.createElement('div');
+		var element = document.createElement("div");
 		element.classList.add(CLASS_BACKDROP);
 		element.addEventListener($.EVENT_MOVE, $.preventDefault);
-		element.addEventListener('tap', function(e) {
+		element.addEventListener("tap", function(e) {
 			var popover = $.targets._popover;
 			if (popover) {
-				popover.addEventListener('webkitTransitionEnd', onPopoverHidden);
+				popover.addEventListener("webkitTransitionEnd", onPopoverHidden);
 				popover.classList.remove(CLASS_ACTIVE);
 				removeBackdrop(popover);
 			}
@@ -6221,7 +6221,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	}());
 	var removeBackdropTimer;
 	var removeBackdrop = function(popover) {
-		backdrop.setAttribute('style', 'opacity:0');
+		backdrop.setAttribute("style", "opacity:0");
 		$.targets.popover = $.targets._popover = null; //reset
 		removeBackdropTimer = $.later(function() {
 			if (!popover.classList.contains(CLASS_ACTIVE) && backdrop.parentNode && backdrop.parentNode === document.body) {
@@ -6229,7 +6229,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			}
 		}, 350);
 	};
-	window.addEventListener('tap', function(e) {
+	window.addEventListener("tap", function(e) {
 		if (!$.targets.popover) {
 			return;
 		}
@@ -6248,21 +6248,21 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	});
 
 	var togglePopover = function(popover, anchor, state) {
-		if ((state === 'show' && popover.classList.contains(CLASS_ACTIVE)) || (state === 'hide' && !popover.classList.contains(CLASS_ACTIVE))) {
+		if ((state === "show" && popover.classList.contains(CLASS_ACTIVE)) || (state === "hide" && !popover.classList.contains(CLASS_ACTIVE))) {
 			return;
 		}
 		removeBackdropTimer && removeBackdropTimer.cancel(); //取消remove的timer
 		//remove一遍，以免来回快速切换，导致webkitTransitionEnd不触发，无法remove
-		popover.removeEventListener('webkitTransitionEnd', onPopoverShown);
-		popover.removeEventListener('webkitTransitionEnd', onPopoverHidden);
+		popover.removeEventListener("webkitTransitionEnd", onPopoverShown);
+		popover.removeEventListener("webkitTransitionEnd", onPopoverHidden);
 		backdrop.classList.remove(CLASS_BAR_BACKDROP);
 		backdrop.classList.remove(CLASS_ACTION_BACKDROP);
-		var _popover = document.querySelector('.mui-popover.mui-active');
+		var _popover = document.querySelector(".mui-popover.mui-active");
 		if (_popover) {
-			//			_popover.setAttribute('style', '');
-			_popover.addEventListener('webkitTransitionEnd', onPopoverHidden);
+			//			_popover.setAttribute("style", "");
+			_popover.addEventListener("webkitTransitionEnd", onPopoverHidden);
 			_popover.classList.remove(CLASS_ACTIVE);
-			//			_popover.removeEventListener('webkitTransitionEnd', onPopoverHidden);
+			//			_popover.removeEventListener("webkitTransitionEnd", onPopoverHidden);
 			//同一个弹出则直接返回，解决同一个popover的toggle
 			if (popover === _popover) {
 				removeBackdrop(_popover);
@@ -6288,23 +6288,23 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				//				}
 			}
 		}
-		setStyle(popover, 'block'); //actionsheet transform
+		setStyle(popover, "block"); //actionsheet transform
 		popover.offsetHeight;
 		popover.classList.add(CLASS_ACTIVE);
-		backdrop.setAttribute('style', '');
+		backdrop.setAttribute("style", "");
 		document.body.appendChild(backdrop);
 		calPosition(popover, anchor, isActionSheet); //position
 		backdrop.classList.add(CLASS_ACTIVE);
-		popover.addEventListener('webkitTransitionEnd', onPopoverShown);
+		popover.addEventListener("webkitTransitionEnd", onPopoverShown);
 	};
 	var setStyle = function(popover, display, top, left) {
 		var style = popover.style;
-		if (typeof display !== 'undefined')
+		if (typeof display !== "undefined")
 			style.display = display;
-		if (typeof top !== 'undefined')
-			style.top = top + 'px';
-		if (typeof left !== 'undefined')
-			style.left = left + 'px';
+		if (typeof top !== "undefined")
+			style.top = top + "px";
+		if (typeof left !== "undefined")
+			style.left = left + "px";
 	};
 	var calPosition = function(popover, anchor, isActionSheet) {
 		if (!popover || !anchor) {
@@ -6312,7 +6312,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		}
 
 		if (isActionSheet) { //actionsheet
-			setStyle(popover, 'block')
+			setStyle(popover, "block")
 			return;
 		}
 
@@ -6326,9 +6326,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		var aHeight = anchor.offsetHeight;
 		var offset = $.offset(anchor);
 
-		var arrow = popover.querySelector('.' + CLASS_POPOVER_ARROW);
+		var arrow = popover.querySelector("." + CLASS_POPOVER_ARROW);
 		if (!arrow) {
-			arrow = document.createElement('div');
+			arrow = document.createElement("div");
 			arrow.className = CLASS_POPOVER_ARROW;
 			popover.appendChild(arrow);
 		}
@@ -6342,25 +6342,25 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		var arrowLeft = 0;
 		var defaultPadding = popover.classList.contains(CLASS_ACTION_POPOVER) ? 0 : 5;
 
-		var position = 'top';
+		var position = "top";
 		if ((pHeight + arrowSize) < (offset.top - window.pageYOffset)) { //top
 			pTop = offset.top - pHeight - arrowSize;
 		} else if ((pHeight + arrowSize) < (wHeight - (offset.top - window.pageYOffset) - aHeight)) { //bottom
-			position = 'bottom';
+			position = "bottom";
 			pTop = offset.top + aHeight + arrowSize;
 		} else { //middle
-			position = 'middle';
+			position = "middle";
 			pTop = Math.max((wHeight - pHeight) / 2 + window.pageYOffset, 0);
 			pLeft = Math.max((wWidth - pWidth) / 2 + window.pageXOffset, 0);
 		}
-		if (position === 'top' || position === 'bottom') {
+		if (position === "top" || position === "bottom") {
 			pLeft = aWidth / 2 + offset.left - pWidth / 2;
 			diff = pLeft;
 			if (pLeft < defaultPadding) pLeft = defaultPadding;
 			if (pLeft + pWidth > wWidth) pLeft = wWidth - pWidth - defaultPadding;
 
 			if (arrow) {
-				if (position === 'top') {
+				if (position === "top") {
 					arrow.classList.add(CLASS_BOTTOM);
 				} else {
 					arrow.classList.remove(CLASS_BOTTOM);
@@ -6368,33 +6368,33 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				diff = diff - pLeft;
 				arrowLeft = (pWidth / 2 - arrowSize / 2 + diff);
 				arrowLeft = Math.max(Math.min(arrowLeft, pWidth - arrowSize * 2 - 6), 6);
-				arrow.setAttribute('style', 'left:' + arrowLeft + 'px');
+				arrow.setAttribute("style", "left:" + arrowLeft + "px");
 			}
-		} else if (position === 'middle') {
-			arrow.setAttribute('style', 'display:none');
+		} else if (position === "middle") {
+			arrow.setAttribute("style", "display:none");
 		}
-		setStyle(popover, 'block', pTop, pLeft);
+		setStyle(popover, "block", pTop, pLeft);
 	};
 
 	$.createMask = function(callback) {
-		var element = document.createElement('div');
+		var element = document.createElement("div");
 		element.classList.add(CLASS_BACKDROP);
 		element.addEventListener($.EVENT_MOVE, $.preventDefault);
-		element.addEventListener('tap', function() {
+		element.addEventListener("tap", function() {
 			mask.close();
 		});
 		var mask = [element];
 		mask._show = false;
 		mask.show = function() {
 			mask._show = true;
-			element.setAttribute('style', 'opacity:1');
+			element.setAttribute("style", "opacity:1");
 			document.body.appendChild(element);
 			return mask;
 		};
 		mask._remove = function() {
 			if (mask._show) {
 				mask._show = false;
-				element.setAttribute('style', 'opacity:0');
+				element.setAttribute("style", "opacity:0");
 				$.later(function() {
 					var body = document.body;
 					element.parentNode === body && body.removeChild(element);
@@ -6417,13 +6417,13 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		var args = arguments;
 		this.each(function() {
 			$.targets._popover = this;
-			if (args[0] === 'show' || args[0] === 'hide' || args[0] === 'toggle') {
+			if (args[0] === "show" || args[0] === "hide" || args[0] === "toggle") {
 				togglePopover(this, args[1], args[0]);
 			}
 		});
 	};
 
-})(mui, window, document, 'popover');
+})(mui, window, document, "popover");
 /**
  * segmented-controllers
  * @param {type} $
@@ -6434,13 +6434,13 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
  */
 (function($, window, document, name, undefined) {
 
-    var CLASS_CONTROL_ITEM = 'mui-control-item';
-    var CLASS_SEGMENTED_CONTROL = 'mui-segmented-control';
-    var CLASS_SEGMENTED_CONTROL_VERTICAL = 'mui-segmented-control-vertical';
-    var CLASS_CONTROL_CONTENT = 'mui-control-content';
-    var CLASS_TAB_BAR = 'mui-bar-tab';
-    var CLASS_TAB_ITEM = 'mui-tab-item';
-    var CLASS_SLIDER_ITEM = 'mui-slider-item';
+    var CLASS_CONTROL_ITEM = "mui-control-item";
+    var CLASS_SEGMENTED_CONTROL = "mui-segmented-control";
+    var CLASS_SEGMENTED_CONTROL_VERTICAL = "mui-segmented-control-vertical";
+    var CLASS_CONTROL_CONTENT = "mui-control-content";
+    var CLASS_TAB_BAR = "mui-bar-tab";
+    var CLASS_TAB_ITEM = "mui-tab-item";
+    var CLASS_SLIDER_ITEM = "mui-slider-item";
 
    var handle = function(event, target) {
         if (target.classList && (target.classList.contains(CLASS_CONTROL_ITEM) || target.classList.contains(CLASS_TAB_ITEM))) {
@@ -6449,7 +6449,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
             } else {
 
                     event.preventDefault();      
-                    // if(target.tagName == 'A') {
+                    // if(target.tagName == "A") {
                     //     // fixed 底部选项卡href 无法跳转 && stop hash change
                     //     var curr_href = location.hostname + location.pathname,
                     //         target_href = target.hostname + target.pathname;
@@ -6476,7 +6476,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
         target: false
     });
 
-    window.addEventListener('tap', function(e) {
+    window.addEventListener("tap", function(e) {
 
         var targetTab = $.targets.tab;
         if (!targetTab) {
@@ -6485,16 +6485,16 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
         var activeTab;
         var activeBodies;
         var targetBody;
-        var className = 'mui-active';
-        var classSelector = '.' + className;
+        var className = "mui-active";
+        var classSelector = "." + className;
         var segmentedControl = targetTab.parentNode;
 
         for (; segmentedControl && segmentedControl !== document; segmentedControl = segmentedControl.parentNode) {
             if (segmentedControl.classList.contains(CLASS_SEGMENTED_CONTROL)) {
-                activeTab = segmentedControl.querySelector(classSelector + '.' + CLASS_CONTROL_ITEM);
+                activeTab = segmentedControl.querySelector(classSelector + "." + CLASS_CONTROL_ITEM);
                 break;
             } else if (segmentedControl.classList.contains(CLASS_TAB_BAR)) {
-                activeTab = segmentedControl.querySelector(classSelector + '.' + CLASS_TAB_ITEM);
+                activeTab = segmentedControl.querySelector(classSelector + "." + CLASS_TAB_ITEM);
             }
         }
 
@@ -6510,20 +6510,20 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
         if (!targetTab.hash) {
             return;
         }
-        targetBody = document.getElementById(targetTab.hash.replace('#', ''));
+        targetBody = document.getElementById(targetTab.hash.replace("#", ""));
 
         if (!targetBody) {
             return;
         }
         if (!targetBody.classList.contains(CLASS_CONTROL_CONTENT)) { //tab bar popover
-            targetTab.classList[isLastActive ? 'remove' : 'add'](className);
+            targetTab.classList[isLastActive ? "remove" : "add"](className);
             return;
         }
         if (isLastActive) { //same
             return;
         }
         var parentNode = targetBody.parentNode;
-        activeBodies = parentNode.querySelectorAll('.' + CLASS_CONTROL_CONTENT + classSelector);
+        activeBodies = parentNode.querySelectorAll("." + CLASS_CONTROL_CONTENT + classSelector);
         for (var i = 0; i < activeBodies.length; i++) {
             var activeBody = activeBodies[i];
             activeBody.parentNode === parentNode && activeBody.classList.remove(className);
@@ -6532,17 +6532,17 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
         targetBody.classList.add(className);
 
         var contents = [];
-        var _contents = parentNode.querySelectorAll('.' + CLASS_CONTROL_CONTENT);
+        var _contents = parentNode.querySelectorAll("." + CLASS_CONTROL_CONTENT);
         for (var i = 0; i < _contents.length; i++) { //查找直属子节点
             _contents[i].parentNode === parentNode && (contents.push(_contents[i]));
         }
-        $.trigger(targetBody, $.eventName('shown', name), {
+        $.trigger(targetBody, $.eventName("shown", name), {
             tabNumber: Array.prototype.indexOf.call(contents, targetBody)
         });
         e.detail && e.detail.gesture.preventDefault(); //fixed hashchange
     });
 
-})(mui, window, document, 'tab');
+})(mui, window, document, "tab");
 /**
  * Toggles switch
  * @param {type} $
@@ -6552,14 +6552,14 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
  */
 (function($, window, name) {
 
-	var CLASS_SWITCH = 'mui-switch';
-	var CLASS_SWITCH_HANDLE = 'mui-switch-handle';
-	var CLASS_ACTIVE = 'mui-active';
-	var CLASS_DRAGGING = 'mui-dragging';
+	var CLASS_SWITCH = "mui-switch";
+	var CLASS_SWITCH_HANDLE = "mui-switch-handle";
+	var CLASS_ACTIVE = "mui-active";
+	var CLASS_DRAGGING = "mui-dragging";
 
-	var CLASS_DISABLED = 'mui-disabled';
+	var CLASS_DISABLED = "mui-disabled";
 
-	var SELECTOR_SWITCH_HANDLE = '.' + CLASS_SWITCH_HANDLE;
+	var SELECTOR_SWITCH_HANDLE = "." + CLASS_SWITCH_HANDLE;
 
 	var handle = function(event, target) {
 		if (target.classList && target.classList.contains(CLASS_SWITCH)) {
@@ -6590,8 +6590,8 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	};
 	Toggle.prototype.initEvent = function() {
 		this.element.addEventListener($.EVENT_START, this);
-		this.element.addEventListener('drag', this);
-		this.element.addEventListener('swiperight', this);
+		this.element.addEventListener("drag", this);
+		this.element.addEventListener("swiperight", this);
 		this.element.addEventListener($.EVENT_END, this);
 		this.element.addEventListener($.EVENT_CANCEL, this);
 
@@ -6604,10 +6604,10 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			case $.EVENT_START:
 				this.start(e);
 				break;
-			case 'drag':
+			case "drag":
 				this.drag(e);
 				break;
-			case 'swiperight':
+			case "swiperight":
 				this.swiperight();
 				break;
 			case $.EVENT_END:
@@ -6617,7 +6617,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		}
 	};
 	Toggle.prototype.start = function(e) {
-		this.handle.style.webkitTransitionDuration = this.element.style.webkitTransitionDuration = '.2s';
+		this.handle.style.webkitTransitionDuration = this.element.style.webkitTransitionDuration = ".2s";
 		this.classList.add(CLASS_DRAGGING);
 		if (this.toggleWidth === 0 || this.handleWidth === 0) { //当switch处于隐藏状态时，width为0，需要重新初始化
 			this.init();
@@ -6626,7 +6626,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	Toggle.prototype.drag = function(e) {
 		var detail = e.detail;
 		if (!this.isDragging) {
-			if (detail.direction === 'left' || detail.direction === 'right') {
+			if (detail.direction === "left" || detail.direction === "right") {
 				this.isDragging = true;
 				this.lastChanged = undefined;
 				this.initialState = this.classList.contains(CLASS_ACTIVE);
@@ -6648,7 +6648,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		if (this.isDragging) {
 			this.isDragging = false;
 			e.stopPropagation();
-			$.trigger(this.element, 'toggle', {
+			$.trigger(this.element, "toggle", {
 				isActive: this.classList.contains(CLASS_ACTIVE)
 			});
 		} else {
@@ -6658,18 +6658,18 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	Toggle.prototype.toggle = function(animate) {
 		var classList = this.classList;
 		if (animate === false) {
-			this.handle.style.webkitTransitionDuration = this.element.style.webkitTransitionDuration = '0s';
+			this.handle.style.webkitTransitionDuration = this.element.style.webkitTransitionDuration = "0s";
 		} else {
-			this.handle.style.webkitTransitionDuration = this.element.style.webkitTransitionDuration = '.2s';
+			this.handle.style.webkitTransitionDuration = this.element.style.webkitTransitionDuration = ".2s";
 		}
 		if (classList.contains(CLASS_ACTIVE)) {
 			classList.remove(CLASS_ACTIVE);
-			this.handle.style.webkitTransform = 'translate(0,0)';
+			this.handle.style.webkitTransform = "translate(0,0)";
 		} else {
 			classList.add(CLASS_ACTIVE);
-			this.handle.style.webkitTransform = 'translate(' + this.handleX + 'px,0)';
+			this.handle.style.webkitTransform = "translate(" + this.handleX + "px,0)";
 		}
-		$.trigger(this.element, 'toggle', {
+		$.trigger(this.element, "toggle", {
 			isActive: this.classList.contains(CLASS_ACTIVE)
 		});
 	};
@@ -6683,26 +6683,26 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		}
 		if (this.lastChanged !== isChanged) {
 			if (isChanged) {
-				this.handle.style.webkitTransform = 'translate(' + (this.initialState ? 0 : this.handleX) + 'px,0)';
-				this.classList[this.initialState ? 'remove' : 'add'](CLASS_ACTIVE);
+				this.handle.style.webkitTransform = "translate(" + (this.initialState ? 0 : this.handleX) + "px,0)";
+				this.classList[this.initialState ? "remove" : "add"](CLASS_ACTIVE);
 			} else {
-				this.handle.style.webkitTransform = 'translate(' + (this.initialState ? this.handleX : 0) + 'px,0)';
-				this.classList[this.initialState ? 'add' : 'remove'](CLASS_ACTIVE);
+				this.handle.style.webkitTransform = "translate(" + (this.initialState ? this.handleX : 0) + "px,0)";
+				this.classList[this.initialState ? "add" : "remove"](CLASS_ACTIVE);
 			}
 			this.lastChanged = isChanged;
 		}
 
 	});
 
-	$.fn['switch'] = function(options) {
+	$.fn["switch"] = function(options) {
 		var switchApis = [];
 		this.each(function() {
 			var switchApi = null;
-			var id = this.getAttribute('data-switch');
+			var id = this.getAttribute("data-switch");
 			if (!id) {
 				id = ++$.uuid;
 				$.data[id] = new Toggle(this);
-				this.setAttribute('data-switch', id);
+				this.setAttribute("data-switch", id);
 			} else {
 				switchApi = $.data[id];
 			}
@@ -6711,9 +6711,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		return switchApis.length > 1 ? switchApis : switchApis[0];
 	};
 	$.ready(function() {
-		$('.' + CLASS_SWITCH)['switch']();
+		$("." + CLASS_SWITCH)["switch"]();
 	});
-})(mui, window, 'toggle');
+})(mui, window, "toggle");
 /**
  * Tableviews
  * @param {type} $
@@ -6723,27 +6723,27 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
  */
 (function($, window, document) {
 
-	var CLASS_ACTIVE = 'mui-active';
-	var CLASS_SELECTED = 'mui-selected';
-	var CLASS_GRID_VIEW = 'mui-grid-view';
-	var CLASS_RADIO_VIEW = 'mui-table-view-radio';
-	var CLASS_TABLE_VIEW_CELL = 'mui-table-view-cell';
-	var CLASS_COLLAPSE_CONTENT = 'mui-collapse-content';
-	var CLASS_DISABLED = 'mui-disabled';
-	var CLASS_TOGGLE = 'mui-switch';
-	var CLASS_BTN = 'mui-btn';
+	var CLASS_ACTIVE = "mui-active";
+	var CLASS_SELECTED = "mui-selected";
+	var CLASS_GRID_VIEW = "mui-grid-view";
+	var CLASS_RADIO_VIEW = "mui-table-view-radio";
+	var CLASS_TABLE_VIEW_CELL = "mui-table-view-cell";
+	var CLASS_COLLAPSE_CONTENT = "mui-collapse-content";
+	var CLASS_DISABLED = "mui-disabled";
+	var CLASS_TOGGLE = "mui-switch";
+	var CLASS_BTN = "mui-btn";
 
-	var CLASS_SLIDER_HANDLE = 'mui-slider-handle';
-	var CLASS_SLIDER_LEFT = 'mui-slider-left';
-	var CLASS_SLIDER_RIGHT = 'mui-slider-right';
-	var CLASS_TRANSITIONING = 'mui-transitioning';
+	var CLASS_SLIDER_HANDLE = "mui-slider-handle";
+	var CLASS_SLIDER_LEFT = "mui-slider-left";
+	var CLASS_SLIDER_RIGHT = "mui-slider-right";
+	var CLASS_TRANSITIONING = "mui-transitioning";
 
 
-	var SELECTOR_SLIDER_HANDLE = '.' + CLASS_SLIDER_HANDLE;
-	var SELECTOR_SLIDER_LEFT = '.' + CLASS_SLIDER_LEFT;
-	var SELECTOR_SLIDER_RIGHT = '.' + CLASS_SLIDER_RIGHT;
-	var SELECTOR_SELECTED = '.' + CLASS_SELECTED;
-	var SELECTOR_BUTTON = '.' + CLASS_BTN;
+	var SELECTOR_SLIDER_HANDLE = "." + CLASS_SLIDER_HANDLE;
+	var SELECTOR_SLIDER_LEFT = "." + CLASS_SLIDER_LEFT;
+	var SELECTOR_SLIDER_RIGHT = "." + CLASS_SLIDER_RIGHT;
+	var SELECTOR_SELECTED = "." + CLASS_SELECTED;
+	var SELECTOR_BUTTON = "." + CLASS_BTN;
 	var overFactor = 0.8;
 	var cell, a;
 
@@ -6779,7 +6779,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				}
 				for (var i = 0, len = buttonsRight.length; i < len; i++) {
 					var buttonRight = buttonsRight[i];
-					if (typeof buttonRight._buttonOffset === 'undefined') {
+					if (typeof buttonRight._buttonOffset === "undefined") {
 						buttonRight._buttonOffset = buttonRight.offsetLeft;
 					}
 					buttonOffset = buttonRight._buttonOffset;
@@ -6793,7 +6793,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				}
 				for (var i = 0, len = buttonsLeft.length; i < len; i++) {
 					var buttonLeft = buttonsLeft[i];
-					if (typeof buttonLeft._buttonOffset === 'undefined') {
+					if (typeof buttonLeft._buttonOffset === "undefined") {
 						buttonLeft._buttonOffset = sliderActionLeftWidth - buttonLeft.offsetLeft - buttonLeft.offsetWidth;
 					}
 					buttonOffset = buttonLeft._buttonOffset;
@@ -6812,7 +6812,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	};
 	var setTranslate = function(element, x) {
 		if (element) {
-			element.style.webkitTransform = 'translate(' + x + 'px,0)';
+			element.style.webkitTransform = "translate(" + x + "px,0)";
 		}
 	};
 
@@ -6827,7 +6827,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		for (; target && target !== document; target = target.parentNode) {
 			if (target.classList) {
 				var classList = target.classList;
-				if ((target.tagName === 'INPUT' && target.type !== 'radio' && target.type !== 'checkbox') || target.tagName === 'BUTTON' || classList.contains(CLASS_TOGGLE) || classList.contains(CLASS_BTN) || classList.contains(CLASS_DISABLED)) {
+				if ((target.tagName === "INPUT" && target.type !== "radio" && target.type !== "checkbox") || target.tagName === "BUTTON" || classList.contains(CLASS_TOGGLE) || classList.contains(CLASS_BTN) || classList.contains(CLASS_DISABLED)) {
 					isDisabled = true;
 				}
 				if (classList.contains(CLASS_COLLAPSE_CONTENT)) { //collapse content
@@ -6843,7 +6843,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 						return;
 					}
 					if (!cell.parentNode.classList.contains(CLASS_GRID_VIEW)) {
-						var link = cell.querySelector('a');
+						var link = cell.querySelector("a");
 						if (link && link.parentNode === cell) { //li>a
 							a = link;
 						}
@@ -6877,19 +6877,19 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	var handleEvent = {
 		handleEvent: function(event) {
 			switch (event.type) {
-				case 'drag':
+				case "drag":
 					this.drag(event);
 					break;
-				case 'dragend':
+				case "dragend":
 					this.dragend(event);
 					break;
-				case 'flick':
+				case "flick":
 					this.flick(event);
 					break;
-				case 'swiperight':
+				case "swiperight":
 					this.swiperight(event);
 					break;
-				case 'swipeleft':
+				case "swipeleft":
 					this.swipeleft(event);
 					break;
 			}
@@ -6915,18 +6915,18 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 					cell.classList.remove(CLASS_TRANSITIONING);
 					isOpened = cell.classList.contains(CLASS_SELECTED);
 					if (isOpened) {
-						openedActions = cell.querySelector(SELECTOR_SLIDER_LEFT + SELECTOR_SELECTED) ? 'left' : 'right';
+						openedActions = cell.querySelector(SELECTOR_SLIDER_LEFT + SELECTOR_SELECTED) ? "left" : "right";
 					}
 				}
 			}
 			var detail = event.detail;
 			var direction = detail.direction;
 			var angle = detail.angle;
-			if (direction === 'left' && (angle > 150 || angle < -150)) {
+			if (direction === "left" && (angle > 150 || angle < -150)) {
 				if (buttonsRight || (buttonsLeft && isOpened)) { //存在右侧按钮或存在左侧按钮且是已打开状态
 					isMoved = true;
 				}
-			} else if (direction === 'right' && (angle > -30 && angle < 30)) {
+			} else if (direction === "right" && (angle > -30 && angle < 30)) {
 				if (buttonsLeft || (buttonsRight && isOpened)) { //存在左侧按钮或存在右侧按钮且是已打开状态
 					isMoved = true;
 				}
@@ -6936,7 +6936,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				event.detail.gesture.preventDefault();
 				var translate = event.detail.deltaX;
 				if (isOpened) {
-					if (openedActions === 'right') {
+					if (openedActions === "right") {
 						translate = translate - sliderActionRightWidth;
 					} else {
 						translate = translate + sliderActionLeftWidth;
@@ -6949,12 +6949,12 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 					translate = 0;
 				}
 				if (translate < 0) {
-					sliderDirection = 'toLeft';
+					sliderDirection = "toLeft";
 				} else if (translate > 0) {
-					sliderDirection = 'toRight';
+					sliderDirection = "toRight";
 				} else {
 					if (!sliderDirection) {
-						sliderDirection = 'toLeft';
+						sliderDirection = "toLeft";
 					}
 				}
 				if (!sliderRequestAnimationFrame) {
@@ -6989,26 +6989,26 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			}
 			var detail = event.detail;
 			isMoved = false;
-			var action = 'close';
-			var actionsWidth = sliderDirection === 'toLeft' ? sliderActionRightWidth : sliderActionLeftWidth;
+			var action = "close";
+			var actionsWidth = sliderDirection === "toLeft" ? sliderActionRightWidth : sliderActionLeftWidth;
 			var isToggle = detail.swipe || (Math.abs(translateX) > actionsWidth / 2);
 			if (isToggle) {
 				if (!isOpened) {
-					action = 'open';
-				} else if (detail.direction === 'left' && openedActions === 'right') {
-					action = 'open';
-				} else if (detail.direction === 'right' && openedActions === 'left') {
-					action = 'open';
+					action = "open";
+				} else if (detail.direction === "left" && openedActions === "right") {
+					action = "open";
+				} else if (detail.direction === "right" && openedActions === "left") {
+					action = "open";
 				}
 
 			}
 			cell.classList.add(CLASS_TRANSITIONING);
 			var buttons;
-			if (action === 'open') {
-				var newTranslate = sliderDirection === 'toLeft' ? -actionsWidth : actionsWidth;
+			if (action === "open") {
+				var newTranslate = sliderDirection === "toLeft" ? -actionsWidth : actionsWidth;
 				setTranslate(sliderHandle, newTranslate);
-				buttons = sliderDirection === 'toLeft' ? buttonsRight : buttonsLeft;
-				if (typeof buttons !== 'undefined') {
+				buttons = sliderDirection === "toLeft" ? buttonsRight : buttonsLeft;
+				if (typeof buttons !== "undefined") {
 					var button = null;
 					for (var i = 0; i < buttons.length; i++) {
 						button = buttons[i];
@@ -7017,7 +7017,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 					button.parentNode.classList.add(CLASS_SELECTED);
 					cell.classList.add(CLASS_SELECTED);
 					if (!isOpened) {
-						$.trigger(cell, sliderDirection === 'toLeft' ? 'slideleft' : 'slideright');
+						$.trigger(cell, sliderDirection === "toLeft" ? "slideleft" : "slideright");
 					}
 				}
 			} else {
@@ -7031,7 +7031,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				for (var i = 0, len = buttonsLeft.length; i < len; i++) {
 					var buttonLeft = buttonsLeft[i];
 					buttonOffset = buttonLeft._buttonOffset;
-					if (typeof buttonOffset === 'undefined') {
+					if (typeof buttonOffset === "undefined") {
 						buttonLeft._buttonOffset = sliderActionLeftWidth - buttonLeft.offsetLeft - buttonLeft.offsetWidth;
 					}
 					setTranslate(buttonLeft, buttonOffset);
@@ -7041,7 +7041,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				for (var i = 0, len = buttonsRight.length; i < len; i++) {
 					var buttonRight = buttonsRight[i];
 					buttonOffset = buttonRight._buttonOffset;
-					if (typeof buttonOffset === 'undefined') {
+					if (typeof buttonOffset === "undefined") {
 						buttonRight._buttonOffset = buttonRight.offsetLeft;
 					}
 					setTranslate(buttonRight, -buttonOffset);
@@ -7051,12 +7051,12 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	};
 
 	function toggleEvents(element, isRemove) {
-		var method = !!isRemove ? 'removeEventListener' : 'addEventListener';
-		element[method]('drag', handleEvent);
-		element[method]('dragend', handleEvent);
-		element[method]('swiperight', handleEvent);
-		element[method]('swipeleft', handleEvent);
-		element[method]('flick', handleEvent);
+		var method = !!isRemove ? "removeEventListener" : "addEventListener";
+		element[method]("drag", handleEvent);
+		element[method]("dragend", handleEvent);
+		element[method]("swiperight", handleEvent);
+		element[method]("swipeleft", handleEvent);
+		element[method]("flick", handleEvent);
 	};
 	/**
 	 * 打开滑动菜单
@@ -7069,9 +7069,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		if (classList.contains(CLASS_SELECTED)) return;
 		if (!direction) {
 			if (el.querySelector(SELECTOR_SLIDER_RIGHT)) {
-				direction = 'right';
+				direction = "right";
 			} else {
-				direction = 'left';
+				direction = "left";
 			}
 		}
 		var swipeoutAction = el.querySelector($.classSelector(".slider-" + direction));
@@ -7081,12 +7081,12 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		classList.remove(CLASS_TRANSITIONING);
 		var buttons = swipeoutAction.querySelectorAll(SELECTOR_BUTTON);
 		var swipeoutWidth = swipeoutAction.offsetWidth;
-		var translate = (direction === 'right') ? -swipeoutWidth : swipeoutWidth;
+		var translate = (direction === "right") ? -swipeoutWidth : swipeoutWidth;
 		var length = buttons.length;
 		var button;
 		for (var i = 0; i < length; i++) {
 			button = buttons[i];
-			if (direction === 'right') {
+			if (direction === "right") {
 				setTranslate(button, -button.offsetLeft);
 			} else {
 				setTranslate(button, (swipeoutWidth - button.offsetWidth - button.offsetLeft));
@@ -7106,7 +7106,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		if (!el) return;
 		var classList = el.classList;
 		if (!classList.contains(CLASS_SELECTED)) return;
-		var direction = el.querySelector(SELECTOR_SLIDER_RIGHT + SELECTOR_SELECTED) ? 'right' : 'left';
+		var direction = el.querySelector(SELECTOR_SLIDER_RIGHT + SELECTOR_SELECTED) ? "right" : "left";
 		var swipeoutAction = el.querySelector($.classSelector(".slider-" + direction));
 		if (!swipeoutAction) return;
 		swipeoutAction.classList.remove(CLASS_SELECTED);
@@ -7119,7 +7119,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		setTranslate(el.querySelector(SELECTOR_SLIDER_HANDLE), 0);
 		for (var i = 0; i < length; i++) {
 			button = buttons[i];
-			if (direction === 'right') {
+			if (direction === "right") {
 				setTranslate(button, (-button.offsetLeft));
 			} else {
 				setTranslate(button, (swipeoutWidth - button.offsetWidth - button.offsetLeft));
@@ -7142,44 +7142,44 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		sliderHandle && toggleEvents(cell, true);
 	});
 	var radioOrCheckboxClick = function(event) {
-		var type = event.target && event.target.type || '';
-		if (type === 'radio' || type === 'checkbox') {
+		var type = event.target && event.target.type || "";
+		if (type === "radio" || type === "checkbox") {
 			return;
 		}
 		var classList = cell.classList;
-		if (classList.contains('mui-radio')) {
-			var input = cell.querySelector('input[type=radio]');
+		if (classList.contains("mui-radio")) {
+			var input = cell.querySelector("input[type=radio]");
 			if (input) {
 				//				input.click();
 				if (!input.disabled && !input.readOnly) {
 					input.checked = !input.checked;
-					$.trigger(input, 'change');
+					$.trigger(input, "change");
 				}
 			}
-		} else if (classList.contains('mui-checkbox')) {
-			var input = cell.querySelector('input[type=checkbox]');
+		} else if (classList.contains("mui-checkbox")) {
+			var input = cell.querySelector("input[type=checkbox]");
 			if (input) {
 				//				input.click();
 				if (!input.disabled && !input.readOnly) {
 					input.checked = !input.checked;
-					$.trigger(input, 'change');
+					$.trigger(input, "change");
 				}
 			}
 		}
 	};
 	//fixed hashchange(android)
 	window.addEventListener($.EVENT_CLICK, function(e) {
-		if (cell && cell.classList.contains('mui-collapse')) {
+		if (cell && cell.classList.contains("mui-collapse")) {
 			e.preventDefault();
 		}
 	});
-	window.addEventListener('doubletap', function(event) {
+	window.addEventListener("doubletap", function(event) {
 		if (cell) {
 			radioOrCheckboxClick(event);
 		}
 	});
 	var preventDefaultException = /^(INPUT|TEXTAREA|BUTTON|SELECT)$/;
-	window.addEventListener('tap', function(event) {
+	window.addEventListener("tap", function(event) {
 		if (!cell) {
 			return;
 		}
@@ -7190,23 +7190,23 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			if (classList.contains(CLASS_SELECTED)) {
 				return;
 			}
-			var selected = ul.querySelector('li' + SELECTOR_SELECTED);
+			var selected = ul.querySelector("li" + SELECTOR_SELECTED);
 			if (selected) {
 				selected.classList.remove(CLASS_SELECTED);
 			}
 			classList.add(CLASS_SELECTED);
-			$.trigger(cell, 'selected', {
+			$.trigger(cell, "selected", {
 				el: cell
 			});
 			return;
 		}
-		if (classList.contains('mui-collapse') && !cell.parentNode.classList.contains('mui-unfold')) {
+		if (classList.contains("mui-collapse") && !cell.parentNode.classList.contains("mui-unfold")) {
 			if (!preventDefaultException.test(event.target.tagName)) {
 				event.detail.gesture.preventDefault();
 			}
 
 			if (!classList.contains(CLASS_ACTIVE)) { //展开时,需要收缩其他同类
-				var collapse = cell.parentNode.querySelector('.mui-collapse.mui-active');
+				var collapse = cell.parentNode.querySelector(".mui-collapse.mui-active");
 				if (collapse) {
 					collapse.classList.remove(CLASS_ACTIVE);
 				}
@@ -7215,7 +7215,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			classList.toggle(CLASS_ACTIVE);
 			if (isExpand) {
 				//触发展开事件
-				$.trigger(cell, 'expand');
+				$.trigger(cell, "expand");
 
 				//scroll
 				//暂不滚动
@@ -7241,14 +7241,14 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	 */
 	$.alert = function(message, title, btnValue, callback) {
 		if ($.os.plus) {
-			if (typeof message === 'undefined') {
+			if (typeof message === "undefined") {
 				return;
 			} else {
-				if (typeof title === 'function') {
+				if (typeof title === "function") {
 					callback = title;
 					title = null;
-					btnValue = '确定';
-				} else if (typeof btnValue === 'function') {
+					btnValue = "确定";
+				} else if (typeof btnValue === "function") {
 					callback = btnValue;
 					btnValue = null;
 				}
@@ -7270,14 +7270,14 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	 */
 	$.confirm = function(message, title, btnArray, callback) {
 		if ($.os.plus) {
-			if (typeof message === 'undefined') {
+			if (typeof message === "undefined") {
 				return;
 			} else {
-				if (typeof title === 'function') {
+				if (typeof title === "function") {
 					callback = title;
 					title = null;
 					btnArray = null;
-				} else if (typeof btnArray === 'function') {
+				} else if (typeof btnArray === "function") {
 					callback = btnArray;
 					btnArray = null;
 				}
@@ -7307,20 +7307,20 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	 */
 	$.prompt = function(text, defaultText, title, btnArray, callback) {
 		if ($.os.plus) {
-			if (typeof message === 'undefined') {
+			if (typeof message === "undefined") {
 				return;
 			} else {
 
-				if (typeof defaultText === 'function') {
+				if (typeof defaultText === "function") {
 					callback = defaultText;
 					defaultText = null;
 					title = null;
 					btnArray = null;
-				} else if (typeof title === 'function') {
+				} else if (typeof title === "function") {
 					callback = title;
 					title = null;
 					btnArray = null;
-				} else if (typeof btnArray === 'function') {
+				} else if (typeof btnArray === "function") {
 					callback = btnArray;
 					btnArray = null;
 				}
@@ -7340,7 +7340,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			} else {
 				callback({
 					index: 1,
-					value: ''
+					value: ""
 				});
 			}
 		}
@@ -7348,50 +7348,50 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 
 })(mui, window);
 (function($, window) {
-	var CLASS_ACTIVE = 'mui-active';
+	var CLASS_ACTIVE = "mui-active";
 	/**
 	 * 自动消失提示框
 	 */
 	$.toast = function(message,options) {
 		var durations = {
-		    'long': 3500,
-		    'short': 2000
+		    "long": 3500,
+		    "short": 2000
 		};
 
 		//计算显示时间
 		 options = $.extend({
-	        duration: 'short'
+	        duration: "short"
 	    }, options || {});
 
 
-		if ($.os.plus && options.type !== 'div') {
+		if ($.os.plus && options.type !== "div") {
 			//默认显示在底部；
 			$.plusReady(function() {
 				plus.nativeUI.toast(message, {
-					verticalAlign: 'bottom',
+					verticalAlign: "bottom",
 					duration:options.duration
 				});
 			});
 		} else {
-			if (typeof options.duration === 'number') {
-		        duration = options.duration>0 ? options.duration:durations['short'];
+			if (typeof options.duration === "number") {
+		        duration = options.duration>0 ? options.duration:durations["short"];
 		    } else {
 		        duration = durations[options.duration];
 		    }
 		    if (!duration) {
-		        duration = durations['short'];
+		        duration = durations["short"];
 		    }
-			var toast = document.createElement('div');
-			toast.classList.add('mui-toast-container');
-			toast.innerHTML = '<div class="' + 'mui-toast-message' + '">' + message + '</div>';
-			toast.addEventListener('webkitTransitionEnd', function() {
+			var toast = document.createElement("div");
+			toast.classList.add("mui-toast-container");
+			toast.innerHTML = "<div class="" + "mui-toast-message" + "">" + message + "</div>";
+			toast.addEventListener("webkitTransitionEnd", function() {
 				if (!toast.classList.contains(CLASS_ACTIVE)) {
 					toast.parentNode.removeChild(toast);
 					toast = null;
 				}
 			});
 			//点击则自动消失
-			toast.addEventListener('click', function() {
+			toast.addEventListener("click", function() {
 		        toast.parentNode.removeChild(toast);
 		        toast = null;
 		    });
@@ -7416,26 +7416,26 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
  * @param {Object} document
  */
 (function($, window, document) {
-    var CLASS_POPUP = 'mui-popup';
-    var CLASS_POPUP_BACKDROP = 'mui-popup-backdrop';
-    var CLASS_POPUP_IN = 'mui-popup-in';
-    var CLASS_POPUP_OUT = 'mui-popup-out';
-    var CLASS_POPUP_INNER = 'mui-popup-inner';
-    var CLASS_POPUP_TITLE = 'mui-popup-title';
-    var CLASS_POPUP_TEXT = 'mui-popup-text';
-    var CLASS_POPUP_INPUT = 'mui-popup-input';
-    var CLASS_POPUP_BUTTONS = 'mui-popup-buttons';
-    var CLASS_POPUP_BUTTON = 'mui-popup-button';
-    var CLASS_POPUP_BUTTON_BOLD = 'mui-popup-button-bold';
-    var CLASS_POPUP_BACKDROP = 'mui-popup-backdrop';
-    var CLASS_ACTIVE = 'mui-active';
+    var CLASS_POPUP = "mui-popup";
+    var CLASS_POPUP_BACKDROP = "mui-popup-backdrop";
+    var CLASS_POPUP_IN = "mui-popup-in";
+    var CLASS_POPUP_OUT = "mui-popup-out";
+    var CLASS_POPUP_INNER = "mui-popup-inner";
+    var CLASS_POPUP_TITLE = "mui-popup-title";
+    var CLASS_POPUP_TEXT = "mui-popup-text";
+    var CLASS_POPUP_INPUT = "mui-popup-input";
+    var CLASS_POPUP_BUTTONS = "mui-popup-buttons";
+    var CLASS_POPUP_BUTTON = "mui-popup-button";
+    var CLASS_POPUP_BUTTON_BOLD = "mui-popup-button-bold";
+    var CLASS_POPUP_BACKDROP = "mui-popup-backdrop";
+    var CLASS_ACTIVE = "mui-active";
 
     var popupStack = [];
     var backdrop = (function() {
-        var element = document.createElement('div');
+        var element = document.createElement("div");
         element.classList.add(CLASS_POPUP_BACKDROP);
         element.addEventListener($.EVENT_MOVE, $.preventDefault);
-        element.addEventListener('webkitTransitionEnd', function() {
+        element.addEventListener("webkitTransitionEnd", function() {
             if (!this.classList.contains(CLASS_ACTIVE)) {
                 element.parentNode && element.parentNode.removeChild(element);
             }
@@ -7444,22 +7444,22 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
     }());
 
     var createInput = function(placeholder) {
-        return '<div class="' + CLASS_POPUP_INPUT + '"><input type="text" autofocus placeholder="' + (placeholder || '') + '"/></div>';
+        return "<div class="" + CLASS_POPUP_INPUT + ""><input type="text" autofocus placeholder="" + (placeholder || "") + ""/></div>";
     };
     var createInner = function(message, title, extra) {
-        return '<div class="' + CLASS_POPUP_INNER + '"><div class="' + CLASS_POPUP_TITLE + '">' + title + '</div><div class="' + CLASS_POPUP_TEXT + '">' + message.replace(/\r\n/g, "<br/>").replace(/\n/g, "<br/>") + '</div>' + (extra || '') + '</div>';
+        return "<div class="" + CLASS_POPUP_INNER + ""><div class="" + CLASS_POPUP_TITLE + "">" + title + "</div><div class="" + CLASS_POPUP_TEXT + "">" + message.replace(/\r\n/g, "<br/>").replace(/\n/g, "<br/>") + "</div>" + (extra || "") + "</div>";
     };
     var createButtons = function(btnArray) {
         var length = btnArray.length;
         var btns = [];
         for (var i = 0; i < length; i++) {
-            btns.push('<span class="' + CLASS_POPUP_BUTTON + (i === length - 1 ? (' ' + CLASS_POPUP_BUTTON_BOLD) : '') + '">' + btnArray[i] + '</span>');
+            btns.push("<span class="" + CLASS_POPUP_BUTTON + (i === length - 1 ? (" " + CLASS_POPUP_BUTTON_BOLD) : "") + "">" + btnArray[i] + "</span>");
         }
-        return '<div class="' + CLASS_POPUP_BUTTONS + '">' + btns.join('') + '</div>';
+        return "<div class="" + CLASS_POPUP_BUTTONS + "">" + btns.join("") + "</div>";
     };
 
     var createPopup = function(html, callback) {
-        var popupElement = document.createElement('div');
+        var popupElement = document.createElement("div");
         popupElement.className = CLASS_POPUP;
         popupElement.innerHTML = html;
         var removePopupElement = function() {
@@ -7467,31 +7467,31 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
             popupElement = null;
         };
         popupElement.addEventListener($.EVENT_MOVE, $.preventDefault);
-        popupElement.addEventListener('webkitTransitionEnd', function(e) {
+        popupElement.addEventListener("webkitTransitionEnd", function(e) {
             if (popupElement && e.target === popupElement && popupElement.classList.contains(CLASS_POPUP_OUT)) {
                 removePopupElement();
             }
         });
-        popupElement.style.display = 'block';
+        popupElement.style.display = "block";
         document.body.appendChild(popupElement);
         popupElement.offsetHeight;
         popupElement.classList.add(CLASS_POPUP_IN);
 
         if (!backdrop.classList.contains(CLASS_ACTIVE)) {
-            backdrop.style.display = 'block';
+            backdrop.style.display = "block";
             document.body.appendChild(backdrop);
             backdrop.offsetHeight;
             backdrop.classList.add(CLASS_ACTIVE);
         }
-        var btns = $.qsa('.' + CLASS_POPUP_BUTTON, popupElement);
-        var input = popupElement.querySelector('.' + CLASS_POPUP_INPUT + ' input');
+        var btns = $.qsa("." + CLASS_POPUP_BUTTON, popupElement);
+        var input = popupElement.querySelector("." + CLASS_POPUP_INPUT + " input");
         var popup = {
             element: popupElement,
             close: function(index, animate) {
                 if (popupElement) {
                     var result = callback && callback({
                         index: index || 0,
-                        value: input && input.value || ''
+                        value: input && input.value || ""
                     });
                     if (result === false) { //返回false则不关闭当前popup
                         return;
@@ -7505,7 +7505,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
                     popupStack.pop();
                     //如果还有其他popup，则不remove backdrop
                     if (popupStack.length) {
-                        popupStack[popupStack.length - 1]['show'](animate);
+                        popupStack[popupStack.length - 1]["show"](animate);
                     } else {
                         backdrop.classList.remove(CLASS_ACTIVE);
                     }
@@ -7515,93 +7515,93 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
         var handleEvent = function(e) {
             popup.close(btns.indexOf(e.target));
         };
-        $(popupElement).on('tap', '.' + CLASS_POPUP_BUTTON, handleEvent);
+        $(popupElement).on("tap", "." + CLASS_POPUP_BUTTON, handleEvent);
         if (popupStack.length) {
-            popupStack[popupStack.length - 1]['hide']();
+            popupStack[popupStack.length - 1]["hide"]();
         }
         popupStack.push({
             close: popup.close,
             show: function(animate) {
-                popupElement.style.display = 'block';
+                popupElement.style.display = "block";
                 popupElement.offsetHeight;
                 popupElement.classList.add(CLASS_POPUP_IN);
             },
             hide: function() {
-                popupElement.style.display = 'none';
+                popupElement.style.display = "none";
                 popupElement.classList.remove(CLASS_POPUP_IN);
             }
         });
         return popup;
     };
     var createAlert = function(message, title, btnValue, callback, type) {
-        if (typeof message === 'undefined') {
+        if (typeof message === "undefined") {
             return;
         } else {
-            if (typeof title === 'function') {
+            if (typeof title === "function") {
                 callback = title;
                 type = btnValue;
                 title = null;
                 btnValue = null;
-            } else if (typeof btnValue === 'function') {
+            } else if (typeof btnValue === "function") {
                 type = callback;
                 callback = btnValue;
                 btnValue = null;
             }
         }
-        if (!$.os.plus || type === 'div') {
-            return createPopup(createInner(message, title || '提示') + createButtons([btnValue || '确定']), callback);
+        if (!$.os.plus || type === "div") {
+            return createPopup(createInner(message, title || "提示") + createButtons([btnValue || "确定"]), callback);
         }
-        return plus.nativeUI.alert(message, callback, title || '提示', btnValue || '确定');
+        return plus.nativeUI.alert(message, callback, title || "提示", btnValue || "确定");
     };
     var createConfirm = function(message, title, btnArray, callback, type) {
-        if (typeof message === 'undefined') {
+        if (typeof message === "undefined") {
             return;
         } else {
-            if (typeof title === 'function') {
+            if (typeof title === "function") {
                 callback = title;
                 type = btnArray;
                 title = null;
                 btnArray = null;
-            } else if (typeof btnArray === 'function') {
+            } else if (typeof btnArray === "function") {
                 type = callback;
                 callback = btnArray;
                 btnArray = null;
             }
         }
-        if (!$.os.plus || type === 'div') {
-            return createPopup(createInner(message, title || '提示') + createButtons(btnArray || ['取消', '确认']), callback);
+        if (!$.os.plus || type === "div") {
+            return createPopup(createInner(message, title || "提示") + createButtons(btnArray || ["取消", "确认"]), callback);
         }
-        return plus.nativeUI.confirm(message, callback, title, btnArray || ['取消', '确认']);
+        return plus.nativeUI.confirm(message, callback, title, btnArray || ["取消", "确认"]);
     };
     var createPrompt = function(message, placeholder, title, btnArray, callback, type) {
-        if (typeof message === 'undefined') {
+        if (typeof message === "undefined") {
             return;
         } else {
-            if (typeof placeholder === 'function') {
+            if (typeof placeholder === "function") {
                 callback = placeholder;
                 type = title;
                 placeholder = null;
                 title = null;
                 btnArray = null;
-            } else if (typeof title === 'function') {
+            } else if (typeof title === "function") {
                 callback = title;
                 type = btnArray;
                 title = null;
                 btnArray = null;
-            } else if (typeof btnArray === 'function') {
+            } else if (typeof btnArray === "function") {
                 type = callback;
                 callback = btnArray;
                 btnArray = null;
             }
         }
-        if (!$.os.plus || type === 'div') {
-            return createPopup(createInner(message, title || '提示', createInput(placeholder)) + createButtons(btnArray || ['取消', '确认']), callback);
+        if (!$.os.plus || type === "div") {
+            return createPopup(createInner(message, title || "提示", createInput(placeholder)) + createButtons(btnArray || ["取消", "确认"]), callback);
         }
-        return plus.nativeUI.prompt(message, callback, title || '提示', placeholder, btnArray || ['取消', '确认']);
+        return plus.nativeUI.prompt(message, callback, title || "提示", placeholder, btnArray || ["取消", "确认"]);
     };
     var closePopup = function() {
         if (popupStack.length) {
-            popupStack[popupStack.length - 1]['close']();
+            popupStack[popupStack.length - 1]["close"]();
             return true;
         } else {
             return false;
@@ -7609,7 +7609,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
     };
     var closePopups = function() {
         while (popupStack.length) {
-            popupStack[popupStack.length - 1]['close']();
+            popupStack[popupStack.length - 1]["close"]();
         }
     };
 
@@ -7620,15 +7620,15 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
     $.prompt = createPrompt;
 })(mui, window, document);
 (function($, document) {
-	var CLASS_PROGRESSBAR = 'mui-progressbar';
-	var CLASS_PROGRESSBAR_IN = 'mui-progressbar-in';
-	var CLASS_PROGRESSBAR_OUT = 'mui-progressbar-out';
-	var CLASS_PROGRESSBAR_INFINITE = 'mui-progressbar-infinite';
+	var CLASS_PROGRESSBAR = "mui-progressbar";
+	var CLASS_PROGRESSBAR_IN = "mui-progressbar-in";
+	var CLASS_PROGRESSBAR_OUT = "mui-progressbar-out";
+	var CLASS_PROGRESSBAR_INFINITE = "mui-progressbar-infinite";
 
-	var SELECTOR_PROGRESSBAR = '.mui-progressbar';
+	var SELECTOR_PROGRESSBAR = ".mui-progressbar";
 
 	var _findProgressbar = function(container) {
-		container = $(container || 'body');
+		container = $(container || "body");
 		if (container.length === 0) return;
 		container = container[0];
 		if (container.classList.contains(CLASS_PROGRESSBAR)) {
@@ -7651,19 +7651,19 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	 * @param {Object} color 可选，指定颜色样式(目前暂未提供实际样式，可暂时不暴露此参数)
 	 */
 	var showProgressbar = function(container, progress, color) {
-		if (typeof container === 'number') {
+		if (typeof container === "number") {
 			color = progress;
 			progress = container;
-			container = 'body';
+			container = "body";
 		}
-		container = $(container || 'body');
+		container = $(container || "body");
 		if (container.length === 0) return;
 		container = container[0];
 		var progressbar;
 		if (container.classList.contains(CLASS_PROGRESSBAR)) {
 			progressbar = container;
 		} else {
-			var progressbars = container.querySelectorAll(SELECTOR_PROGRESSBAR + ':not(.' + CLASS_PROGRESSBAR_OUT + ')');
+			var progressbars = container.querySelectorAll(SELECTOR_PROGRESSBAR + ":not(." + CLASS_PROGRESSBAR_OUT + ")");
 			if (progressbars) {
 				for (var i = 0, len = progressbars.length; i < len; i++) {
 					var _progressbar = progressbars[i];
@@ -7674,10 +7674,10 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				}
 			}
 			if (!progressbar) {
-				progressbar = document.createElement('span');
-				progressbar.className = CLASS_PROGRESSBAR + ' ' + CLASS_PROGRESSBAR_IN + (typeof progress !== 'undefined' ? '' : (' ' + CLASS_PROGRESSBAR_INFINITE)) + (color ? (' ' + CLASS_PROGRESSBAR + '-' + color) : '');
-				if (typeof progress !== 'undefined') {
-					progressbar.innerHTML = '<span></span>';
+				progressbar = document.createElement("span");
+				progressbar.className = CLASS_PROGRESSBAR + " " + CLASS_PROGRESSBAR_IN + (typeof progress !== "undefined" ? "" : (" " + CLASS_PROGRESSBAR_INFINITE)) + (color ? (" " + CLASS_PROGRESSBAR + "-" + color) : "");
+				if (typeof progress !== "undefined") {
+					progressbar.innerHTML = "<span></span>";
 				}
 				container.appendChild(progressbar);
 			} else {
@@ -7702,7 +7702,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		}
 		classList.remove(CLASS_PROGRESSBAR_IN);
 		classList.add(CLASS_PROGRESSBAR_OUT);
-		progressbar.addEventListener('webkitAnimationEnd', function() {
+		progressbar.addEventListener("webkitAnimationEnd", function() {
 			progressbar.parentNode && progressbar.parentNode.removeChild(progressbar);
 			progressbar = null;
 		});
@@ -7715,7 +7715,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	 * @param {Object} speed 进度条动画时间
 	 */
 	var setProgressbar = function(container, progress, speed) {
-		if (typeof container === 'number') {
+		if (typeof container === "number") {
 			speed = progress;
 			progress = container;
 			container = false;
@@ -7726,14 +7726,14 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		}
 		if (progress) progress = Math.min(Math.max(progress, 0), 100);
 		progressbar.offsetHeight;
-		var span = progressbar.querySelector('span');
+		var span = progressbar.querySelector("span");
 		if (span) {
 			var style = span.style;
-			style.webkitTransform = 'translate3d(' + (-100 + progress) + '%,0,0)';
-			if (typeof speed !== 'undefined') {
-				style.webkitTransitionDuration = speed + 'ms';
+			style.webkitTransform = "translate3d(" + (-100 + progress) + "%,0,0)";
+			if (typeof speed !== "undefined") {
+				style.webkitTransitionDuration = speed + "ms";
 			} else {
-				style.webkitTransitionDuration = '';
+				style.webkitTransitionDuration = "";
 			}
 		}
 		return progressbar;
@@ -7779,21 +7779,21 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
  * @returns {undefined}
  */
 (function($, window, document) {
-	var CLASS_ICON = 'mui-icon';
-	var CLASS_ICON_CLEAR = 'mui-icon-clear';
-	var CLASS_ICON_SPEECH = 'mui-icon-speech';
-	var CLASS_ICON_SEARCH = 'mui-icon-search';
-	var CLASS_ICON_PASSWORD = 'mui-icon-eye';
-	var CLASS_INPUT_ROW = 'mui-input-row';
-	var CLASS_PLACEHOLDER = 'mui-placeholder';
-	var CLASS_TOOLTIP = 'mui-tooltip';
-	var CLASS_HIDDEN = 'mui-hidden';
-	var CLASS_FOCUSIN = 'mui-focusin';
-	var SELECTOR_ICON_CLOSE = '.' + CLASS_ICON_CLEAR;
-	var SELECTOR_ICON_SPEECH = '.' + CLASS_ICON_SPEECH;
-	var SELECTOR_ICON_PASSWORD = '.' + CLASS_ICON_PASSWORD;
-	var SELECTOR_PLACEHOLDER = '.' + CLASS_PLACEHOLDER;
-	var SELECTOR_TOOLTIP = '.' + CLASS_TOOLTIP;
+	var CLASS_ICON = "mui-icon";
+	var CLASS_ICON_CLEAR = "mui-icon-clear";
+	var CLASS_ICON_SPEECH = "mui-icon-speech";
+	var CLASS_ICON_SEARCH = "mui-icon-search";
+	var CLASS_ICON_PASSWORD = "mui-icon-eye";
+	var CLASS_INPUT_ROW = "mui-input-row";
+	var CLASS_PLACEHOLDER = "mui-placeholder";
+	var CLASS_TOOLTIP = "mui-tooltip";
+	var CLASS_HIDDEN = "mui-hidden";
+	var CLASS_FOCUSIN = "mui-focusin";
+	var SELECTOR_ICON_CLOSE = "." + CLASS_ICON_CLEAR;
+	var SELECTOR_ICON_SPEECH = "." + CLASS_ICON_SPEECH;
+	var SELECTOR_ICON_PASSWORD = "." + CLASS_ICON_PASSWORD;
+	var SELECTOR_PLACEHOLDER = "." + CLASS_PLACEHOLDER;
+	var SELECTOR_TOOLTIP = "." + CLASS_TOOLTIP;
 
 	var findRow = function(target) {
 		for (; target && target !== document; target = target.parentNode) {
@@ -7806,26 +7806,26 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	var Input = function(element, options) {
 		this.element = element;
 		this.options = options || {
-			actions: 'clear'
+			actions: "clear"
 		};
-		if (~this.options.actions.indexOf('slider')) { //slider
-			this.sliderActionClass = CLASS_TOOLTIP + ' ' + CLASS_HIDDEN;
+		if (~this.options.actions.indexOf("slider")) { //slider
+			this.sliderActionClass = CLASS_TOOLTIP + " " + CLASS_HIDDEN;
 			this.sliderActionSelector = SELECTOR_TOOLTIP;
 		} else { //clear,speech,search
-			if (~this.options.actions.indexOf('clear')) {
-				this.clearActionClass = CLASS_ICON + ' ' + CLASS_ICON_CLEAR + ' ' + CLASS_HIDDEN;
+			if (~this.options.actions.indexOf("clear")) {
+				this.clearActionClass = CLASS_ICON + " " + CLASS_ICON_CLEAR + " " + CLASS_HIDDEN;
 				this.clearActionSelector = SELECTOR_ICON_CLOSE;
 			}
-			if (~this.options.actions.indexOf('speech')) { //only for 5+
-				this.speechActionClass = CLASS_ICON + ' ' + CLASS_ICON_SPEECH;
+			if (~this.options.actions.indexOf("speech")) { //only for 5+
+				this.speechActionClass = CLASS_ICON + " " + CLASS_ICON_SPEECH;
 				this.speechActionSelector = SELECTOR_ICON_SPEECH;
 			}
-			if (~this.options.actions.indexOf('search')) {
+			if (~this.options.actions.indexOf("search")) {
 				this.searchActionClass = CLASS_PLACEHOLDER;
 				this.searchActionSelector = SELECTOR_PLACEHOLDER;
 			}
-			if (~this.options.actions.indexOf('password')) {
-				this.passwordActionClass = CLASS_ICON + ' ' + CLASS_ICON_PASSWORD;
+			if (~this.options.actions.indexOf("password")) {
+				this.passwordActionClass = CLASS_ICON + " " + CLASS_ICON_PASSWORD;
 				this.passwordActionSelector = SELECTOR_ICON_PASSWORD;
 			}
 		}
@@ -7845,27 +7845,27 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			} else {
 				if (self.searchActionClass) {
 					self.searchAction = self.createAction(row, self.searchActionClass, self.searchActionSelector);
-					self.searchAction.addEventListener('tap', function(e) {
+					self.searchAction.addEventListener("tap", function(e) {
 						$.focus(self.element);
 						e.stopPropagation();
 					});
 				}
 				if (self.speechActionClass) {
 					self.speechAction = self.createAction(row, self.speechActionClass, self.speechActionSelector);
-					self.speechAction.addEventListener('click', $.stopPropagation);
-					self.speechAction.addEventListener('tap', function(event) {
+					self.speechAction.addEventListener("click", $.stopPropagation);
+					self.speechAction.addEventListener("tap", function(event) {
 						self.speechActionClick(event);
 					});
 				}
 				if (self.clearActionClass) {
 					self.clearAction = self.createAction(row, self.clearActionClass, self.clearActionSelector);
-					self.clearAction.addEventListener('tap', function(event) {
+					self.clearAction.addEventListener("tap", function(event) {
 						self.clearActionClick(event);
 					});
 				}
 				if (self.passwordActionClass) {
 					self.passwordAction = self.createAction(row, self.passwordActionClass, self.passwordActionSelector);
-					self.passwordAction.addEventListener('tap', function(event) {
+					self.passwordAction.addEventListener("tap", function(event) {
 						self.passwordActionClick(event);
 					});
 				}
@@ -7875,13 +7875,13 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	Input.prototype.createAction = function(row, actionClass, actionSelector) {
 		var action = row.querySelector(actionSelector);
 		if (!action) {
-			var action = document.createElement('span');
+			var action = document.createElement("span");
 			action.className = actionClass;
 			if (actionClass === this.searchActionClass) {
-				action.innerHTML = '<span class="' + CLASS_ICON + ' ' + CLASS_ICON_SEARCH + '"></span><span>' + this.element.getAttribute('placeholder') + '</span>';
-				this.element.setAttribute('placeholder', '');
+				action.innerHTML = "<span class="" + CLASS_ICON + " " + CLASS_ICON_SEARCH + ""></span><span>" + this.element.getAttribute("placeholder") + "</span>";
+				this.element.setAttribute("placeholder", "");
 				if (this.element.value.trim()) {
-					row.classList.add('mui-active');
+					row.classList.add("mui-active");
 				}
 			}
 			row.insertBefore(action, this.element.nextSibling);
@@ -7901,7 +7901,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				var tooltipWidth = tooltip.offsetWidth;
 				var distince = Math.abs(element.max - element.min);
 				var scaleWidth = (width / distince) * Math.abs(element.value - element.min);
-				tooltip.style.left = (14 + offsetLeft + scaleWidth - tooltipWidth / 2) + 'px';
+				tooltip.style.left = (14 + offsetLeft + scaleWidth - tooltipWidth / 2) + "px";
 				tooltip.innerText = element.value;
 				if (timer) {
 					clearTimeout(timer);
@@ -7910,8 +7910,8 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 					tooltip.classList.add(CLASS_HIDDEN);
 				}, 1000);
 			};
-			element.addEventListener('input', showTip);
-			element.addEventListener('tap', showTip);
+			element.addEventListener("input", showTip);
+			element.addEventListener("tap", showTip);
 			element.addEventListener($.EVENT_MOVE, function(e) {
 				e.stopPropagation();
 			});
@@ -7921,24 +7921,24 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 				if (!action) {
 					return;
 				}
-				$.each(['keyup', 'change', 'input', 'focus', 'cut', 'paste'], function(index, type) {
+				$.each(["keyup", "change", "input", "focus", "cut", "paste"], function(index, type) {
 					(function(type) {
 						element.addEventListener(type, function() {
-							action.classList[element.value.trim() ? 'remove' : 'add'](CLASS_HIDDEN);
+							action.classList[element.value.trim() ? "remove" : "add"](CLASS_HIDDEN);
 						});
 					})(type);
 				});
-				element.addEventListener('blur', function() {
+				element.addEventListener("blur", function() {
 					action.classList.add(CLASS_HIDDEN);
 				});
 			}
 			if (this.searchActionClass) {
-				element.addEventListener('focus', function() {
-					element.parentNode.classList.add('mui-active');
+				element.addEventListener("focus", function() {
+					element.parentNode.classList.add("mui-active");
 				});
-				element.addEventListener('blur', function() {
+				element.addEventListener("blur", function() {
 					if (!element.value.trim()) {
-						element.parentNode.classList.remove('mui-active');
+						element.parentNode.classList.remove("mui-active");
 					}
 				});
 			}
@@ -7947,23 +7947,23 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	Input.prototype.setPlaceholder = function(text) {
 		if (this.searchActionClass) {
 			var placeholder = this.element.parentNode.querySelector(SELECTOR_PLACEHOLDER);
-			placeholder && (placeholder.getElementsByTagName('span')[1].innerText = text);
+			placeholder && (placeholder.getElementsByTagName("span")[1].innerText = text);
 		} else {
-			this.element.setAttribute('placeholder', text);
+			this.element.setAttribute("placeholder", text);
 		}
 	};
 	Input.prototype.passwordActionClick = function(event) {
-		if (this.element.type === 'text') {
-			this.element.type = 'password';
+		if (this.element.type === "text") {
+			this.element.type = "password";
 		} else {
-			this.element.type = 'text';
+			this.element.type = "text";
 		}
-		this.passwordAction.classList.toggle('mui-active');
+		this.passwordAction.classList.toggle("mui-active");
 		event.preventDefault();
 	};
 	Input.prototype.clearActionClick = function(event) {
 		var self = this;
-		self.element.value = '';
+		self.element.value = "";
 		$.focus(self.element);
 		self.clearAction.classList.add(CLASS_HIDDEN);
 		event.preventDefault();
@@ -7972,27 +7972,27 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		if (window.plus) {
 			var self = this;
 			var oldValue = self.element.value;
-			self.element.value = '';
+			self.element.value = "";
 			document.body.classList.add(CLASS_FOCUSIN);
 			plus.speech.startRecognize({
-				engine: 'iFly'
+				engine: "iFly"
 			}, function(s) {
 				self.element.value += s;
 				$.focus(self.element);
 				plus.speech.stopRecognize();
-				$.trigger(self.element, 'recognized', {
+				$.trigger(self.element, "recognized", {
 					value: self.element.value
 				});
 				if (oldValue !== self.element.value) {
-					$.trigger(self.element, 'change');
-					$.trigger(self.element, 'input');
+					$.trigger(self.element, "change");
+					$.trigger(self.element, "input");
 				}
 				// document.body.classList.remove(CLASS_FOCUSIN);
 			}, function(e) {
 				document.body.classList.remove(CLASS_FOCUSIN);
 			});
 		} else {
-			alert('only for 5+');
+			alert("only for 5+");
 		}
 		event.preventDefault();
 	};
@@ -8002,31 +8002,31 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 			var inputApi = null;
 			var actions = [];
 			var row = findRow(this.parentNode);
-			if (this.type === 'range' && row.classList.contains('mui-input-range')) {
-				actions.push('slider');
+			if (this.type === "range" && row.classList.contains("mui-input-range")) {
+				actions.push("slider");
 			} else {
 				var classList = this.classList;
-				if (classList.contains('mui-input-clear')) {
-					actions.push('clear');
+				if (classList.contains("mui-input-clear")) {
+					actions.push("clear");
 				}
-				if (!($.os.android && $.os.stream) && classList.contains('mui-input-speech')) {
-					actions.push('speech');
+				if (!($.os.android && $.os.stream) && classList.contains("mui-input-speech")) {
+					actions.push("speech");
 				}
-				if (classList.contains('mui-input-password')) {
-					actions.push('password');
+				if (classList.contains("mui-input-password")) {
+					actions.push("password");
 				}
-				if (this.type === 'search' && row.classList.contains('mui-search')) {
-					actions.push('search');
+				if (this.type === "search" && row.classList.contains("mui-search")) {
+					actions.push("search");
 				}
 			}
-			var id = this.getAttribute('data-input-' + actions[0]);
+			var id = this.getAttribute("data-input-" + actions[0]);
 			if (!id) {
 				id = ++$.uuid;
 				inputApi = $.data[id] = new Input(this, {
-					actions: actions.join(',')
+					actions: actions.join(",")
 				});
 				for (var i = 0, len = actions.length; i < len; i++) {
-					this.setAttribute('data-input-' + actions[i], id);
+					this.setAttribute("data-input-" + actions[i], id);
 				}
 			} else {
 				inputApi = $.data[id];
@@ -8036,11 +8036,11 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 		return inputApis.length === 1 ? inputApis[0] : inputApis;
 	};
 	$.ready(function() {
-		$('.mui-input-row input').input();
+		$(".mui-input-row input").input();
 	});
 })(mui, window, document);
 (function($, window) {
-    var CLASS_ACTIVE = 'mui-active';
+    var CLASS_ACTIVE = "mui-active";
     var rgbaRegex = /^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),\s*(\d*(?:\.\d+)?)\)$/;
     var getColor = function(colorStr) {
         var matches = colorStr.match(rgbaRegex);
@@ -8070,13 +8070,13 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
         this.isNativeScroll = false;
         if (this.scrollByElem === window) {
             this.isNativeScroll = true;
-        } else if (!~this.scrollByElem.className.indexOf('mui-scroll-wrapper')) {
+        } else if (!~this.scrollByElem.className.indexOf("mui-scroll-wrapper")) {
             this.isNativeScroll = true;
         }
 
         this._style = this.element.style;
         this._bgColor = this._style.backgroundColor;
-        var color = getColor(mui.getStyles(this.element, 'backgroundColor'));
+        var color = getColor(mui.getStyles(this.element, "backgroundColor"));
         if (color.length) {
             this._R = color[0];
             this._G = color[1];
@@ -8091,7 +8091,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
     };
 
     Transparent.prototype.initEvent = function() {
-        this.scrollByElem.addEventListener('scroll', this._bufferFn);
+        this.scrollByElem.addEventListener("scroll", this._bufferFn);
         if (this.isNativeScroll) { //原生scroll
             this.scrollByElem.addEventListener($.EVENT_MOVE, this._bufferFn);
         }
@@ -8103,21 +8103,21 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
         }
         var opacity = (y - this.options.top) / this.options.offset + this._A;
         opacity = Math.min(Math.max(this._A, opacity), 1);
-        this._style.backgroundColor = 'rgba(' + this._R + ',' + this._G + ',' + this._B + ',' + opacity + ')';
+        this._style.backgroundColor = "rgba(" + this._R + "," + this._G + "," + this._B + "," + opacity + ")";
         if (opacity > this._A) {
             this.element.classList.add(CLASS_ACTIVE);
         } else {
             this.element.classList.remove(CLASS_ACTIVE);
         }
         if (this.lastOpacity !== opacity) {
-            $.trigger(this.element, 'alpha', {
+            $.trigger(this.element, "alpha", {
                 alpha: opacity
             });
             this.lastOpacity = opacity;
         }
     };
     Transparent.prototype.destory = function() {
-        this.scrollByElem.removeEventListener('scroll', this._bufferFn);
+        this.scrollByElem.removeEventListener("scroll", this._bufferFn);
         this.scrollByElem.removeEventListener($.EVENT_MOVE, this._bufferFn);
         this.element.style.backgroundColor = this._bgColor;
         this.element.mui_plugin_transparent = null;
@@ -8128,20 +8128,20 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
         this.each(function() {
             var transparentApi = this.mui_plugin_transparent;
             if (!transparentApi) {
-                var top = this.getAttribute('data-top');
-                var offset = this.getAttribute('data-offset');
-                var duration = this.getAttribute('data-duration');
-                var scrollby = this.getAttribute('data-scrollby');
-                if (top !== null && typeof options.top === 'undefined') {
+                var top = this.getAttribute("data-top");
+                var offset = this.getAttribute("data-offset");
+                var duration = this.getAttribute("data-duration");
+                var scrollby = this.getAttribute("data-scrollby");
+                if (top !== null && typeof options.top === "undefined") {
                     options.top = top;
                 }
-                if (offset !== null && typeof options.offset === 'undefined') {
+                if (offset !== null && typeof options.offset === "undefined") {
                     options.offset = offset;
                 }
-                if (duration !== null && typeof options.duration === 'undefined') {
+                if (duration !== null && typeof options.duration === "undefined") {
                     options.duration = duration;
                 }
-                if (scrollby !== null && typeof options.scrollby === 'undefined') {
+                if (scrollby !== null && typeof options.scrollby === "undefined") {
                     options.scrollby = document.querySelector(scrollby) || window;
                 }
                 transparentApi = this.mui_plugin_transparent = new Transparent(this, options);
@@ -8151,7 +8151,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
         return transparentApis.length === 1 ? transparentApis[0] : transparentApis;
     };
     $.ready(function() {
-        $('.mui-bar-transparent').transparent();
+        $(".mui-bar-transparent").transparent();
     });
 })(mui, window);
 /**
@@ -8163,13 +8163,13 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 
 (function($) {
 
-    var touchSupport = ('ontouchstart' in document);
-    var tapEventName = touchSupport ? 'tap' : 'click';
-    var changeEventName = 'change';
-    var holderClassName = 'mui-numbox';
-    var plusClassSelector = '.mui-btn-numbox-plus,.mui-numbox-btn-plus';
-    var minusClassSelector = '.mui-btn-numbox-minus,.mui-numbox-btn-minus';
-    var inputClassSelector = '.mui-input-numbox,.mui-numbox-input';
+    var touchSupport = ("ontouchstart" in document);
+    var tapEventName = touchSupport ? "tap" : "click";
+    var changeEventName = "change";
+    var holderClassName = "mui-numbox";
+    var plusClassSelector = ".mui-btn-numbox-plus,.mui-numbox-btn-plus";
+    var minusClassSelector = ".mui-btn-numbox-minus,.mui-numbox-btn-minus";
+    var inputClassSelector = ".mui-input-numbox,.mui-numbox-input";
 
     var Numbox = $.Numbox = $.Class.extend({
         /**
@@ -8227,7 +8227,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
         checkValue: function() {
             var self = this;
             var val = self.input.value;
-            if (val == null || val == '' || isNaN(val)) {
+            if (val == null || val == "" || isNaN(val)) {
                 self.input.value = self.options.min || 0;
                 self.minus.disabled = self.options.min != null;
             } else {
@@ -8273,20 +8273,20 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
             if (options) {
                 element.numbox = new Numbox(element, options);
             } else {
-                var optionsText = element.getAttribute('data-numbox-options');
+                var optionsText = element.getAttribute("data-numbox-options");
                 var options = optionsText ? JSON.parse(optionsText) : {};
-                options.step = element.getAttribute('data-numbox-step') || options.step;
-                options.min = element.getAttribute('data-numbox-min') || options.min;
-                options.max = element.getAttribute('data-numbox-max') || options.max;
+                options.step = element.getAttribute("data-numbox-step") || options.step;
+                options.min = element.getAttribute("data-numbox-min") || options.min;
+                options.max = element.getAttribute("data-numbox-max") || options.max;
                 element.numbox = new Numbox(element, options);
             }
         });
         return this[0] ? this[0].numbox : null;
     }
 
-    //自动处理 class='mui-locker' 的 dom
+    //自动处理 class="mui-locker" 的 dom
     $.ready(function() {
-        $('.' + holderClassName).numbox();
+        $("." + holderClassName).numbox();
     });
 
 }(mui));
@@ -8298,16 +8298,16 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
  * @returns {undefined}
  */
 (function($, window, document) {
-    var CLASS_ICON = 'mui-icon';
-    var CLASS_DISABLED = 'mui-disabled';
+    var CLASS_ICON = "mui-icon";
+    var CLASS_DISABLED = "mui-disabled";
 
-    var STATE_RESET = 'reset';
-    var STATE_LOADING = 'loading';
+    var STATE_RESET = "reset";
+    var STATE_LOADING = "loading";
 
     var defaultOptions = {
-        loadingText: 'Loading...', //文案
-        loadingIcon: 'mui-spinner' + ' ' + 'mui-spinner-white', //图标，可为空
-        loadingIconPosition: 'left' //图标所处位置，仅支持left|right
+        loadingText: "Loading...", //文案
+        loadingIcon: "mui-spinner" + " " + "mui-spinner-white", //图标，可为空
+        loadingIconPosition: "left" //图标所处位置，仅支持left|right
     };
 
     var Button = function(element, options) {
@@ -8317,14 +8317,14 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
             this.options.loadingText = defaultOptions.loadingText;
         }
         if (this.options.loadingIcon === null) {
-            this.options.loadingIcon = 'mui-spinner';
-            if ($.getStyles(this.element, 'color') === 'rgb(255, 255, 255)') {
-                this.options.loadingIcon += ' ' + 'mui-spinner-white';
+            this.options.loadingIcon = "mui-spinner";
+            if ($.getStyles(this.element, "color") === "rgb(255, 255, 255)") {
+                this.options.loadingIcon += " " + "mui-spinner-white";
             }
         }
-        this.isInput = this.element.tagName === 'INPUT';
+        this.isInput = this.element.tagName === "INPUT";
         this.resetHTML = this.isInput ? this.element.value : this.element.innerHTML;
-        this.state = '';
+        this.state = "";
     };
     Button.prototype.loading = function() {
         this.setState(STATE_LOADING);
@@ -8344,12 +8344,12 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
         } else if (state === STATE_LOADING) {
             this.element.disabled = true;
             this.element.classList.add(CLASS_DISABLED);
-            var html = this.isInput ? this.options.loadingText : ('<span>' + this.options.loadingText + '</span>');
+            var html = this.isInput ? this.options.loadingText : ("<span>" + this.options.loadingText + "</span>");
             if (this.options.loadingIcon && !this.isInput) {
-                if (this.options.loadingIconPosition === 'right') {
-                    html += '&nbsp;<span class="' + this.options.loadingIcon + '"></span>';
+                if (this.options.loadingIconPosition === "right") {
+                    html += "&nbsp;<span class="" + this.options.loadingIcon + ""></span>";
                 } else {
-                    html = '<span class="' + this.options.loadingIcon + '"></span>&nbsp;' + html;
+                    html = "<span class="" + this.options.loadingIcon + ""></span>&nbsp;" + html;
                 }
             }
             this.setHtml(html);
@@ -8367,9 +8367,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
         this.each(function() {
             var buttonApi = this.mui_plugin_button;
             if (!buttonApi) {
-                var loadingText = this.getAttribute('data-loading-text');
-                var loadingIcon = this.getAttribute('data-loading-icon');
-                var loadingIconPosition = this.getAttribute('data-loading-icon-position');
+                var loadingText = this.getAttribute("data-loading-text");
+                var loadingIcon = this.getAttribute("data-loading-icon");
+                var loadingIconPosition = this.getAttribute("data-loading-icon-position");
                 this.mui_plugin_button = buttonApi = new Button(this, {
                     loadingText: loadingText,
                     loadingIcon: loadingIcon,

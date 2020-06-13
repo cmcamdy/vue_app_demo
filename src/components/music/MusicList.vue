@@ -49,7 +49,7 @@ export default {
       let scrollHeight = document.documentElement.scrollHeight;
       // console.log("clientHeight+scrollTop:" + (clientHeight + scrollTop));
       // console.log("scrollHeight:" + scrollHeight);
-      if (clientHeight + scrollTop + 18 >= scrollHeight) {
+      if (clientHeight + scrollTop  >= scrollHeight) {
         // console.log("到底了");
         // console.log(this.tip);
         // console.log(this.key,0);
@@ -68,7 +68,7 @@ export default {
       }
       // let url = "https://autumnfish.cn/search?limit=6&keywords="+key+"&start="+start;
       let url =
-        "http://139.224.252.90:8004/search?limit=" +
+        "http://www.cmcandy.com:8000/search?limit=" +
         (start + 6) +
         "&keywords=" +
         key;
@@ -92,7 +92,7 @@ export default {
       this.loadData(this.key, 0);
     },
     routerTo(it) {
-      // :to="'/music/musicAlnums/' + it.id"
+      // :to=""/music/musicAlnums/" + it.id"
       console.log(it);
       this.$router.push({
         name: "MusicAlnums",

@@ -5,7 +5,7 @@
         <img src="https://p.qpic.cn/music_cover/R8unPZMA4Vp5v2Ms96bst32v6o80vMuV6vhefmusxxuRe6o8KrM8lA/600?n=1"alt=""/>
       </div>
       <div class="albums-info">
-        <h7>{{this.$route.params.diss_name}}</h7>
+        <h5>{{this.$route.params.diss_name}}</h5>
         <p>{{this.$route.params.artist_name}}</p>
         <h6>播放量：399.8万</h6>
       </div>
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     async getMP3() {
-      let url1 ="http://139.224.252.90:8004/song/url?id=" +this.$route.params.music_id;
+      let url1 ="http://www.cmcandy.com:8000/song/url?id=" +this.$route.params.music_id;
       console.log("url1:"+url1);
       await Axios.get(url1)
         .then((res) => {
@@ -60,7 +60,7 @@ export default {
           this.songs.src = res.data.data[0].url;
           console.log(res.data.data[0].url);
         }).catch();
-      let url2 = "http://139.224.252.90:8004/lyric?id=" + this.$route.params.music_id;
+      let url2 = "http://www.cmcandy.com:8000/lyric?id=" + this.$route.params.music_id;
       await Axios.get(url2)
         .then((res) => {
           this.songs.lrc = res.data.lrc.lyric;
