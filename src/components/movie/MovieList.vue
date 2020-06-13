@@ -1,36 +1,34 @@
 <template>
-  <div class="lists">
-    <!-- <div class="blank"></div> -->
-    <li
-      @click="goDeatil(movie.id)"
-      v-for="movie in moveList"
-      :key="movie.id"
-      class="movie"
-    >
-      <el-row :gutter="20">
-        <el-col :span="8"
-          ><div class="grid-content bg-purple">
-            <img :src="movie.images.small" alt="" class="movie-imgs" /></div
-        ></el-col>
-        <el-col :span="16">
-          <div class="grid-content bg-purple">
-            <p class="movie-name">影片名称：{{ movie.title }}</p>
+  <div class="lists bg-purple">
+      <div @click="goDeatil(movie.id)" v-for="movie in moveList" :key="movie.id" class="movie" :gutter="20" style="margin-bottom:0px">
+        <el-col :span="10">
+            <img :src="movie.images.small" alt="" class="movie-imgs" :fit="fit"></img>
+        </el-col>
+        <el-col :span="14">
+          <div class="grid-content ">
+            <el-row class="movie-name"
+              ><el-col :span="6">片名：</el-col
+              ><el-col :span="18"
+                ><strong>{{ movie.title }}</strong></el-col
+              ></el-row
+            >
             <p>时长：{{ movie.durations[0] }}</p>
-            <el-rate
-              v-model="movie.rating.average / 2"
-              allow-half
-              disabled
-              text-color="#ff9900"
-              >评分：
-            </el-rate>
-            <!-- <p class="pingfeng">评分：{{ movie.rating.average }}</p> -->
+            <el-row
+              ><el-col :span="6">评分：</el-col
+              ><el-col :span="16"
+                ><el-rate
+                  v-model="movie.rating.average / 2"
+                  allow-half
+                  disabled
+                  text-color="#ff9900"
+                ></el-rate></el-col
+            ></el-row>
             <p>主演：{{ movie.casts[0].name }}</p>
             <p>导演：{{ movie.directors[0].name }}</p>
             <p>{{ movie.showInfo }}</p>
-          </div></el-col
-        >
-      </el-row>
-    </li>
+          </div>
+        </el-col>
+      </div>
 
     <div class="loading" v-show="!tip">
       <img src="@/assets/img/loading.gif" alt="" />
@@ -53,6 +51,7 @@ export default {
       tip: true,
       max: 5,
       allow_half: true,
+      fit:"contain",
     };
   },
   mounted() {
@@ -62,10 +61,13 @@ export default {
       let clientHeight = document.documentElement.clientHeight;
       let scrollTop = document.documentElement.scrollTop;
       let scrollHeight = document.documentElement.scrollHeight;
-      if (clientHeight + scrollTop == scrollHeight) {
+      // console.log("clientHeight+scrollTop:"+(clientHeight+scrollTop));
+      // console.log("scrollHeight:"+scrollHeight);
+      if (clientHeight + scrollTop + 18 >= scrollHeight) {
         // console.log("到底了");
-        // console.log(this.tip);
+        console.log(this.tip);
         if (!this.tip) {
+          console.log("data");
           this.loadData();
         }
       }
@@ -73,20 +75,24 @@ export default {
   },
   methods: {
     loadData() {
+      // let url =
+      //   API_PROXY +
+      //   "http://api.douban.com/v2/movie/in_theaters?apikey=0df993c66c0c636e29ecbb5344252a4a&start=0&count=" +
+      //   (this.length + 3);
+      // let url = API_PROXY +"https://douban.uieee.com/v2/movie/top250?apikey=0df993c66c0c636e29ecbb5344252a4a&start=0&count=" +(this.length + 3);
       let url =
         API_PROXY +
         "http://api.douban.com/v2/movie/in_theaters?apikey=0df993c66c0c636e29ecbb5344252a4a&start=0&count=" +
-        (this.length + 3);
+        (this.length + 4);
       console.log(url);
       Axios.get(url)
         .then((res) => {
-          //   console.log(res);
           this.loadingShow = false;
           let list = res.data.subjects;
           this.moveList = list;
           //   console.log(this.moveList.length);
           //   console.log(this.length);
-          if (this.moveList.length == this.length + 3) {
+          if (this.moveList.length == this.length + 4) {
             this.tip = false;
             this.length += 3;
           } else {
@@ -112,6 +118,16 @@ export default {
 </script>
 
 <style>
+.movie-name {
+  margin-top: 20px;
+}
+.movie-imgs {
+  margin-top: 10px;
+  margin-left: 20px;
+  border-radius: 14px;
+  width: 120px;
+  height: 180px;
+}
 .lists {
   margin-top: 50px;
 }
@@ -125,8 +141,9 @@ export default {
   text-align: center;
 }
 .movie {
+  border-radius: 40px;
   display: flex;
-  padding: 0.5rem;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 5px solid #ccc;
+  box-shadow: 0 -20px 12px 0 rgba(27, 3, 3, 0.1);
 }
 </style>
