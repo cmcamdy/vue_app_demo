@@ -6,8 +6,8 @@
     <el-row>
       <el-col :span="8"><img class="photo" src="../../assets/hereisaphoto.png" alt=""></el-col>
       <el-col :span="16" class="baseBox" >
-          <p class="baseInfo">姓名：<strong>陈焕</strong></p>
-          <p class="baseInfo">班级：17计科2班</p>
+          <p class="baseInfo">姓名：<strong>xxx</strong></p>
+          <p class="baseInfo">班级：xxxxxxxx</p>
           <p class="baseInfo">笔名：<strong>椰子奶糖</strong></p>
       </el-col>
     </el-row>
